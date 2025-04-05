@@ -2,9 +2,11 @@ import {Login} from "./app/presentation/views/auth/Login";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {useFonts} from "expo-font";
+import {HomeScreen} from "./app/presentation/views/home/Home";
 
 export type RootStackParamsList = {
-  Login: undefined
+    Login: undefined
+    Home: undefined
 }
 
 const Stack = createStackNavigator<RootStackParamsList>();
@@ -23,6 +25,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Home" component={HomeScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
   );

@@ -36,6 +36,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         alignSelf: 'center',
         justifyContent: 'center',
+        height: 30,
+        fontFamily: "zen_kaku_regular",
         color: AppColors.white,
     }
 })

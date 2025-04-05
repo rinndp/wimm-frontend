@@ -15,7 +15,8 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
         loginValues,
         login,
         errorMessage,
-        setErrorMessage
+        setErrorMessage,
+        userIsLogged
     } = loginViewModel()
 
     useEffect(() => {
@@ -27,6 +28,11 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
             setErrorMessage("");
         }
     }, [errorMessage]);
+
+    useEffect(() => {
+        if (userIsLogged)
+            navigation.replace("Home")
+    }, [userIsLogged]);
 
     return (
         <SafeAreaView>

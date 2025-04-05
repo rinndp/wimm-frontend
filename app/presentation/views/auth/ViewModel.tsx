@@ -4,6 +4,8 @@ import {LoginUserInterface} from "../../../domain/entities/User";
 import {saveUSerUserUseCase} from "../../../domain/use-cases/local-user/SaveUserUseCase";
 import {getUserUseCase} from "../../../domain/use-cases/local-user/GetUserUseCase";
 import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
+import {useNavigation} from "@react-navigation/native";
+import {PropsStackNavigation} from "../../interfaces/StackNav";
 
 
 export const loginViewModel = () => {
@@ -12,8 +14,13 @@ export const loginViewModel = () => {
         password: ''
     })
 
+    const [userIsLogged, setUserIsLogged] = useState<boolean>(false);
+
+    const navigation = useNavigation()
+
     const {
         getUserSession,
+        user
     } = UseUserLocalStorage()
 
     const [errorMessage, setErrorMessage] = useState<string>("")
@@ -38,8 +45,14 @@ export const loginViewModel = () => {
     const login = async () => {
         if (validateForm()) {
             const response = await loginUseCase(loginValues as LoginUserInterface)
-            await saveUSerUserUseCase(response)
-            await getUserSession()
+            if (!response.slug)
+                setUserIsLogged(false)
+            else {
+                await saveUSerUserUseCase(response)
+                await getUserSession()
+                console.log(user)
+                setUserIsLogged(true)
+            }
         }
     }
 
@@ -48,6 +61,7 @@ export const loginViewModel = () => {
         loginValues,
         login,
         errorMessage,
-        setErrorMessage
+        setErrorMessage,
+        userIsLogged
     }
 }
