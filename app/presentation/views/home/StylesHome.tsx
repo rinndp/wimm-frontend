@@ -53,6 +53,15 @@ const stylesHome = StyleSheet.create({
         marginTop: hp("1%"),
     },
 
+    deleteDebtorModalTitle: {
+        fontFamily: "zen_kaku_regular",
+        fontSize: hp("2.3%"),
+        height: 30,
+        color: AppColors.white,
+        alignSelf: "center",
+        marginTop: hp("2%"),
+    },
+
     modalErrorText: {
         fontFamily: "zen_kaku_bold",
         fontSize: hp("1.5%"),

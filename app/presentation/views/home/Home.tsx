@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import stylesHome from "./StylesHome";
 import {RoundedButton} from "../../components/RoundedButton";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {homeViewModel} from "./ViewModel";
 import {Debtor} from "../../../domain/entities/Debtor";
@@ -22,6 +22,7 @@ import Modal from 'react-native-modal';
 import {AppColors} from "../../theme/AppTheme";
 import {CustomTextInput} from "../../components/CustomTextInput";
 import Toast from "react-native-toast-message";
+import {AuthContext} from "../auth/AuthProvider";
 
 export function HomeScreen() {
 
@@ -36,7 +37,8 @@ export function HomeScreen() {
         setErrorMessage,
         addDebtorName,
         setAddDebtorName,
-        capitalizeFirstLetter
+        capitalizeFirstLetter,
+        deleteDebtor
     } = homeViewModel()
 
     const {
@@ -44,14 +46,17 @@ export function HomeScreen() {
     } = UseUserLocalStorage();
 
     const [debtorModalToggle, setDebtorModalToggle] = useState(false);
+    const [selectedDebtorId, setSelectedDebtorId] = useState<number | null>(null);
+
+    const auth = useContext(AuthContext);
 
     useFocusEffect(
         useCallback(() => {
-            if(user?.slug != undefined) {
-                console.log(user?.slug)
-                loadDebtors(user?.slug)
+            if (auth?.userSlug !== undefined) {
+                console.log(auth?.userSlug)
+                loadDebtors(auth?.userSlug)
             }
-        }, [user?.slug])
+        }, [auth?.userSlug])
     );
 
     useFocusEffect(
@@ -68,15 +73,44 @@ export function HomeScreen() {
                     <Text style={stylesDebtorCard.debtorDebt}>{item.debt.toFixed(2)}€</Text>
                 </View>
                 <View style={{flexGrow: 1}}>
-                    <TouchableOpacity style={stylesDebtorCard.deleteIcon}>
+                    <TouchableOpacity
+                        style={stylesDebtorCard.deleteIcon}
+                        onPress={() => setSelectedDebtorId(item.id)}>
                         <Image
                             source={require("../../../../assets/delete-debtor-icon.png")}
                             style={stylesDebtorCard.deleteIcon}/>
                     </TouchableOpacity>
                 </View>
             </View>
+            {selectedDebtorId === item.id && (
+            <Modal
+                onBackdropPress={() => setSelectedDebtorId(null)}
+                animationIn={"fadeInUp"}
+                animationOut={"fadeOut"}
+                style={{position: "absolute", marginTop: hp("40%")}}
+                backdropTransitionOutTiming={1}
+                animationOutTiming={1}
+                isVisible={true}>
+                <View style={stylesHome.modalCard}>
+                    <Text style={stylesHome.deleteDebtorModalTitle}>Has {item.name} paid you?</Text>
+                    <View style={stylesHome.modalButtonsContainer}>
+                        <TouchableOpacity onPress={() => setSelectedDebtorId(null)} style={{flexGrow: 1}}>
+                            <Text style={stylesHome.modalButtonText}>No</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{flexGrow: 0}}
+                            onPress={() =>
+                                deleteDebtor(item.id)
+                                    .then(r => setSelectedDebtorId(null))}
+                        >
+                            <Text style={stylesHome.modalButtonText}>Yes</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+        )}
         </TouchableOpacity>
-    ), [])
+    ), [deleteDebtor])
 
     return (
         <SafeAreaView>

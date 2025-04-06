@@ -5,6 +5,7 @@ import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
 import {ApiDelivery} from "../../../data/source/remote/api/ApiDevlivery";
 import {addDebtorUseCase} from "../../../domain/use-cases/home/AddDebtor";
 import Toast from "react-native-toast-message";
+import {deleteDebtorUseCase} from "../../../domain/use-cases/home/DeleteDebtor";
 
 
 export const homeViewModel = () => {
@@ -27,6 +28,18 @@ export const homeViewModel = () => {
             sumTotalDebt += debtor.debt
         })
         setTotalDebt(sumTotalDebt)
+    }
+
+    const deleteDebtor = async (debtorId: number) => {
+        const response = await deleteDebtorUseCase(debtorId)
+        debtors.forEach(debtor => {
+            if (debtor.id === debtorId) {
+                debtors.splice(debtors.indexOf(debtor), 1)
+            }
+        })
+        if (user?.slug != undefined) {
+            loadDebtors(user?.slug)
+        }
     }
 
     const addDebtor = async (debtor: AddDebtorDTO) => {
@@ -74,6 +87,7 @@ export const homeViewModel = () => {
         setErrorMessage,
         addDebtorName,
         setAddDebtorName,
-        capitalizeFirstLetter
+        capitalizeFirstLetter,
+        deleteDebtor
     }
 }

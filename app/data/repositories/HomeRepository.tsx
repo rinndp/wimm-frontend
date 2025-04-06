@@ -34,4 +34,20 @@ export class HomeRepository implements HomeRepositoryInterface {
         }
     }
 
+    async deleteDebtor(debtorId: number): Promise<ApiResponse> {
+        try {
+            const response = await ApiDelivery.delete(`/debtors/${debtorId}`);
+            Toast.show({
+                "type": "success",
+                "text1": response.data.message,
+                "position":"bottom"
+            })
+            return Promise.resolve(response.data)
+        } catch (error) {
+            let e = (error as AxiosError<{error: string}>);
+            console.error(e.response?.data);
+            return Promise.reject(e.response?.data);
+        }
+    }
+
 }

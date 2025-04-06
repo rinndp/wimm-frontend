@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {loginUseCase} from "../../../domain/use-cases/auth/LoginUseCase";
 import {LoginUserInterface} from "../../../domain/entities/User";
-import {saveUSerUserUseCase} from "../../../domain/use-cases/local-user/SaveUserUseCase";
+import {saveUserUserUseCase} from "../../../domain/use-cases/local-user/SaveUserUseCase";
 import {getUserUseCase} from "../../../domain/use-cases/local-user/GetUserUseCase";
 import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
 import {useNavigation} from "@react-navigation/native";
@@ -48,7 +48,7 @@ export const loginViewModel = () => {
             if (!response.slug)
                 setUserIsLogged(false)
             else {
-                await saveUSerUserUseCase(response)
+                await saveUserUserUseCase(response)
                 await getUserSession()
                 console.log(user)
                 setUserIsLogged(true)
