@@ -1,6 +1,6 @@
 import {AuthRepositoryInterface} from "../../domain/repositories/AuthRepositoryInterface";
 import {LoggedUserInterface, LoginUserInterface} from "../../domain/entities/User";
-import {ApiDelivery} from "../source/remote/ApiDevlivery";
+import {ApiDelivery} from "../source/remote/api/ApiDevlivery";
 import {AxiosError} from "axios";
 import Toast from "react-native-toast-message";
 
@@ -21,7 +21,7 @@ export class AuthRepository implements AuthRepositoryInterface {
             } else {
                 console.log("Unknown error:", e);
             }
-            return Promise.reject(e.response?.data);
+            return Promise.reject(e);
         }
     }
 

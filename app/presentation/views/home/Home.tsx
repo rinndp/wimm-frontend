@@ -1,16 +1,27 @@
-import {Dimensions, FlatList, Image, ImageBackground, SafeAreaView, Text, TouchableOpacity, View} from "react-native";
+import {
+    Dimensions,
+    FlatList,
+    Image,
+    ImageBackground,
+    SafeAreaView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 import stylesHome from "./StylesHome";
 import {RoundedButton} from "../../components/RoundedButton";
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {homeViewModel} from "./ViewModel";
 import {Debtor} from "../../../domain/entities/Debtor";
-import {styles} from "react-native-toast-message/lib/src/components/BaseToast.styles";
 import {StyleSheet} from "react-native";
 import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
 import {useFocusEffect} from "@react-navigation/native";
+import Modal from 'react-native-modal';
 import {AppColors} from "../../theme/AppTheme";
-
+import {CustomTextInput} from "../../components/CustomTextInput";
+import Toast from "react-native-toast-message";
 
 export function HomeScreen() {
 
@@ -18,12 +29,21 @@ export function HomeScreen() {
         loadDebtors,
         debtors,
         loadTotalDebt,
-        totalDebt
+        totalDebt,
+        addDebtor,
+        transformDataIntoAddDebtorDTO,
+        errorMessage,
+        setErrorMessage,
+        addDebtorName,
+        setAddDebtorName,
+        capitalizeFirstLetter
     } = homeViewModel()
 
     const {
         user,
     } = UseUserLocalStorage();
+
+    const [debtorModalToggle, setDebtorModalToggle] = useState(false);
 
     useFocusEffect(
         useCallback(() => {
@@ -39,7 +59,6 @@ export function HomeScreen() {
             loadTotalDebt()
         }, [debtors])
     );
-
 
     const debtorRenderItem = useCallback(({ item }: { item: Debtor }) => (
         <TouchableOpacity>
@@ -72,7 +91,43 @@ export function HomeScreen() {
                             style={stylesHome.logoHome}/>
                         <Text style={stylesHome.textHome}>Where is my money?</Text>
                         <Text style={stylesHome.textMoney}>{totalDebt.toFixed(2)}€</Text>
-                        <RoundedButton text={"Add debtor"} onPressFromInterface={() => alert("ola")}/>
+                        <RoundedButton text={"Add debtor"} onPressFromInterface={() => setDebtorModalToggle(true)}/>
+                        <View>
+                            <Modal
+                                onBackdropPress={() => setDebtorModalToggle(false)}
+                                animationIn={"fadeInUp"}
+                                animationOut={"fadeOut"}
+                                style={{position: "absolute", marginTop: hp("34%")}}
+                                backdropTransitionOutTiming={1}
+                                animationOutTiming={1}
+                                isVisible={debtorModalToggle}>
+                                <View style={stylesHome.modalCard}>
+                                    <Text style={stylesHome.modalTitle}>Add debtor</Text>
+                                    <CustomTextInput label={"Name"}
+                                                     keyboardType={"default"}
+                                                     secureTextEntry={false}
+                                                     onChangeText={(text) => setAddDebtorName(text)}/>
+                                    {errorMessage !== "" && (
+                                        <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
+                                    )}
+                                    <View style={stylesHome.modalButtonsContainer}>
+                                        <TouchableOpacity onPress={() => setDebtorModalToggle(false)} style={{flexGrow: 1}}>
+                                            <Text style={stylesHome.modalButtonText}>Cancel</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={{flexGrow: 0}}
+                                            onPress={() =>
+                                                addDebtor(
+                                                    transformDataIntoAddDebtorDTO(
+                                                        capitalizeFirstLetter(addDebtorName), user?.slug ? user?.slug : ""))
+                                                    .then(r => setDebtorModalToggle(false))}
+                                        >
+                                            <Text style={stylesHome.modalButtonText}>Accept</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </Modal>
+                        </View>
                     </View>
                     <FlatList
                         data={debtors}
@@ -84,6 +139,7 @@ export function HomeScreen() {
                         ListFooterComponent={<Text style={stylesDebtorCard.footerText}>No more debtors</Text>}
                         extraData={debtors}/>
                 </View>
+                <Toast/>
             </ImageBackground>
         </SafeAreaView>
     )

@@ -3,3 +3,8 @@ export interface Debtor {
     name: string;
     debt: number;
 }
+
+export interface AddDebtorDTO {
+    name: string;
+    user: string;
+}
