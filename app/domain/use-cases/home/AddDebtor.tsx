@@ -5,5 +5,5 @@ import {AddDebtorDTO} from "../../entities/Debtor";
 const {addDebtor} = new HomeRepository()
 
 export const addDebtorUseCase = async (debtor: AddDebtorDTO) => {
-    await addDebtor(debtor);
+    return await addDebtor(debtor);
 }

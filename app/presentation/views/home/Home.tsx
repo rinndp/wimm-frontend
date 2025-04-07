@@ -17,14 +17,15 @@ import {homeViewModel} from "./ViewModel";
 import {Debtor} from "../../../domain/entities/Debtor";
 import {StyleSheet} from "react-native";
 import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
-import {useFocusEffect} from "@react-navigation/native";
+import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import Modal from 'react-native-modal';
 import {AppColors} from "../../theme/AppTheme";
 import {CustomTextInput} from "../../components/CustomTextInput";
 import Toast from "react-native-toast-message";
 import {AuthContext} from "../auth/AuthProvider";
+import {PropsStackNavigation} from "../../interfaces/StackNav";
 
-export function HomeScreen() {
+export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
 
     const {
         loadDebtors,
@@ -38,7 +39,8 @@ export function HomeScreen() {
         addDebtorName,
         setAddDebtorName,
         capitalizeFirstLetter,
-        deleteDebtor
+        deleteDebtor,
+        validateAddDebtorForm
     } = homeViewModel()
 
     const {
@@ -47,7 +49,6 @@ export function HomeScreen() {
 
     const [debtorModalToggle, setDebtorModalToggle] = useState(false);
     const [selectedDebtorId, setSelectedDebtorId] = useState<number | null>(null);
-
     const auth = useContext(AuthContext);
 
     useFocusEffect(
@@ -59,6 +60,11 @@ export function HomeScreen() {
         }, [auth?.userSlug])
     );
 
+    useEffect(() => {
+        setAddDebtorName("")
+        setErrorMessage("")
+    }, [debtorModalToggle]);
+
     useFocusEffect(
         useCallback(() => {
             loadTotalDebt()
@@ -66,21 +72,21 @@ export function HomeScreen() {
     );
 
     const debtorRenderItem = useCallback(({ item }: { item: Debtor }) => (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("DebtorDetails", {debtor : item})}>
             <View style={stylesDebtorCard.card}>
-                <View>
-                    <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
-                    <Text style={stylesDebtorCard.debtorDebt}>{item.debt.toFixed(2)}€</Text>
-                </View>
-                <View style={{flexGrow: 1}}>
-                    <TouchableOpacity
-                        style={stylesDebtorCard.deleteIcon}
-                        onPress={() => setSelectedDebtorId(item.id)}>
-                        <Image
-                            source={require("../../../../assets/delete-debtor-icon.png")}
-                            style={stylesDebtorCard.deleteIcon}/>
-                    </TouchableOpacity>
-                </View>
+                    <View>
+                        <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
+                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt.toFixed(2)}€</Text>
+                    </View>
+                    <View style={{flexGrow: 1}}>
+                        <TouchableOpacity
+                            style={stylesDebtorCard.deleteIcon}
+                            onPress={() => setSelectedDebtorId(item.id)}>
+                            <Image
+                                source={require("../../../../assets/delete-debtor-icon.png")}
+                                style={stylesDebtorCard.deleteIcon}/>
+                        </TouchableOpacity>
+                    </View>
             </View>
             {selectedDebtorId === item.id && (
             <Modal
@@ -101,7 +107,7 @@ export function HomeScreen() {
                             style={{flexGrow: 0}}
                             onPress={() =>
                                 deleteDebtor(item.id)
-                                    .then(r => setSelectedDebtorId(null))}
+                                    .then(r =>  setSelectedDebtorId(null))}
                         >
                             <Text style={stylesHome.modalButtonText}>Yes</Text>
                         </TouchableOpacity>
@@ -113,7 +119,7 @@ export function HomeScreen() {
     ), [deleteDebtor])
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{flex: 1}}>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
                 style={{width:Dimensions.get("window").width,height:Dimensions.get("window").height}}>
@@ -126,42 +132,43 @@ export function HomeScreen() {
                         <Text style={stylesHome.textHome}>Where is my money?</Text>
                         <Text style={stylesHome.textMoney}>{totalDebt.toFixed(2)}€</Text>
                         <RoundedButton text={"Add debtor"} onPressFromInterface={() => setDebtorModalToggle(true)}/>
-                        <View>
-                            <Modal
-                                onBackdropPress={() => setDebtorModalToggle(false)}
-                                animationIn={"fadeInUp"}
-                                animationOut={"fadeOut"}
-                                style={{position: "absolute", marginTop: hp("34%")}}
-                                backdropTransitionOutTiming={1}
-                                animationOutTiming={1}
-                                isVisible={debtorModalToggle}>
-                                <View style={stylesHome.modalCard}>
-                                    <Text style={stylesHome.modalTitle}>Add debtor</Text>
-                                    <CustomTextInput label={"Name"}
-                                                     keyboardType={"default"}
-                                                     secureTextEntry={false}
-                                                     onChangeText={(text) => setAddDebtorName(text)}/>
-                                    {errorMessage !== "" && (
-                                        <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
-                                    )}
-                                    <View style={stylesHome.modalButtonsContainer}>
-                                        <TouchableOpacity onPress={() => setDebtorModalToggle(false)} style={{flexGrow: 1}}>
-                                            <Text style={stylesHome.modalButtonText}>Cancel</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                            style={{flexGrow: 0}}
-                                            onPress={() =>
-                                                addDebtor(
-                                                    transformDataIntoAddDebtorDTO(
-                                                        capitalizeFirstLetter(addDebtorName), user?.slug ? user?.slug : ""))
-                                                    .then(r => setDebtorModalToggle(false))}
-                                        >
-                                            <Text style={stylesHome.modalButtonText}>Accept</Text>
-                                        </TouchableOpacity>
-                                    </View>
+                        <Modal
+                            onBackdropPress={() => setDebtorModalToggle(false)}
+                            animationIn={"fadeInUp"}
+                            animationOut={"fadeOut"}
+                            style={{position: "absolute", marginTop: hp("34%")}}
+                            backdropTransitionOutTiming={1}
+                            animationOutTiming={1}
+                            isVisible={debtorModalToggle}>
+                            <View style={stylesHome.modalCard}>
+                                <Text style={stylesHome.modalTitle}>Add debtor</Text>
+                                <CustomTextInput label={"Name"}
+                                                 keyboardType={"default"}
+                                                 secureTextEntry={false}
+                                                 onChangeText={(text) => setAddDebtorName(text)}/>
+                                {errorMessage !== "" && (
+                                    <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
+                                )}
+                                <View style={stylesHome.modalButtonsContainer}>
+                                    <TouchableOpacity onPress={() => setDebtorModalToggle(false)} style={{flexGrow: 1}}>
+                                        <Text style={stylesHome.modalButtonText}>Cancel</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={{flexGrow: 0}}
+                                        onPress={() =>
+                                            addDebtor(
+                                                transformDataIntoAddDebtorDTO(
+                                                    capitalizeFirstLetter(addDebtorName), user?.slug ? user?.slug : ""))
+                                                .then(() => {
+                                                    if (validateAddDebtorForm()) {
+                                                        setDebtorModalToggle(false);
+                                        }})}
+                                    >
+                                        <Text style={stylesHome.modalButtonText}>Accept</Text>
+                                    </TouchableOpacity>
                                 </View>
-                            </Modal>
-                        </View>
+                            </View>
+                        </Modal>
                     </View>
                     <FlatList
                         data={debtors}
@@ -179,7 +186,7 @@ export function HomeScreen() {
     )
 }
 
-const stylesDebtorCard = StyleSheet.create({
+export const stylesDebtorCard = StyleSheet.create({
     card: {
         width: wp("94%"),
         height: hp("15%"),
@@ -193,6 +200,7 @@ const stylesDebtorCard = StyleSheet.create({
     debtorName: {
         fontSize: wp("5.5%"),
         height: 44,
+        width: wp("65%"),
         color: AppColors.white,
         fontFamily: "zen_kaku_regular"
     },

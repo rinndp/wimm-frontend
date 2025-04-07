@@ -21,15 +21,10 @@ export class HomeRepository implements HomeRepositoryInterface {
     async addDebtor(debtor: AddDebtorDTO): Promise<ApiResponse> {
         try {
             const response = await ApiDelivery.post("/debtors", debtor);
-            Toast.show({
-                "type": "success",
-                "text1": response.data.message,
-                "position":"bottom"
-            })
             return Promise.resolve(response.data)
         } catch (error) {
             let e = (error as AxiosError<{error: string}>);
-            console.error(e.response?.data);
+            console.log(e.response?.data);
             return Promise.reject(e.response?.data);
         }
     }
@@ -37,15 +32,10 @@ export class HomeRepository implements HomeRepositoryInterface {
     async deleteDebtor(debtorId: number): Promise<ApiResponse> {
         try {
             const response = await ApiDelivery.delete(`/debtors/${debtorId}`);
-            Toast.show({
-                "type": "success",
-                "text1": response.data.message,
-                "position":"bottom"
-            })
             return Promise.resolve(response.data)
         } catch (error) {
             let e = (error as AxiosError<{error: string}>);
-            console.error(e.response?.data);
+            console.log(e.response?.data);
             return Promise.reject(e.response?.data);
         }
     }
