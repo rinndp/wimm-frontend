@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         color:'white',
         marginStart: 5,
         alignSelf:"flex-start",
-        marginBottom:10,
+        height: 30,
         fontFamily: "zen_kaku_regular"
     },
 

@@ -84,8 +84,13 @@ export const homeViewModel = () => {
         return true
     }
 
-    function capitalizeFirstLetter(str: string): string {
+    const capitalizeFirstLetter = (str: string): string => {
         return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    const resetForm = () => {
+        setAddDebtorName("")
+        setErrorMessage("")
     }
 
     return {
@@ -101,6 +106,7 @@ export const homeViewModel = () => {
         setAddDebtorName,
         capitalizeFirstLetter,
         deleteDebtor,
-        validateAddDebtorForm
+        validateAddDebtorForm,
+        resetForm
     }
 }

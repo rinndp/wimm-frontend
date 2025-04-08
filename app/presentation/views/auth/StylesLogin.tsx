@@ -1,5 +1,6 @@
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {StyleSheet} from "react-native";
+import {AppColors} from "../../theme/AppTheme";
 
 
 const stylesLogin = StyleSheet.create({
@@ -7,7 +8,7 @@ const stylesLogin = StyleSheet.create({
         width: '100%',
         height: '100%',
         alignItems: 'center',
-        paddingTop: wp("20%"),
+        paddingTop: wp("10%"),
     },
 
     logoContainer: {
@@ -18,6 +19,7 @@ const stylesLogin = StyleSheet.create({
     logoIcon: {
         width: wp("30%"),
         height: wp("30%"),
+        tintColor: AppColors.white
     },
 
     logoText: {

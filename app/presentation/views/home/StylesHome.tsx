@@ -35,7 +35,7 @@ const stylesHome = StyleSheet.create({
     },
 
     modalCard: {
-        backgroundColor: AppColors.colorButton,
+        backgroundColor: AppColors.green,
         borderRadius: 15,
         width: wp("90%"),
         height: "auto",
@@ -56,7 +56,9 @@ const stylesHome = StyleSheet.create({
     deleteDebtorModalTitle: {
         fontFamily: "zen_kaku_regular",
         fontSize: hp("2.3%"),
-        height: 30,
+        height: 60,
+        textAlign: "center",
+        textAlignVertical: "center",
         color: AppColors.white,
         alignSelf: "center",
         marginTop: hp("2%"),
@@ -73,11 +75,10 @@ const stylesHome = StyleSheet.create({
     },
 
     modalButtonText: {
-        fontFamily: "zen_kaku_light",
+        fontFamily: "zen_kaku_medium",
         fontSize: hp("2%"),
         height: 30,
         color: AppColors.white,
-        fontStyle: "italic",
     },
 
     modalButtonsContainer: {

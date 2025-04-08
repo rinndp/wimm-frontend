@@ -22,7 +22,7 @@ import {AppColors} from "../../theme/AppTheme";
 import Toast from "react-native-toast-message";
 import Modal from "react-native-modal";
 import {CustomTextInput} from "../../components/CustomTextInput";
-import {stylesDebtorCard} from "../home/Home";
+import stylesDebtCard from "./StylesDebtCard";
 
 type DebtorDetailsRouteProp = RouteProp<RootStackParamsList, "DebtorDetails">;
 
@@ -31,6 +31,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
     const {debtor} = route.params
 
     const [selectedRemoveDebtId, setSelectedRemoveDebtId] = useState<number | null>(null);
+    const [selectedMoreInfoDebtId, setSelectedMoreInfoDebtId] = useState<number | null>(null);
     const [addDebtModalToggle, setAddDebtModalToggle] = useState(false);
 
     const {
@@ -45,8 +46,8 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
         onChangeAddDebtForm,
         addDebtValues,
         validateAddDebtForm,
-        setErrorMessageDebt,
-        setErrorMessageDesc,
+        formatDate,
+        resetForm
     } = debtorDetailsViewModel()
 
     useFocusEffect(
@@ -56,10 +57,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
     )
 
     useEffect(() => {
-        onChangeAddDebtForm("description", "")
-        onChangeAddDebtForm("debt", "0")
-        setErrorMessageDebt("");
-        setErrorMessageDesc("");
+        resetForm()
     }, [addDebtModalToggle]);
 
     useFocusEffect(
@@ -76,7 +74,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                 <Image source={require("../../../../assets/delete-debtor-icon.png")}
                        style={stylesDebtCard.deleteIcon}/>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setSelectedMoreInfoDebtId(item.id)}>
                 <Image source={require("../../../../assets/details-icon.png")}
                        style={stylesDebtCard.detailsIcon}/>
             </TouchableOpacity>
@@ -102,7 +100,40 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                     deleteDebt(item.id)
                                         .then(r => setSelectedRemoveDebtId(null))}
                             >
-                                <Text style={stylesHome.modalButtonText}>Yes</Text>
+                                <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+            )}
+
+            {selectedMoreInfoDebtId === item.id && (
+                <Modal
+                    onBackdropPress={() => setSelectedMoreInfoDebtId(null)}
+                    animationIn={"fadeInUp"}
+                    animationOut={"fadeOut"}
+                    style={{position: "absolute", marginTop: hp("30%")}}
+                    backdropTransitionOutTiming={1}
+                    animationOutTiming={1}
+                    isVisible={true}>
+                    <View style={stylesHome.modalCard}>
+                        <Text style={stylesHome.deleteDebtorModalTitle}>Debt info</Text>
+                        <View style={stylesDebtorDetails.modalInfoContainer}>
+                            <Text style={stylesDebtorDetails.modalMoreInfoDate}>{formatDate(item.updated_at)}</Text>
+                            <Text style={stylesDebtorDetails.modalMoreInfoText}>{item.description}</Text>
+                            <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.debt.toFixed(2)}€</Text>
+                        </View>
+                        <View style={stylesHome.modalButtonsContainer}>
+                            <TouchableOpacity onPress={() => setSelectedMoreInfoDebtId(null)} style={{flexGrow: 1}}>
+                                <Text style={stylesHome.modalButtonText}>Go back</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{flexGrow: 0}}
+                                onPress={() =>
+                                    deleteDebt(item.id)
+                                        .then(r => setSelectedMoreInfoDebtId(null))}
+                            >
+                                <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Paid 💸</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -137,7 +168,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                             onBackdropPress={() => setAddDebtModalToggle(false)}
                             animationIn={"fadeInUp"}
                             animationOut={"fadeOut"}
-                            style={{position: "absolute", marginTop: hp("34%")}}
+                            style={{position: "relative", marginTop: hp("16%")}}
                             backdropTransitionOutTiming={1}
                             animationOutTiming={1}
                             isVisible={addDebtModalToggle}>
@@ -193,52 +224,3 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
     )
 }
 
-const stylesDebtCard = StyleSheet.create({
-    card: {
-        flexDirection: "row",
-        paddingVertical: hp("2.5%"),
-        verticalAlign: "middle"
-    },
-
-    debtDescription: {
-        color: AppColors.white,
-        fontFamily: "zen_kaku_regular",
-        fontSize: hp("2.0%"),
-        width: 28,
-        height: 27,
-        marginTop: wp("0.5%"),
-        flexGrow: 2,
-    },
-
-    debt: {
-        color: AppColors.white,
-        fontFamily: "zen_kaku_medium",
-        fontSize: hp("2.3%"),
-        marginStart: wp("8%"),
-        flexGrow: 0.5,
-
-    },
-
-    deleteIcon: {
-        width: wp("8%"),
-        height: wp("8%"),
-        tintColor: AppColors.white,
-        marginEnd: wp("5%")
-    },
-
-    detailsIcon: {
-        width: wp("9%"),
-        height: wp("9%"),
-        marginTop: wp("-0.45%"),
-        tintColor: AppColors.white,
-    },
-
-    footerText: {
-        color: AppColors.white,
-        fontSize: wp("4%"),
-        alignSelf: "center",
-        height: 30,
-        marginBottom: hp("14%"),
-        fontFamily: "zen_kaku_regular"
-    }
-})

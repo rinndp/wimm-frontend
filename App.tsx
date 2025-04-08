@@ -6,9 +6,11 @@ import {HomeScreen} from "./app/presentation/views/home/Home";
 import {AuthProvider} from "./app/presentation/views/auth/AuthProvider";
 import {DebtorDetailsScreen} from "./app/presentation/views/debtor-details/DebtorDetails";
 import {Debtor} from "./app/domain/entities/Debtor";
+import {TabView} from "react-native-tab-view";
+import TabViewLoginRegister from "./app/presentation/views/auth/TabViewLoginRegister";
 
 export type RootStackParamsList = {
-    Login: undefined
+    TabViewLoginRegister: undefined
     Home: undefined
     DebtorDetails: {debtor: Debtor}
 }
@@ -29,7 +31,7 @@ export default function App() {
         <AuthProvider>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="Login" component={Login}/>
+              <Stack.Screen name="TabViewLoginRegister" component={TabViewLoginRegister}/>
               <Stack.Screen name="Home" component={HomeScreen}/>
               <Stack.Screen name="DebtorDetails" component={DebtorDetailsScreen}/>
             </Stack.Navigator>

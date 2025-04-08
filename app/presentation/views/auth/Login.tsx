@@ -8,6 +8,7 @@ import {CustomTextInputPassword} from "../../components/CustomTextInputPassword"
 import {RoundedButton} from "../../components/RoundedButton";
 import Toast from "react-native-toast-message";
 import {useEffect} from "react";
+import {AppColors} from "../../theme/AppTheme";
 
 export function Login ({navigation = useNavigation(), route}: PropsStackNavigation) {
     const {
@@ -35,12 +36,8 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
     }, [userIsLogged]);
 
     return (
-        <SafeAreaView>
-            <ImageBackground
-                source={require("../../../../assets/background.jpg")}
-                style={{width:Dimensions.get("window").width,height:Dimensions.get("window").height}}>
-
-                <View style={stylesLogin.container}>
+        <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>
+        <View style={stylesLogin.container}>
                     <View style={stylesLogin.logoContainer}>
                         <Image
                             source={require("../../../../assets/wimm-icon.png")}
@@ -64,7 +61,6 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
                     </View>
                 </View>
                 <Toast/>
-            </ImageBackground>
         </SafeAreaView>
     )
 }

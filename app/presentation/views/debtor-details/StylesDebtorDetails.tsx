@@ -51,6 +51,28 @@ const stylesDebtorDetails = StyleSheet.create({
         tintColor: AppColors.white,
     },
 
+    modalMoreInfoDate: {
+        color: AppColors.white,
+        fontSize: wp("5%"),
+        fontFamily: "zen_kaku_medium",
+    },
+
+    modalMoreInfoText: {
+        color: AppColors.white,
+        fontSize: wp("4.2%"),
+        height: "auto",
+        fontFamily: "zen_kaku_regular",
+        textAlign: "center",
+        verticalAlign: "middle",
+    },
+
+    modalInfoContainer: {
+        alignItems: "center",
+        width: "100%",
+        paddingHorizontal: wp("5%"),
+        gap: 20,
+    }
+
 })
 
 export default stylesDebtorDetails;

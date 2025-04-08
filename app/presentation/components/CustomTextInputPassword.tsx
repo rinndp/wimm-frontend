@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Image, KeyboardType, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {AppColors} from "../theme/AppTheme";
 
 interface Props {
     label: string,
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
         alignSelf: "flex-end",
         resizeMode:'stretch',
         marginStart:240,
+        tintColor: "#414141",
 
     },
 

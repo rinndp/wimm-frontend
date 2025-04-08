@@ -24,6 +24,7 @@ import {CustomTextInput} from "../../components/CustomTextInput";
 import Toast from "react-native-toast-message";
 import {AuthContext} from "../auth/AuthProvider";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
+import stylesDebtorCard from "./StylesDebtorCard";
 
 export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
 
@@ -35,12 +36,12 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
         addDebtor,
         transformDataIntoAddDebtorDTO,
         errorMessage,
-        setErrorMessage,
         addDebtorName,
         setAddDebtorName,
         capitalizeFirstLetter,
         deleteDebtor,
-        validateAddDebtorForm
+        validateAddDebtorForm,
+        resetForm,
     } = homeViewModel()
 
     const {
@@ -61,8 +62,7 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
     );
 
     useEffect(() => {
-        setAddDebtorName("")
-        setErrorMessage("")
+        resetForm()
     }, [debtorModalToggle]);
 
     useFocusEffect(
@@ -109,7 +109,7 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
                                 deleteDebtor(item.id)
                                     .then(r =>  setSelectedDebtorId(null))}
                         >
-                            <Text style={stylesHome.modalButtonText}>Yes</Text>
+                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -186,45 +186,3 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
     )
 }
 
-export const stylesDebtorCard = StyleSheet.create({
-    card: {
-        width: wp("94%"),
-        height: hp("15%"),
-        backgroundColor: AppColors.colorButton,
-        marginBottom: hp("1.5%"),
-        borderRadius: 15,
-        flexDirection: "row",
-        padding: wp("7%"),
-    },
-
-    debtorName: {
-        fontSize: wp("5.5%"),
-        height: 44,
-        width: wp("65%"),
-        color: AppColors.white,
-        fontFamily: "zen_kaku_regular"
-    },
-
-    debtorDebt: {
-        fontSize: wp("6%"),
-        height: 44,
-        color: AppColors.white,
-        fontFamily: "zen_kaku_bold"
-    },
-
-    deleteIcon: {
-        width: wp("10%"),
-        height: hp("4%"),
-        tintColor: AppColors.white,
-        alignSelf: "flex-end",
-    },
-
-    footerText: {
-        color: AppColors.white,
-        fontSize: wp("4%"),
-        alignSelf: "center",
-        height: 30,
-        marginBottom: hp("6%"),
-        fontFamily: "zen_kaku_regular"
-    }
-})
