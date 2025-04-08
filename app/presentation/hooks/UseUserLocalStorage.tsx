@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useEffect, useState} from "react";
 import {LoggedUserInterface} from "../../domain/entities/User";
 import {getUserUseCase} from "../../domain/use-cases/local-user/GetUserUseCase";
+import {removeUserUseCase} from "../../domain/use-cases/local-user/RemoveUserUseCase";
 
 
 export const UseUserLocalStorage = () => {
@@ -12,12 +13,18 @@ export const UseUserLocalStorage = () => {
     }, [])
 
     const getUserSession = async () => {
-        setUser(await getUserUseCase());
+        const user = await getUserUseCase()
+        setUser(user)
+    }
+
+    const deleteUserSession = async () => {
+        await removeUserUseCase()
     }
 
     return {
         user,
         getUserSession,
+        deleteUserSession
     }
 
 }

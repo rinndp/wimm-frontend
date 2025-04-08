@@ -12,8 +12,9 @@ import {
 } from "react-native";
 import stylesTabBar from "./StylesTabBar";
 import {AppColors} from "../../theme/AppTheme";
-import React from "react";
+import React, {useEffect} from "react";
 import {Register} from "./Register";
+import {registerViewModel} from "./ViewModel";
 
 const renderScene = SceneMap({
     login: Login,
@@ -37,6 +38,13 @@ export default function TabViewLoginRegister({}) {
         { key: 'login', title: 'Sign in' },
         { key: 'register', title: 'Sign up' },
     ]);
+
+    const {userCreated} = registerViewModel()
+
+    useEffect(() => {
+        if (userCreated)
+            setIndex(0);
+    }, [userCreated]);
 
     return (
         <TabView

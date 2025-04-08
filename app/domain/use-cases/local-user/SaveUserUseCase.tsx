@@ -5,5 +5,5 @@ import {LoggedUserInterface} from "../../entities/User";
 const {save} = new UserLocalRepository();
 
 export const saveUserUserUseCase = async (user:  LoggedUserInterface) => {
-    await save(user)
+    return await save(user)
 }

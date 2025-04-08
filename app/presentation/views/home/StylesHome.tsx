@@ -67,7 +67,7 @@ const stylesHome = StyleSheet.create({
     modalErrorText: {
         fontFamily: "zen_kaku_bold",
         fontSize: hp("1.5%"),
-        color: "#f54646",
+        color: AppColors.neonRed,
         height: 20,
         marginStart: wp("10%"),
         marginTop: hp("-1.5%"),
@@ -86,8 +86,18 @@ const stylesHome = StyleSheet.create({
         paddingHorizontal: wp("10%"),
         paddingTop: hp("1%"),
         paddingBottom: hp("1.5%"),
-    }
+    },
 
+    logOutText: {
+        fontFamily: "zen_kaku_bold",
+        fontSize: hp("1.5%"),
+        color: AppColors.neonRed,
+        height: 20,
+        position: "absolute",
+        top: 0,
+        margin: wp("10%"),
+        start: 0
+    }
 })
 
 export default stylesHome;

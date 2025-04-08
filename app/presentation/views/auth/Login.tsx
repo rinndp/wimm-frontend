@@ -9,6 +9,7 @@ import {RoundedButton} from "../../components/RoundedButton";
 import Toast from "react-native-toast-message";
 import {useEffect} from "react";
 import {AppColors} from "../../theme/AppTheme";
+import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
 
 export function Login ({navigation = useNavigation(), route}: PropsStackNavigation) {
     const {
@@ -17,7 +18,7 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
         login,
         errorMessage,
         setErrorMessage,
-        userIsLogged
+        user
     } = loginViewModel()
 
     useEffect(() => {
@@ -31,9 +32,10 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
     }, [errorMessage]);
 
     useEffect(() => {
-        if (userIsLogged)
+        if (user && user?.slug) {
             navigation.replace("Home")
-    }, [userIsLogged]);
+        }
+    })
 
     return (
         <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>

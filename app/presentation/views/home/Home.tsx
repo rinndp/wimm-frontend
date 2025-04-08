@@ -46,19 +46,21 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
 
     const {
         user,
+        deleteUserSession
     } = UseUserLocalStorage();
 
     const [debtorModalToggle, setDebtorModalToggle] = useState(false);
     const [selectedDebtorId, setSelectedDebtorId] = useState<number | null>(null);
     const auth = useContext(AuthContext);
 
+
     useFocusEffect(
         useCallback(() => {
-            if (auth?.userSlug !== undefined) {
-                console.log(auth?.userSlug)
-                loadDebtors(auth?.userSlug)
+            if (user?.slug !== undefined) {
+                console.log(user?.slug)
+                loadDebtors(user?.slug);
             }
-        }, [auth?.userSlug])
+        }, [user?.slug])
     );
 
     useEffect(() => {
@@ -123,7 +125,10 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
                 style={{width:Dimensions.get("window").width,height:Dimensions.get("window").height}}>
-
+                <TouchableOpacity onPress={() => deleteUserSession()
+                        .then(() => navigation.replace("TabViewLoginRegister"))}>
+                    <Text style ={stylesHome.logOutText}>Log out</Text>
+                </TouchableOpacity>
                 <View style={stylesHome.container}>
                     <View style={stylesHome.headerContainer}>
                         <Image
