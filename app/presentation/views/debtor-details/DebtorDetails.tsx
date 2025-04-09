@@ -71,11 +71,11 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
         <View style={stylesDebtCard.card}>
             <Text style={stylesDebtCard.debtDescription}>{item.description}</Text>
             <Text style={stylesDebtCard.debt}>{item.debt.toFixed(2)}€</Text>
-            <TouchableOpacity onPress={() => setSelectedRemoveDebtId(item.id)}>
+            <TouchableOpacity style={stylesDebtCard.deleteIcon}onPress={() => setSelectedRemoveDebtId(item.id)}>
                 <Image source={require("../../../../assets/delete-debtor-icon.png")}
                        style={stylesDebtCard.deleteIcon}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelectedMoreInfoDebtId(item.id)}>
+            <TouchableOpacity style={stylesDebtCard.detailsIcon} onPress={() => setSelectedMoreInfoDebtId(item.id)}>
                 <Image source={require("../../../../assets/details-icon.png")}
                        style={stylesDebtCard.detailsIcon}/>
             </TouchableOpacity>

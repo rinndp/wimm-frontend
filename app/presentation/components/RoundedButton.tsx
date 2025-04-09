@@ -32,8 +32,9 @@ const styles = StyleSheet.create({
         width: 200,
     },
     formButtonText:{
+        width: "100%",
         fontSize: wp("4.5%"),
-        alignSelf: 'center',
+        textAlign: "center",
         justifyContent: 'center',
         height: 30,
         fontFamily: "zen_kaku_regular",

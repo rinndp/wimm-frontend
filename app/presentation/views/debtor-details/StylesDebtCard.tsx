@@ -38,7 +38,7 @@ const stylesDebtCard = StyleSheet.create({
     detailsIcon: {
         width: wp("9%"),
         height: wp("9%"),
-        marginTop: wp("-0.45%"),
+        marginTop: wp("-0.225%"),
         tintColor: AppColors.white,
     },
 
