@@ -8,7 +8,7 @@ const stylesDebtorDetails = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        paddingHorizontal: wp("9%"),
+        paddingHorizontal: wp("8%"),
     },
 
     goBackIcon: {
@@ -25,10 +25,13 @@ const stylesDebtorDetails = StyleSheet.create({
     },
 
     detailsDebtorName: {
-        fontSize: wp("7%"),
+        fontSize: wp("6.4%"),
+        width: wp("90%"),
         fontFamily: "zen_kaku_regular",
         color: AppColors.white,
-        height: 50,
+        height: "auto",
+        lineHeight: hp("4%"),
+        paddingBottom: hp("1%"),
     },
 
     detailsDebtorDebt: {
@@ -52,6 +55,7 @@ const stylesDebtorDetails = StyleSheet.create({
     },
 
     modalMoreInfoDate: {
+        marginTop: wp("4%"),
         color: AppColors.white,
         fontSize: wp("5%"),
         fontFamily: "zen_kaku_medium",
@@ -62,7 +66,8 @@ const stylesDebtorDetails = StyleSheet.create({
         fontSize: wp("4.2%"),
         height: "auto",
         fontFamily: "zen_kaku_regular",
-        textAlign: "center",
+        textAlign: "justify",
+        paddingHorizontal: wp("8%"),
         verticalAlign: "middle",
     },
 

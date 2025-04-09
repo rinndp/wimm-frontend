@@ -47,7 +47,7 @@ const stylesDebtCard = StyleSheet.create({
         fontSize: wp("4%"),
         alignSelf: "center",
         height: 30,
-        marginBottom: hp("14%"),
+        marginBottom: hp("6%"),
         fontFamily: "zen_kaku_regular"
     }
 })

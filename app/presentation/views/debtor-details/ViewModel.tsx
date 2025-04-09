@@ -23,11 +23,13 @@ export const debtorDetailsViewModel = () => {
     });
     const [errorMessageDesc, setErrorMessageDesc] = useState("");
     const [errorMessageDebt, setErrorMessageDebt] = useState("");
+    const [showLoading, setShowLoading] = useState<boolean>(true)
 
     const loadDebts = async (debtorId: number) => {
         const response = await loadDebtsUseCase(debtorId);
         console.log(response);
         setDebts(response);
+        setShowLoading(false);
     }
 
     const deleteDebt = async (debtId: number) => {
@@ -133,6 +135,7 @@ export const debtorDetailsViewModel = () => {
         addDebtValues,
         validateAddDebtForm,
         formatDate,
-        resetForm
+        resetForm,
+        showLoading
     }
 }

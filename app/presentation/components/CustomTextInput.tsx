@@ -6,15 +6,17 @@ interface Props {
     keyboardType:KeyboardType;
     secureTextEntry:boolean;
     onChangeText:(text:string)=>void;
+    maxLength?:number;
 }
-export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeText}:Props) => {
+export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeText, maxLength}:Props) => {
     return (
         <View>
             <Text style={styles.formInputLabel}>{label}</Text>
-            <TextInput style={styles.formInput}
+            <TextInput style={{...styles.formInput, width: keyboardType === "number-pad" ? 100 : 300 }}
                        keyboardType={keyboardType}
                        secureTextEntry={secureTextEntry}
                        onChangeText={(text) => onChangeText(text)}
+                       maxLength={maxLength}
             ></TextInput>
         </View>
     )

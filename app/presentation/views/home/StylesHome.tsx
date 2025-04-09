@@ -39,7 +39,6 @@ const stylesHome = StyleSheet.create({
         borderRadius: 15,
         width: wp("90%"),
         height: "auto",
-        marginBottom: hp("10%"),
         alignSelf: "center",
         alignItems: "center",
         gap: 20,
@@ -57,6 +56,7 @@ const stylesHome = StyleSheet.create({
         fontFamily: "zen_kaku_regular",
         fontSize: hp("2.3%"),
         height: 60,
+        paddingHorizontal: wp("4%"),
         textAlign: "center",
         textAlignVertical: "center",
         color: AppColors.white,
@@ -88,15 +88,51 @@ const stylesHome = StyleSheet.create({
         paddingBottom: hp("1.5%"),
     },
 
+    logOutContainer: {
+        position: "absolute",
+        top: 0,
+        marginHorizontal: wp("5%"),
+        marginTop: wp("13%"),
+        start: 0,
+        alignItems: "center",
+        gap: 10,
+    },
+
     logOutText: {
         fontFamily: "zen_kaku_bold",
         fontSize: hp("1.5%"),
         color: AppColors.neonRed,
         height: 20,
+
+    },
+
+    logOutIcon: {
+        width: wp("4%"),
+        height: wp("4%"),
+        tintColor: AppColors.neonRed,
+    },
+
+    loadingIconContainer: {
         position: "absolute",
+        left: 0,
+        right: 0,
         top: 0,
-        margin: wp("10%"),
-        start: 0
+        bottom: 0,
+        alignItems: "center",
+        justifyContent: "center",
+        opacity: 1,
+    },
+    loading: {
+        width: wp("12%"),
+        height: hp("3%"),
+    },
+
+    helpText: {
+        color: AppColors.white,
+        fontFamily: "zen_kaku_medium",
+        top: hp("6.35%"),
+        start: wp("23%"),
+        position: "absolute",
     }
 })
 

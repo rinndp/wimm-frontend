@@ -15,7 +15,7 @@ export const stylesDebtorCard = StyleSheet.create({
 
     debtorName: {
         fontSize: wp("5.5%"),
-        height: 44,
+        height: 35,
         width: wp("65%"),
         color: AppColors.white,
         fontFamily: "zen_kaku_regular"

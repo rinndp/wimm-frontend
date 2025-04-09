@@ -13,6 +13,8 @@ export const homeViewModel = () => {
     const [totalDebt, setTotalDebt] = useState<number>(0);
     const [addDebtorName, setAddDebtorName] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [showLoading, setShowLoading] = useState(true);
+
     const {
         user
     } = UseUserLocalStorage();
@@ -20,6 +22,7 @@ export const homeViewModel = () => {
     const loadDebtors = async (userSlug: string) => {
         const response = await loadDebtorsUseCase(userSlug)
         setDebtors(response)
+        setShowLoading(false)
     }
 
     const loadTotalDebt =  () => {
@@ -107,6 +110,7 @@ export const homeViewModel = () => {
         capitalizeFirstLetter,
         deleteDebtor,
         validateAddDebtorForm,
-        resetForm
+        resetForm,
+        showLoading
     }
 }

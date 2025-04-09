@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    StyleSheet
+    StyleSheet, ActivityIndicator
 } from "react-native";
 import {RouteProp, useFocusEffect, useNavigation, useRoute} from "@react-navigation/native";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
@@ -47,7 +47,8 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
         addDebtValues,
         validateAddDebtForm,
         formatDate,
-        resetForm
+        resetForm,
+        showLoading
     } = debtorDetailsViewModel()
 
     useFocusEffect(
@@ -112,12 +113,10 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                     onBackdropPress={() => setSelectedMoreInfoDebtId(null)}
                     animationIn={"fadeInUp"}
                     animationOut={"fadeOut"}
-                    style={{position: "absolute", marginTop: hp("30%")}}
                     backdropTransitionOutTiming={1}
                     animationOutTiming={1}
                     isVisible={true}>
                     <View style={stylesHome.modalCard}>
-                        <Text style={stylesHome.deleteDebtorModalTitle}>Debt info</Text>
                         <View style={stylesDebtorDetails.modalInfoContainer}>
                             <Text style={stylesDebtorDetails.modalMoreInfoDate}>{formatDate(item.updated_at)}</Text>
                             <Text style={stylesDebtorDetails.modalMoreInfoText}>{item.description}</Text>
@@ -147,6 +146,9 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
                 style={{width:Dimensions.get("window").width,height:Dimensions.get("window").height}}>
+                <View style={stylesHome.loadingIconContainer}>
+                    <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
+                </View>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Image source={require("../../../../assets/go-back-arrow-icon.png")}
                        style={stylesDebtorDetails.goBackIcon}/>
@@ -168,26 +170,31 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                             onBackdropPress={() => setAddDebtModalToggle(false)}
                             animationIn={"fadeInUp"}
                             animationOut={"fadeOut"}
-                            style={{position: "relative", marginTop: hp("16%")}}
                             backdropTransitionOutTiming={1}
+                            style={{position: "absolute", marginTop: hp("30%")}}
                             animationOutTiming={1}
                             isVisible={addDebtModalToggle}>
                             <View style={stylesHome.modalCard}>
-                                <Text style={stylesHome.modalTitle}>Add debt</Text>
-                                <CustomTextInput label={"Description"}
-                                                 keyboardType={"default"}
-                                                 secureTextEntry={false}
-                                                 onChangeText={(text) => onChangeAddDebtForm("description", text)}/>
-                                {errorMessageDesc !== "" && (
-                                    <Text style={stylesHome.modalErrorText}>{errorMessageDesc}</Text>
-                                )}
-                                <CustomTextInput label={"Debt"}
-                                                 keyboardType={"number-pad"}
-                                                 secureTextEntry={false}
-                                                 onChangeText={(text) => onChangeAddDebtForm("debt", text)}/>
-                                {errorMessageDebt !== "" && (
-                                    <Text style={stylesHome.modalErrorText}>{errorMessageDebt}</Text>
-                                )}
+                                <View style={{alignItems: "flex-start", gap: 20,}}>
+                                    <Text style={stylesHome.modalTitle}>Add debt</Text>
+                                    <CustomTextInput label={"Description"}
+                                                     keyboardType={"default"}
+                                                     secureTextEntry={false}
+                                                     onChangeText={(text) => onChangeAddDebtForm("description", text)}/>
+                                    {errorMessageDesc !== "" && (
+                                        <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDesc}</Text>
+                                    )}
+                                    <View style={{flexDirection: "row", gap: 10}}>
+                                        <CustomTextInput label={"Debt"}
+                                                         keyboardType={"number-pad"}
+                                                         secureTextEntry={false}
+                                                         onChangeText={(text) => onChangeAddDebtForm("debt", text)}/>
+                                        <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), marginStart: 0}}>€</Text>
+                                    </View>
+                                    {errorMessageDebt !== "" && (
+                                        <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDebt}</Text>
+                                    )}
+                                </View>
                                 <View style={stylesHome.modalButtonsContainer}>
                                     <TouchableOpacity onPress={() => setAddDebtModalToggle(false)} style={{flexGrow: 1}}>
                                         <Text style={stylesHome.modalButtonText}>Cancel</Text>
@@ -214,7 +221,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                         fadingEdgeLength={80}
                         style={{marginTop: hp("3%")}}
                         keyExtractor={(item, index) => index.toString()}
-                        ListFooterComponent={<Text style={stylesDebtCard.footerText}>No more debts</Text>}
+                        ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>No more debts</Text>}
                         renderItem={debtRenderItem}
                     />
                 </View>

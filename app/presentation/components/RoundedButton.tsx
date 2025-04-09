@@ -1,6 +1,7 @@
 import React from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {AppColors} from "../theme/AppTheme";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 interface Props {
     text: string,
@@ -9,14 +10,12 @@ interface Props {
 
 export const RoundedButton = ({text, onPressFromInterface}: Props) => {
     return(
-
         <TouchableOpacity
             style={styles.formButton}
             onPress={() => onPressFromInterface()}
         >
             <Text style={styles.formButtonText}>{text}</Text>
         </TouchableOpacity>
-
     )
 }
 const styles = StyleSheet.create({
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
         width: 200,
     },
     formButtonText:{
-        fontSize: 20,
+        fontSize: wp("4.5%"),
         alignSelf: 'center',
         justifyContent: 'center',
         height: 30,

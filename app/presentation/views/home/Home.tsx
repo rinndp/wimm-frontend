@@ -1,4 +1,6 @@
 import {
+    ActivityIndicator,
+    ActivityIndicatorComponent,
     Dimensions,
     FlatList,
     Image,
@@ -25,6 +27,7 @@ import Toast from "react-native-toast-message";
 import {AuthContext} from "../auth/AuthProvider";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import stylesDebtorCard from "./StylesDebtorCard";
+import stylesDebtCard from "../debtor-details/StylesDebtCard";
 
 export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
 
@@ -42,6 +45,7 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
         deleteDebtor,
         validateAddDebtorForm,
         resetForm,
+        showLoading
     } = homeViewModel()
 
     const {
@@ -125,9 +129,15 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
                 style={{width:Dimensions.get("window").width,height:Dimensions.get("window").height}}>
-                <TouchableOpacity onPress={() => deleteUserSession()
+                <View style={stylesHome.loadingIconContainer}>
+                    <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
+                </View>
+                <TouchableOpacity style={stylesHome.logOutContainer}
+                        onPress={() => deleteUserSession()
                         .then(() => navigation.replace("TabViewLoginRegister"))}>
                     <Text style ={stylesHome.logOutText}>Log out</Text>
+                    <Image source={require("../../../../assets/log-out-icon.png")}
+                            style={stylesHome.logOutIcon}/>
                 </TouchableOpacity>
                 <View style={stylesHome.container}>
                     <View style={stylesHome.headerContainer}>
@@ -150,7 +160,9 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
                                 <CustomTextInput label={"Name"}
                                                  keyboardType={"default"}
                                                  secureTextEntry={false}
+                                                 maxLength={40}
                                                  onChangeText={(text) => setAddDebtorName(text)}/>
+                                <Text style={stylesHome.helpText}>{addDebtorName.length}/40</Text>
                                 {errorMessage !== "" && (
                                     <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
                                 )}
@@ -182,7 +194,7 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
                         style={{marginTop: hp("1.4%")}}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={debtorRenderItem}
-                        ListFooterComponent={<Text style={stylesDebtorCard.footerText}>No more debtors</Text>}
+                        ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>No more debtors</Text>}
                         extraData={debtors}/>
                 </View>
                 <Toast/>
