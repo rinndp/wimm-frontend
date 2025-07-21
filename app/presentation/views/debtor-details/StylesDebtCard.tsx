@@ -23,6 +23,7 @@ const stylesDebtCard = StyleSheet.create({
         color: AppColors.white,
         fontFamily: "zen_kaku_medium",
         fontSize: hp("2.3%"),
+        lineHeight: 30,
         marginStart: wp("8%"),
         flexGrow: 0.5,
 

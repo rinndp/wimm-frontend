@@ -33,7 +33,7 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
 
     useEffect(() => {
         if (user && user?.slug) {
-            navigation.replace("Home")
+            navigation.replace("UserNavigation")
         }
     })
 

@@ -11,6 +11,7 @@ export const stylesDebtorCard = StyleSheet.create({
         borderRadius: 15,
         flexDirection: "row",
         padding: wp("7%"),
+        elevation: 20,
     },
 
     debtorName: {

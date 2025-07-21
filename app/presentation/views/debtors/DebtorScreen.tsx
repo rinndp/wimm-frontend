@@ -29,7 +29,7 @@ import {PropsStackNavigation} from "../../interfaces/StackNav";
 import stylesDebtorCard from "./StylesDebtorCard";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
 
-export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
+export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
 
     const {
         loadDebtors,
@@ -125,10 +125,10 @@ export function HomeScreen({navigation = useNavigation(), route}: PropsStackNavi
     ), [deleteDebtor])
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
-                style={{width:Dimensions.get("window").width,height:Dimensions.get("window").height}}>
+                style={{width:Dimensions.get("window").width}}>
                 <View style={stylesHome.loadingIconContainer}>
                     <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                 </View>

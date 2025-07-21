@@ -13,7 +13,7 @@ import {RouteProp, useFocusEffect, useNavigation, useRoute} from "@react-navigat
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {RootStackParamsList} from "../../../../App";
 import stylesDebtorDetails from "./StylesDebtorDetails";
-import stylesHome from "../home/StylesHome";
+import stylesHome from "../debtors/StylesHome";
 import {debtorDetailsViewModel} from "./ViewModel";
 import {useCallback, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
@@ -221,7 +221,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                         fadingEdgeLength={80}
                         style={{marginTop: hp("3%")}}
                         keyExtractor={(item, index) => index.toString()}
-                        ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>No more debts</Text>}
+                        ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("15%")}}>No more debts</Text>}
                         renderItem={debtRenderItem}
                     />
                 </View>

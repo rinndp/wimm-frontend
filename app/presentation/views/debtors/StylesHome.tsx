@@ -55,7 +55,8 @@ const stylesHome = StyleSheet.create({
     deleteDebtorModalTitle: {
         fontFamily: "zen_kaku_regular",
         fontSize: hp("2.3%"),
-        height: 60,
+        height: "auto",
+        lineHeight: 30,
         paddingHorizontal: wp("4%"),
         textAlign: "center",
         textAlignVertical: "center",
