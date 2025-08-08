@@ -1,14 +1,14 @@
 import {useEffect, useState} from "react";
 import {AddDebtorDTO, Debtor} from "../../../domain/entities/Debtor";
-import {loadDebtorsUseCase} from "../../../domain/use-cases/home/LoadDebtors";
+import {loadDebtorsUseCase} from "../../../domain/use-cases/debtor-screen/LoadDebtors";
 import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
 import {ApiDelivery} from "../../../data/source/remote/api/ApiDevlivery";
-import {addDebtorUseCase} from "../../../domain/use-cases/home/AddDebtor";
+import {addDebtorUseCase} from "../../../domain/use-cases/debtor-screen/AddDebtor";
 import Toast from "react-native-toast-message";
-import {deleteDebtorUseCase} from "../../../domain/use-cases/home/DeleteDebtor";
+import {deleteDebtorUseCase} from "../../../domain/use-cases/debtor-screen/DeleteDebtor";
 
 
-export const homeViewModel = () => {
+export const debtorScreenViewModel = () => {
     const [debtors, setDebtors] = useState<Debtor[]>([]);
     const [totalDebt, setTotalDebt] = useState<number>(0);
     const [addDebtorName, setAddDebtorName] = useState("");

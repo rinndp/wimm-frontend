@@ -5,7 +5,7 @@ import {deleteDebtUseCase} from "../../../domain/use-cases/debtor-details/Delete
 import Toast from "react-native-toast-message";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamsList} from "../../../../App";
-import {homeViewModel} from "../debtors/ViewModel";
+import {debtorScreenViewModel} from "../debtors/ViewModel";
 import {AuthContext} from "../auth/AuthProvider";
 import {addDebtUseCase} from "../../../domain/use-cases/debtor-details/AddDebt";
 

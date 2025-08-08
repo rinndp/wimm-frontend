@@ -1,4 +1,4 @@
-import {HomeRepositoryInterface} from "../../domain/repositories/HomeRepositoryInterface";
+import {DebtorScreenRepositoryInterface} from "../../domain/repositories/DebtorScreenRepositoryInterface";
 import {AddDebtorDTO, Debtor} from "../../domain/entities/Debtor";
 import {AxiosError} from "axios";
 import {ApiDelivery} from "../source/remote/api/ApiDevlivery";
@@ -6,10 +6,10 @@ import {UseUserLocalStorage} from "../../presentation/hooks/UseUserLocalStorage"
 import {ApiResponse} from "../source/remote/models/ApiResponse";
 import Toast from "react-native-toast-message";
 
-export class HomeRepository implements HomeRepositoryInterface {
+export class DebtorScreenRepository implements DebtorScreenRepositoryInterface {
     async loadDebtors(userSlug: string): Promise<Debtor[]> {
         try {
-            const response = await ApiDelivery.get(`/users/debtors/${userSlug}`)
+            const response = await ApiDelivery.get(`/users/${userSlug}/debtors`)
             return Promise.resolve(response.data)
         } catch (error) {
             let e = (error as AxiosError<{error: string}>);

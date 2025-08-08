@@ -11,11 +11,11 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
-import stylesHome from "./StylesHome";
+import stylesHome from "../debtors/StylesHome";
 import {RoundedButton} from "../../components/RoundedButton";
 import {useCallback, useContext, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import {debtorScreenViewModel} from "./ViewModel";
+import {debtorScreenViewModel} from "../debtors/ViewModel";
 import {Debtor} from "../../../domain/entities/Debtor";
 import {StyleSheet} from "react-native";
 import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
@@ -26,7 +26,7 @@ import {CustomTextInput} from "../../components/CustomTextInput";
 import Toast from "react-native-toast-message";
 import {AuthContext} from "../auth/AuthProvider";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
-import stylesDebtorCard from "./StylesDebtorCard";
+import stylesDebtorCard from "../debtors/StylesDebtorCard";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
 
 export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
@@ -80,47 +80,47 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
     const debtorRenderItem = useCallback(({ item }: { item: Debtor }) => (
         <TouchableOpacity onPress={() => navigation.navigate("DebtorDetails", {debtor : item})}>
             <View style={stylesDebtorCard.card}>
-                    <View>
-                        <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
-                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt.toFixed(2)}€</Text>
-                    </View>
-                    <View style={{flexGrow: 1}}>
-                        <TouchableOpacity
-                            style={stylesDebtorCard.deleteIcon}
-                            onPress={() => setSelectedDebtorId(item.id)}>
-                            <Image
-                                source={require("../../../../assets/delete-debtor-icon.png")}
-                                style={stylesDebtorCard.deleteIcon}/>
-                        </TouchableOpacity>
-                    </View>
+                <View>
+                    <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
+                    <Text style={stylesDebtorCard.debtorDebt}>{item.debt.toFixed(2)}€</Text>
+                </View>
+                <View style={{flexGrow: 1}}>
+                    <TouchableOpacity
+                        style={stylesDebtorCard.deleteIcon}
+                        onPress={() => setSelectedDebtorId(item.id)}>
+                        <Image
+                            source={require("../../../../assets/delete-debtor-icon.png")}
+                            style={stylesDebtorCard.deleteIcon}/>
+                    </TouchableOpacity>
+                </View>
             </View>
             {selectedDebtorId === item.id && (
-            <Modal
-                onBackdropPress={() => setSelectedDebtorId(null)}
-                animationIn={"fadeInUp"}
-                animationOut={"fadeOut"}
-                style={{position: "absolute", marginTop: hp("40%")}}
-                backdropTransitionOutTiming={1}
-                animationOutTiming={1}
-                isVisible={true}>
-                <View style={stylesHome.modalCard}>
-                    <Text style={stylesHome.deleteDebtorModalTitle}>Has {item.name} paid you?</Text>
-                    <View style={stylesHome.modalButtonsContainer}>
-                        <TouchableOpacity onPress={() => setSelectedDebtorId(null)} style={{flexGrow: 1}}>
-                            <Text style={stylesHome.modalButtonText}>No</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{flexGrow: 0}}
-                            onPress={() =>
-                                deleteDebtor(item.id)
-                                    .then(r =>  setSelectedDebtorId(null))}
-                        >
-                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
-                        </TouchableOpacity>
+                <Modal
+                    onBackdropPress={() => setSelectedDebtorId(null)}
+                    animationIn={"fadeInUp"}
+                    animationOut={"fadeOut"}
+                    style={{position: "absolute", marginTop: hp("40%")}}
+                    backdropTransitionOutTiming={1}
+                    animationOutTiming={1}
+                    isVisible={true}>
+                    <View style={stylesHome.modalCard}>
+                        <Text style={stylesHome.deleteDebtorModalTitle}>Has {item.name} paid you?</Text>
+                        <View style={stylesHome.modalButtonsContainer}>
+                            <TouchableOpacity onPress={() => setSelectedDebtorId(null)} style={{flexGrow: 1}}>
+                                <Text style={stylesHome.modalButtonText}>No</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{flexGrow: 0}}
+                                onPress={() =>
+                                    deleteDebtor(item.id)
+                                        .then(r =>  setSelectedDebtorId(null))}
+                            >
+                                <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-            </Modal>
-        )}
+                </Modal>
+            )}
         </TouchableOpacity>
     ), [deleteDebtor])
 
@@ -133,11 +133,11 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                     <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                 </View>
                 <TouchableOpacity style={stylesHome.logOutContainer}
-                        onPress={() => deleteUserSession()
-                        .then(() => navigation.replace("TabViewLoginRegister"))}>
+                                  onPress={() => deleteUserSession()
+                                      .then(() => navigation.replace("TabViewLoginRegister"))}>
                     <Text style ={stylesHome.logOutText}>Log out</Text>
                     <Image source={require("../../../../assets/log-out-icon.png")}
-                            style={stylesHome.logOutIcon}/>
+                           style={stylesHome.logOutIcon}/>
                 </TouchableOpacity>
                 <View style={stylesHome.container}>
                     <View style={stylesHome.headerContainer}>
@@ -179,7 +179,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                                                 .then(() => {
                                                     if (validateAddDebtorForm()) {
                                                         setDebtorModalToggle(false);
-                                        }})}
+                                                    }})}
                                     >
                                         <Text style={stylesHome.modalButtonText}>Accept</Text>
                                     </TouchableOpacity>
