@@ -15,6 +15,12 @@ const stylesHome = StyleSheet.create({
         alignItems: 'center',
     },
 
+    textMoneyContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: wp("2%")
+    },
+
     logoHome: {
         width: wp("13%"),
         height: hp("9%"),
@@ -27,11 +33,18 @@ const stylesHome = StyleSheet.create({
         color: AppColors.white,
     },
 
-    textMoney: {
+    textMoneyDebtors: {
         fontSize: wp("9%"),
         height: 50,
         fontFamily: "zen_kaku_bold",
-        color: AppColors.white,
+        color: AppColors.lightGreen,
+    },
+
+    textMoneyCreditors: {
+        fontSize: wp("9%"),
+        height: 50,
+        fontFamily: "zen_kaku_bold",
+        color: AppColors.darkRed,
     },
 
     modalCard: {

@@ -11,15 +11,19 @@ import {CreditorScreen} from "../views/creditors/CreditorScreen";
 const Tab = createMaterialBottomTabNavigator();
 
 export const UserNavigation = () => {
-
-    const theme = useTheme();
-    theme.colors.secondaryContainer = "transperent"
-
     return (
         <Tab.Navigator
             shifting={true}
             activeColor="white"
-            barStyle={{ backgroundColor: AppColors.green, height: wp("18%") }}
+            barStyle={{
+                backgroundColor: AppColors.green,
+                height: wp("18%"),
+                elevation: 10,
+                borderRadius: wp("5%"),
+                margin:wp("3%"),
+                overflow: "hidden",
+            }}
+
         >
             <Tab.Screen
                 name="Debtors"
@@ -51,8 +55,9 @@ export const UserNavigation = () => {
 
 export const stylesTabBarItems = StyleSheet.create({
     item: {
-        width: wp("5%"),
-        height: wp("5%"),
+        width: wp("7.3%"),
+        height: wp("7.3%"),
+        resizeMode: "contain",
         paddingHorizontal: wp("5%"),
 
     }

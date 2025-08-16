@@ -28,6 +28,7 @@ import {AuthContext} from "../auth/AuthProvider";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import stylesDebtorCard from "./StylesDebtorCard";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
+import {stylesTabBarItems} from "../../navigation/UserNavigation";
 
 export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
 
@@ -82,7 +83,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
             <View style={stylesDebtorCard.card}>
                     <View>
                         <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
-                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt.toFixed(2)}€</Text>
+                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt ? item.debt.toFixed(2) : 0.00.toFixed(2)}€</Text>
                     </View>
                     <View style={{flexGrow: 1}}>
                         <TouchableOpacity
@@ -145,7 +146,11 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                             source={require("../../../../assets/wimm-icon.png")}
                             style={stylesHome.logoHome}/>
                         <Text style={stylesHome.textHome}>Where is my money?</Text>
-                        <Text style={stylesHome.textMoney}>{totalDebt.toFixed(2)}€</Text>
+                        <View style={stylesHome.textMoneyContainer}>
+                            <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}€</Text>
+                            <Image style={{...stylesTabBarItems.item, marginTop: hp("1%")}}
+                                   source={require("../../../../assets/arrow-up.png")}/>
+                        </View>
                         <RoundedButton text={"Add debtor"} onPressFromInterface={() => setDebtorModalToggle(true)}/>
                         <Modal
                             onBackdropPress={() => setDebtorModalToggle(false)}

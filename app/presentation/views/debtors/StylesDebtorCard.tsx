@@ -32,7 +32,7 @@ export const stylesDebtorCard = StyleSheet.create({
     deleteIcon: {
         width: wp("10%"),
         height: hp("4%"),
-        tintColor: AppColors.lightGreen,
+        tintColor: AppColors.lightSoftGreen,
         alignSelf: "flex-end",
     },
 

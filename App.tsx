@@ -13,13 +13,17 @@ import {PaperProvider} from "react-native-paper";
 import {DefaultTheme} from "./app/presentation/theme/AppTheme";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
+import {Creditor} from "./app/domain/entities/Creditor";
+import {CreditorDetailsScreen} from "./app/presentation/views/creditors-details/CreditorDetails";
 
 
 export type RootStackParamsList = {
     TabViewLoginRegister: undefined
     UserNavigation: undefined
     DebtorDetails: {debtor: Debtor}
+    CreditorDetails: {creditor: Creditor}
 }
+
 
 const Stack = createStackNavigator<RootStackParamsList>();
 
@@ -35,15 +39,14 @@ export default function App() {
 
     return (
         <SafeAreaProvider>
-        <PaperProvider>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name="TabViewLoginRegister" component={TabViewLoginRegister}/>
               <Stack.Screen name="UserNavigation" component={UserNavigation}/>
               <Stack.Screen name="DebtorDetails" component={DebtorDetailsScreen}/>
+              <Stack.Screen name="CreditorDetails" component={CreditorDetailsScreen}/>
             </Stack.Navigator>
           </NavigationContainer>
-        </PaperProvider>
         </SafeAreaProvider>
   );
 }
