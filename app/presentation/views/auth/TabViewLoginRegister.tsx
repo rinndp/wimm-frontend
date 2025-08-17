@@ -9,12 +9,16 @@ import {
     ImageBackground, SafeAreaView,
     useWindowDimensions,
     View,
+    Text
 } from "react-native";
 import stylesTabBar from "./StylesTabBar";
 import {AppColors} from "../../theme/AppTheme";
 import React, {useEffect} from "react";
 import {Register} from "./Register";
 import {registerViewModel} from "./ViewModel";
+import stylesHome from "../debtors/StylesHome";
+import stylesLogin from "./StylesLogin";
+import {heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const renderScene = SceneMap({
     login: Login,
@@ -28,6 +32,8 @@ const renderTabBar = (props: any) => (
                 indicatorStyle={{ backgroundColor: AppColors.white }}
                 style={stylesTabBar.tabLabels}
             />
+        <Text style={{...stylesLogin.footerText, top: hp("93.5%"),}}>Developed by <Text style={stylesLogin.footerTextRinndp}> rinndp</Text></Text>
+        <Text style={stylesLogin.footerText}>Copyright © 2025 All rights reserved</Text>
     </SafeAreaView>
 );
 

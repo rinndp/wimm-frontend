@@ -1,6 +1,6 @@
 import {Login} from "./app/presentation/views/auth/Login";
 import {NavigationContainer} from "@react-navigation/native";
-import {createStackNavigator} from "@react-navigation/stack";
+import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
 import {useFonts} from "expo-font";
 import {DebtorScreen} from "./app/presentation/views/debtors/DebtorScreen";
 import {AuthProvider} from "./app/presentation/views/auth/AuthProvider";
@@ -15,6 +15,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import {Creditor} from "./app/domain/entities/Creditor";
 import {CreditorDetailsScreen} from "./app/presentation/views/creditors-details/CreditorDetails";
+import {Dimensions, ImageBackground} from "react-native";
 
 
 export type RootStackParamsList = {
@@ -38,9 +39,19 @@ export default function App() {
 
 
     return (
+
         <SafeAreaProvider>
           <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator screenOptions={{
+                headerShown: false,
+                // Animaciones integradas disponibles:
+                // CardStyleInterpolators.forHorizontalIOS (slide iOS)
+                // CardStyleInterpolators.forVerticalIOS (modal iOS)
+                // CardStyleInterpolators.forFadeFromBottomAndroid
+                // CardStyleInterpolators.forScaleFromCenterAndroid
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                gestureEnabled: true, // permite swipe para volver en iOS
+            }}>
               <Stack.Screen name="TabViewLoginRegister" component={TabViewLoginRegister}/>
               <Stack.Screen name="UserNavigation" component={UserNavigation}/>
               <Stack.Screen name="DebtorDetails" component={DebtorDetailsScreen}/>

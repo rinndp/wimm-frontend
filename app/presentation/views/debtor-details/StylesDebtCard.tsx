@@ -44,11 +44,11 @@ const stylesDebtCard = StyleSheet.create({
     },
 
     footerText: {
-        color: AppColors.white,
-        fontSize: wp("4%"),
+        color: AppColors.gray,
+        fontSize: wp("3.7%"),
         alignSelf: "center",
         height: 30,
-        marginBottom: hp("6%"),
+        marginBottom: hp("12%"),
         fontFamily: "zen_kaku_regular"
     }
 })

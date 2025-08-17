@@ -11,14 +11,19 @@ import {CreditorScreen} from "../views/creditors/CreditorScreen";
 const Tab = createMaterialBottomTabNavigator();
 
 export const UserNavigation = () => {
+
+    const theme = useTheme();
+    theme.colors.secondaryContainer = "transperent"
+
     return (
         <Tab.Navigator
             shifting={true}
             activeColor="white"
             barStyle={{
-                backgroundColor: AppColors.green,
+                backgroundColor: AppColors.darkGreen,
                 height: wp("18%"),
-                elevation: 10,
+                borderColor: AppColors.green,
+                zIndex: 50,
                 borderRadius: wp("5%"),
                 margin:wp("3%"),
                 overflow: "hidden",

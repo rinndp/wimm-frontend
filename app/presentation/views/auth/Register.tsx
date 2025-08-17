@@ -32,7 +32,7 @@ export function Register () {
     }, [errorMessage]);
     return (
         <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>
-                <View style={{...stylesLogin.container, paddingTop: hp("0%")}}>
+                <View style={{...stylesLogin.container}}>
                     <View style={stylesLogin.logoContainer}>
                         <Image
                             source={require("../../../../assets/wimm-icon.png")}

@@ -41,11 +41,6 @@ export const creditorScreenViewModel = () => {
                 creditors.splice(creditors.indexOf(creditor), 1)
             }
         })
-        Toast.show({
-            "type": "success",
-            "text1": response.message,
-            "position":"bottom"
-        })
         if (user?.slug != undefined) {
             loadCreditors(user?.slug)
         }
@@ -54,15 +49,8 @@ export const creditorScreenViewModel = () => {
     const addCreditor = async (creditor: AddDebtorDTO) => {
         if (validateAddCreditorForm()) {
             const response = await addCreditorUseCase(creditor)
-            Toast.show({
-                "type": "success",
-                "text1": response.message,
-                "position":"bottom"
-            })
-
             if (user?.slug != undefined)
                 loadCreditors(user?.slug)
-
         }
     }
 

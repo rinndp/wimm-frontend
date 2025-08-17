@@ -1,7 +1,8 @@
 export const AppColors = {
     white: '#FFFFFF',
+    gray: '#b4b4b4',
     green : "#274827",
-    darkGreen : "#1b2d1b",
+    darkGreen : "#0f340f",
     lightGreen : "#168d16",
     lightSoftGreen: "#e8f6e7",
     neonGreen: "#4ff50d",

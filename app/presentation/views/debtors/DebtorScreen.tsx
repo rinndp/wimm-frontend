@@ -129,7 +129,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
         <SafeAreaView>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
-                style={{width:Dimensions.get("window").width}}>
+                style={{width:Dimensions.get("window").width, height:"106.7%"}}>
                 <View style={stylesHome.loadingIconContainer}>
                     <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                 </View>
@@ -145,7 +145,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                         <Image
                             source={require("../../../../assets/wimm-icon.png")}
                             style={stylesHome.logoHome}/>
-                        <Text style={stylesHome.textHome}>Where is my money?</Text>
+                        <Text style={stylesHome.textHome}>Wimm</Text>
                         <View style={stylesHome.textMoneyContainer}>
                             <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}€</Text>
                             <Image style={{...stylesTabBarItems.item, marginTop: hp("1%")}}

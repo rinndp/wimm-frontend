@@ -146,7 +146,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
         <SafeAreaView style={{ flex: 1 }}>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
-                style={{width:Dimensions.get("window").width,height:Dimensions.get("window").height}}>
+                style={{width:Dimensions.get("window").width}}>
                 <View style={stylesHome.loadingIconContainer}>
                     <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                 </View>
@@ -157,7 +157,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                 <View style={stylesDebtorDetails.container}>
                     <View style={stylesDebtorDetails.header}>
                         <Text style={stylesDebtorDetails.detailsDebtorName}>{creditor.name} 👋</Text>
-                        <Text style={stylesHome.textHome}>Where is my money?</Text>
+                        <Text style={stylesHome.textHome}>I will give you your money</Text>
                         <View style={stylesDebtorDetails.debtContainer}>
                             <Text style={stylesDebtorDetails.detailsDebtorDebt}>{totalCredit.toFixed(2)}€</Text>
                             <TouchableOpacity
@@ -172,7 +172,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                             animationIn={"fadeInUp"}
                             animationOut={"fadeOut"}
                             backdropTransitionOutTiming={1}
-                            style={{position: "absolute", marginTop: hp("30%")}}
+                            style={{alignItems:"center"}}
                             animationOutTiming={1}
                             isVisible={addCreditModalToggle}>
                             <View style={stylesHome.modalCard}>

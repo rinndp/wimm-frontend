@@ -145,7 +145,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
         <SafeAreaView style={{ flex: 1 }}>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
-                style={{width:Dimensions.get("window").width,height:Dimensions.get("window").height}}>
+                style={{width:Dimensions.get("window").width}}>
                 <View style={stylesHome.loadingIconContainer}>
                     <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                 </View>
@@ -171,7 +171,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                             animationIn={"fadeInUp"}
                             animationOut={"fadeOut"}
                             backdropTransitionOutTiming={1}
-                            style={{position: "absolute", marginTop: hp("30%")}}
+                            style={{alignItems:"center"}}
                             animationOutTiming={1}
                             isVisible={addDebtModalToggle}>
                             <View style={stylesHome.modalCard}>

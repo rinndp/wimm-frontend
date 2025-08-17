@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 10,
         padding: 10,
-        backgroundColor: AppColors.green,
+        backgroundColor: AppColors.darkGreen,
         width: 200,
     },
     formButtonText:{
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         fontSize: wp("4.5%"),
         textAlign: "center",
         justifyContent: 'center',
-        height: 30,
+        lineHeight: hp("2.5%"),
         fontFamily: "zen_kaku_regular",
         color: AppColors.white,
     }

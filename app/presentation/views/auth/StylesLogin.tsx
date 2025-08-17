@@ -5,10 +5,8 @@ import {AppColors} from "../../theme/AppTheme";
 
 const stylesLogin = StyleSheet.create({
     container: {
-        width: '100%',
         height: '100%',
         alignItems: 'center',
-        paddingTop: wp("10%"),
     },
 
     logoContainer: {
@@ -32,11 +30,28 @@ const stylesLogin = StyleSheet.create({
 
     formContainer: {
         marginTop: hp("7%"),
-        gap: hp("2%")
+        gap: hp("2%"),
     },
 
     buttonContainer: {
         marginTop: hp("4%"),
+    },
+
+    footerText: {
+        color: AppColors.white,
+        fontFamily: "zen_kaku_light",
+        fontSize: wp("3.8%"),
+        position: "absolute",
+        zIndex: 5,
+        top: hp("96%"),
+        lineHeight: hp("4%"),
+        alignSelf: "center",
+    },
+
+    footerTextRinndp: {
+        color: AppColors.white,
+        fontFamily: "zen_kaku_regular",
+        fontSize: wp("4.1%"),
     }
 })
 

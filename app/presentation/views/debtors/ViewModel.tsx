@@ -40,11 +40,6 @@ export const debtorScreenViewModel = () => {
                 debtors.splice(debtors.indexOf(debtor), 1)
             }
         })
-        Toast.show({
-            "type": "success",
-            "text1": response.message,
-            "position":"bottom"
-        })
         if (user?.slug != undefined) {
             loadDebtors(user?.slug)
         }
@@ -53,15 +48,8 @@ export const debtorScreenViewModel = () => {
     const addDebtor = async (debtor: AddDebtorDTO) => {
         if (validateAddDebtorForm()) {
             const response = await addDebtorUseCase(debtor)
-            Toast.show({
-                "type": "success",
-                "text1": response.message,
-                "position":"bottom"
-            })
-
             if (user?.slug != undefined)
                 loadDebtors(user?.slug)
-
         }
     }
 
