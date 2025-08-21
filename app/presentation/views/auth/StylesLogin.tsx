@@ -1,6 +1,7 @@
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {StyleSheet} from "react-native";
 import {AppColors} from "../../theme/AppTheme";
+import App from "../../../../App";
 
 
 const stylesLogin = StyleSheet.create({
@@ -28,6 +29,13 @@ const stylesLogin = StyleSheet.create({
         color: "#FFF",
     },
 
+    helpText: {
+        fontFamily: "zen_kaku_regular",
+        lineHeight: hp("2%"),
+        color: AppColors.white,
+        marginStart: wp("1%")
+    },
+
     formContainer: {
         marginTop: hp("7%"),
         gap: hp("2%"),
@@ -51,7 +59,16 @@ const stylesLogin = StyleSheet.create({
     footerTextRinndp: {
         color: AppColors.white,
         fontFamily: "zen_kaku_regular",
-        fontSize: wp("4.1%"),
+        fontSize: wp("4%"),
+    },
+
+    registerTitle: {
+        fontFamily: "zen_kaku_light",
+        lineHeight: hp("4%"),
+        marginTop: hp("5%"),
+        textAlign: "left",
+        fontSize: wp("7.6%"),
+        color: "#FFF",
     }
 })
 

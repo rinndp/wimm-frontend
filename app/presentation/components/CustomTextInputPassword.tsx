@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Image, KeyboardType, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {AppColors} from "../theme/AppTheme";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 interface Props {
     label: string,

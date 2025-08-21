@@ -157,7 +157,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                 <View style={stylesDebtorDetails.container}>
                     <View style={stylesDebtorDetails.header}>
                         <Text style={stylesDebtorDetails.detailsDebtorName}>{creditor.name} 👋</Text>
-                        <Text style={stylesHome.textHome}>I will give you your money</Text>
+                        <Text style={stylesHome.textHome}>Here is your money</Text>
                         <View style={stylesDebtorDetails.debtContainer}>
                             <Text style={stylesDebtorDetails.detailsDebtorDebt}>{totalCredit.toFixed(2)}€</Text>
                             <TouchableOpacity

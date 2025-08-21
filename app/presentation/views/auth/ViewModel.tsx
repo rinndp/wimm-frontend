@@ -9,7 +9,6 @@ import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {registerUseCase} from "../../../domain/use-cases/auth/RegisterUseCase";
 import Toast from "react-native-toast-message";
 
-
 export const loginViewModel = () => {
     const [loginValues, setLoginValues] = useState({
         email: '',
@@ -28,6 +27,16 @@ export const loginViewModel = () => {
             ...loginValues, [property]: value
         })
     }
+
+    // const signInWithGoogle = async () => {
+    //     try {
+    //         await GoogleSignin.hasPlayServices();
+    //         const userInfo = await GoogleSignin.signIn();
+    //         console.log('Usuario:', userInfo);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
     const validateForm = () => {
         if (loginValues.email == "") {
@@ -54,7 +63,8 @@ export const loginViewModel = () => {
         login,
         errorMessage,
         setErrorMessage,
-        user
+        user,
+        // signInWithGoogle
     }
 }
 
@@ -80,7 +90,7 @@ export const registerViewModel = () => {
             setUserCreated(true)
             Toast.show({
                 "type": "success",
-                "text1": response.message
+                "text1": response.message,
             })
         }
     }

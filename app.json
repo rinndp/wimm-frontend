@@ -13,7 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.wimm",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +29,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "androidNavigationBar": {
+      "visible": "sticky-immersive",
+      "barStyle": "light-content",
+      "backgroundColor": "#000000"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0bb11259-2f14-428c-8a66-c4af8e472b7f"
+      }
     }
   }
 }

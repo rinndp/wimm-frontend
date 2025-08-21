@@ -1,5 +1,5 @@
 import stylesDebtCard from "../views/debtor-details/StylesDebtCard";
-import {Image, View} from "react-native";
+import {Image, SafeAreaView, View} from "react-native";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {DebtorScreen} from "../views/debtors/DebtorScreen";
 import {AppColors} from "../theme/AppTheme";

@@ -144,8 +144,8 @@ const stylesHome = StyleSheet.create({
     helpText: {
         color: AppColors.white,
         fontFamily: "zen_kaku_medium",
-        top: hp("6.35%"),
-        start: wp("23%"),
+        top: hp("6.6%"),
+        start: wp("20%"),
         position: "absolute",
     }
 })

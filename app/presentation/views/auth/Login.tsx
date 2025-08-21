@@ -18,14 +18,15 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
         login,
         errorMessage,
         setErrorMessage,
-        user
+        user,
+        //signInWithGoogle
     } = loginViewModel()
 
     useEffect(() => {
         if (errorMessage !== "") {
             Toast.show({
                 'type': 'error',
-                'text1': errorMessage
+                'text1': errorMessage,
             })
             setErrorMessage("");
         }
@@ -60,6 +61,10 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
                             <RoundedButton text={"Sign in"}
                                            onPressFromInterface={() => login()}/>
                         </View>
+                        {/*<View style={stylesLogin.buttonContainer}>*/}
+                        {/*    <RoundedButton text={"Google"}*/}
+                        {/*                   onPressFromInterface={() => signInWithGoogle()}/>*/}
+                        {/*</View>*/}
                     </View>
                 </View>
                 <Toast/>

@@ -189,7 +189,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                                          keyboardType={"number-pad"}
                                                          secureTextEntry={false}
                                                          onChangeText={(text) => onChangeAddDebtForm("debt", text)}/>
-                                        <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), marginStart: 0}}>€</Text>
+                                        <Text style={{...stylesDebtCard.debt, marginTop: hp("4.2%"), marginStart: 0}}>€</Text>
                                     </View>
                                     {errorMessageDebt !== "" && (
                                         <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDebt}</Text>

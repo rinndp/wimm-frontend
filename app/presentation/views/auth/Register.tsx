@@ -25,7 +25,7 @@ export function Register () {
         if (errorMessage !== "") {
             Toast.show({
                 'type': 'error',
-                'text1': errorMessage
+                'text1': errorMessage,
             })
             setErrorMessage("");
         }
@@ -33,13 +33,8 @@ export function Register () {
     return (
         <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>
                 <View style={{...stylesLogin.container}}>
-                    <View style={stylesLogin.logoContainer}>
-                        <Image
-                            source={require("../../../../assets/wimm-icon.png")}
-                            style={stylesLogin.logoIcon}/>
-                        <Text style={stylesLogin.logoText}>Wimm</Text>
-                    </View>
-                    <View style={stylesLogin.formContainer}>
+                    <Text style={stylesLogin.registerTitle}>Create your account</Text>
+                    <View style={{...stylesLogin.formContainer, marginTop: hp("5%"),}}>
                         <CustomTextInput label={"Email"}
                                          keyboardType={"default"}
                                          secureTextEntry={false}
@@ -48,6 +43,7 @@ export function Register () {
                         <CustomTextInputPassword label={"Password"}
                                                  keyboardType={"default"}
                                                  onChangeText={(text) => onChangeRegister("password", text)}/>
+                        <Text style={stylesLogin.helpText}>Password must have at least 8 characters long</Text>
 
                         <CustomTextInputPassword label={"Confirm password"}
                                                  keyboardType={"default"}

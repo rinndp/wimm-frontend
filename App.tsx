@@ -15,7 +15,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import {Creditor} from "./app/domain/entities/Creditor";
 import {CreditorDetailsScreen} from "./app/presentation/views/creditors-details/CreditorDetails";
-import {Dimensions, ImageBackground} from "react-native";
+
 
 
 export type RootStackParamsList = {
@@ -38,8 +38,15 @@ export default function App() {
     });
 
 
-    return (
+    // useEffect(() => {
+    //     GoogleSignin.configure({
+    //         webClientId: '838027193595-evbqgq0d5a39tq92s9plhtve9orqjd50.apps.googleusercontent.com', // requerido para Android
+    //         offlineAccess: true, // si quieres refresh tokens
+    //     });
+    // }, []);
 
+
+    return (
         <SafeAreaProvider>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{
