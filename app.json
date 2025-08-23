@@ -17,6 +17,9 @@
       "bundleIdentifier": "com.anonymous.wimm",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -25,20 +28,19 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.wimm"
+      "package": "com.anonymous.wimm",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "androidNavigationBar": {
-      "visible": "sticky-immersive",
-      "barStyle": "light-content",
-      "backgroundColor": "#000000"
     },
     "extra": {
       "eas": {
         "projectId": "0bb11259-2f14-428c-8a66-c4af8e472b7f"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0bb11259-2f14-428c-8a66-c4af8e472b7f"
     }
   }
 }

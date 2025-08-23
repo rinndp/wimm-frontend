@@ -26,13 +26,13 @@ const renderScene = SceneMap({
 });
 
 const renderTabBar = (props: any) => (
-    <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>
+    <SafeAreaView style={{backgroundColor: AppColors.darkGreen, zIndex: 1}}>
             <TabBar
                 {...props}
                 indicatorStyle={{ backgroundColor: AppColors.white }}
                 style={stylesTabBar.tabLabels}
             />
-        <Text style={{...stylesLogin.footerText, top: hp("93.5%"),}}>Developed by  <Text style={stylesLogin.footerTextRinndp}>rinndp</Text></Text>
+        <Text style={{...stylesLogin.footerText, top: hp("86.5%"),}}>Developed by <Text style={stylesLogin.footerTextRinndp}>rinndp</Text></Text>
         <Text style={stylesLogin.footerText}>Copyright © 2025 All rights reserved</Text>
     </SafeAreaView>
 );

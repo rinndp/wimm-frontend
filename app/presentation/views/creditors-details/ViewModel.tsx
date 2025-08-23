@@ -100,22 +100,6 @@ export const creditorDetailsViewModel = () => {
         return true;
     }
 
-    const isValidDecimalFormat = (value: string): boolean => {
-        return /^\d+(\.\d{1,2})?$/.test(value);
-    };
-
-    const formatDate = (dateString: string): string => {
-        const date = new Date(dateString);
-
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Enero = 0
-        const year = date.getFullYear();
-
-        const hours = (date.getHours() + 2).toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-
-        return `${day}/${month}/${year} - ${hours}:${minutes}`;
-    }
 
     const resetForm = () => {
         onChangeAddCreditForm("description", "")
@@ -138,7 +122,6 @@ export const creditorDetailsViewModel = () => {
         onChangeAddCreditForm,
         addCreditValues,
         validateAddCreditForm,
-        formatDate,
         resetForm,
         showLoading
     }

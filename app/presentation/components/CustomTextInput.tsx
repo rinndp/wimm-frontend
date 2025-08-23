@@ -1,5 +1,7 @@
 import React from "react";
 import {Image, KeyboardType, StyleSheet, Text, TextInput, View} from "react-native";
+import {AppColors} from "../theme/AppTheme";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 interface Props {
     label: string,
@@ -24,23 +26,22 @@ export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeTex
 }
 const styles = StyleSheet.create({
     formInputLabel: {
-        fontSize:15,
+        fontSize: wp("3.5%"),
         color:'white',
         marginStart: 5,
         alignSelf:"flex-start",
-        height: 30,
+        height: hp("3.3%"),
         fontFamily: "zen_kaku_regular"
     },
 
     formInput: {
-        width:300,
-        height:38,
-        fontSize: 15,
-        borderColor: 'black',
+        width: wp("30%"),
+        height:hp("4%"),
+        fontSize: wp("3.6%"),
+        borderColor: AppColors.white,
         backgroundColor: 'white',
-        borderWidth: 1,
-        paddingVertical: 5,
-        paddingHorizontal: 10,
+        paddingVertical: hp("1%"),
+        paddingHorizontal: wp("2%"),
         borderRadius:10,
         fontFamily: "zen_kaku_regular"
 

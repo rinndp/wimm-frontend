@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {Platform, StyleSheet} from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {AppColors} from "../../theme/AppTheme";
 
@@ -18,7 +18,8 @@ const stylesHome = StyleSheet.create({
     textMoneyContainer: {
         flexDirection: "row",
         alignItems: "center",
-        gap: wp("2%")
+        gap: wp("2%"),
+        marginBottom: hp("1%"),
     },
 
     logoHome: {
@@ -28,23 +29,24 @@ const stylesHome = StyleSheet.create({
 
     textHome: {
         fontSize: wp("5.5%"),
-        height: 43,
         fontFamily: "zen_kaku_light",
+        marginBottom: hp("2%"),
+        lineHeight: hp("3%"),
+        marginTop: hp("-1%"),
         color: AppColors.white,
     },
 
     textMoneyDebtors: {
-        fontSize: wp("9%"),
-        height: 50,
+        fontSize: Platform.OS === "ios" ? wp("8%") : wp("9%"),
         fontFamily: "zen_kaku_bold",
         color: AppColors.lightGreen,
     },
 
-    textMoneyCreditors: {
-        fontSize: wp("9%"),
-        height: 50,
-        fontFamily: "zen_kaku_bold",
-        color: AppColors.darkRed,
+    textMoneyIcon: {
+        width: wp("7.3%"),
+        height: wp("7.3%"),
+        resizeMode: "contain",
+        marginTop: Platform.OS === "ios" ? hp("0.6%") : hp("1.3%"),
     },
 
     modalCard: {
@@ -54,7 +56,7 @@ const stylesHome = StyleSheet.create({
         height: "auto",
         alignSelf: "center",
         alignItems: "center",
-        gap: 20,
+        gap: hp("5%"),
     },
 
     modalTitle: {
@@ -99,6 +101,7 @@ const stylesHome = StyleSheet.create({
         flexDirection: "row",
         paddingHorizontal: wp("10%"),
         paddingTop: hp("1%"),
+        marginTop:hp("-2%"),
         paddingBottom: hp("1.5%"),
     },
 
@@ -143,10 +146,16 @@ const stylesHome = StyleSheet.create({
 
     helpText: {
         color: AppColors.white,
+        fontSize: wp("3.3%"),
         fontFamily: "zen_kaku_medium",
-        top: hp("6.6%"),
-        start: wp("20%"),
+        top: Platform.OS === "ios" ? hp("9.7%") : hp("8.68%"),
+        start: Platform.OS === "ios" ? wp("23%") : wp("18%"),
         position: "absolute",
+    },
+
+    modalAddContainer: {
+        position: "absolute",
+        marginTop: Platform.OS === "ios" ? hp("34%") : hp("28%"),
     }
 })
 

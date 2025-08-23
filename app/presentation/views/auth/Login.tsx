@@ -9,6 +9,7 @@ import {RoundedButton} from "../../components/RoundedButton";
 import Toast from "react-native-toast-message";
 import {useEffect} from "react";
 import {AppColors} from "../../theme/AppTheme";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
 
 export function Login ({navigation = useNavigation(), route}: PropsStackNavigation) {
@@ -21,6 +22,8 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
         user,
         //signInWithGoogle
     } = loginViewModel()
+
+    const insets = useSafeAreaInsets();
 
     useEffect(() => {
         if (errorMessage !== "") {

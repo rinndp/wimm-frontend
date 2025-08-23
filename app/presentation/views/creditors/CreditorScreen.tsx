@@ -130,10 +130,9 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
     ), [deleteCreditor])
 
     return (
-        <SafeAreaView>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
-                style={{width:Dimensions.get("window").width, height:"106.7%"}}>
+                style={{width:Dimensions.get("window").width, height:"100%"}}>
                 <View style={stylesHome.loadingIconContainer}>
                     <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                 </View>
@@ -151,8 +150,8 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                             style={stylesHome.logoHome}/>
                         <Text style={stylesHome.textHome}>Wimm</Text>
                         <View style={stylesHome.textMoneyContainer}>
-                            <Text style={stylesHome.textMoneyCreditors}>{totalCredit.toFixed(2)}€</Text>
-                            <Image style={{...stylesTabBarItems.item, marginTop: hp("1%")}}
+                            <Text style={{...stylesHome.textMoneyDebtors, color: AppColors.darkRed}}>{totalCredit.toFixed(2)}€</Text>
+                            <Image style={stylesHome.textMoneyIcon}
                                 source={require("../../../../assets/arrow-down.png")}/>
                         </View>
                         <RoundedButton text={"Add creditor"} onPressFromInterface={() => setCreditorModalToggle(true)}/>
@@ -160,7 +159,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                             onBackdropPress={() => setCreditorModalToggle(false)}
                             animationIn={"fadeInUp"}
                             animationOut={"fadeOut"}
-                            style={{position: "absolute", marginTop: hp("34%")}}
+                            style={stylesHome.modalAddContainer}
                             backdropTransitionOutTiming={1}
                             animationOutTiming={1}
                             isVisible={creditorModalToggle}>
@@ -208,7 +207,6 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                 </View>
                 <Toast/>
             </ImageBackground>
-        </SafeAreaView>
     )
 }
 

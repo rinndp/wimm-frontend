@@ -23,6 +23,8 @@ import Toast from "react-native-toast-message";
 import Modal from "react-native-modal";
 import {CustomTextInput} from "../../components/CustomTextInput";
 import stylesDebtCard from "./StylesDebtCard";
+import {creditorDetailsViewModel} from "../creditors-details/ViewModel";
+import {formatDate} from "../../utils/format-date";
 
 type DebtorDetailsRouteProp = RouteProp<RootStackParamsList, "DebtorDetails">;
 
@@ -46,10 +48,10 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
         onChangeAddDebtForm,
         addDebtValues,
         validateAddDebtForm,
-        formatDate,
         resetForm,
         showLoading
     } = debtorDetailsViewModel()
+
 
     useFocusEffect(
         useCallback(() => {
@@ -142,7 +144,6 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
     ), [deleteDebt, selectedRemoveDebtId, setSelectedRemoveDebtId, debtor])
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
                 style={{width:Dimensions.get("window").width}}>
@@ -171,7 +172,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                             animationIn={"fadeInUp"}
                             animationOut={"fadeOut"}
                             backdropTransitionOutTiming={1}
-                            style={{alignItems:"center"}}
+                            style={stylesDebtorDetails.modalAddContainer}
                             animationOutTiming={1}
                             isVisible={addDebtModalToggle}>
                             <View style={stylesHome.modalCard}>
@@ -184,12 +185,12 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                     {errorMessageDesc !== "" && (
                                         <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDesc}</Text>
                                     )}
-                                    <View style={{flexDirection: "row", gap: 10}}>
+                                    <View style={{flexDirection: "row", alignItems:"center"}}>
                                         <CustomTextInput label={"Debt"}
                                                          keyboardType={"number-pad"}
                                                          secureTextEntry={false}
                                                          onChangeText={(text) => onChangeAddDebtForm("debt", text)}/>
-                                        <Text style={{...stylesDebtCard.debt, marginTop: hp("4.2%"), marginStart: 0}}>€</Text>
+                                        <Text style={{...stylesDebtCard.debt, marginTop:hp("3%"), marginStart:wp("2%")}}>€</Text>
                                     </View>
                                     {errorMessageDebt !== "" && (
                                         <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDebt}</Text>
@@ -227,7 +228,6 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                 </View>
                 <Toast/>
             </ImageBackground>
-        </SafeAreaView>
     )
 }
 

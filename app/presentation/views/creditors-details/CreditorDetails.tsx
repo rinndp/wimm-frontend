@@ -17,13 +17,14 @@ import stylesHome from "../debtors/StylesHome";
 import {creditorDetailsViewModel} from "./ViewModel";
 import {useCallback, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import {AddDebtDTO, Debt} from "../../../domain/entities/Debt";
 import {AppColors} from "../../theme/AppTheme";
 import Toast from "react-native-toast-message";
 import Modal from "react-native-modal";
 import {CustomTextInput} from "../../components/CustomTextInput";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
 import {AddCreditDTO, Credit} from "../../../domain/entities/Credit";
+import {debtorDetailsViewModel} from "../debtor-details/ViewModel";
+import {formatDate} from "../../utils/format-date";
 
 type CreditorDetailsRouteProp = RouteProp<RootStackParamsList, "CreditorDetails">;
 
@@ -47,10 +48,10 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
         onChangeAddCreditForm,
         addCreditValues,
         validateAddCreditForm,
-        formatDate,
         resetForm,
         showLoading
     } = creditorDetailsViewModel()
+
 
     useFocusEffect(
         useCallback(() => {
@@ -143,7 +144,6 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
     ), [deleteCredit, selectedRemoveCreditId, setSelectedRemoveCreditId, creditor])
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
                 style={{width:Dimensions.get("window").width}}>
@@ -172,7 +172,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                             animationIn={"fadeInUp"}
                             animationOut={"fadeOut"}
                             backdropTransitionOutTiming={1}
-                            style={{alignItems:"center"}}
+                            style={stylesDebtorDetails.modalAddContainer}
                             animationOutTiming={1}
                             isVisible={addCreditModalToggle}>
                             <View style={stylesHome.modalCard}>
@@ -228,7 +228,6 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                 </View>
                 <Toast/>
             </ImageBackground>
-        </SafeAreaView>
     )
 }
 

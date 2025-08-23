@@ -1,5 +1,5 @@
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import {StyleSheet} from "react-native";
+import {Platform, StyleSheet} from "react-native";
 import {AppColors} from "../../theme/AppTheme";
 import App from "../../../../App";
 
@@ -48,10 +48,9 @@ const stylesLogin = StyleSheet.create({
     footerText: {
         color: AppColors.white,
         fontFamily: "zen_kaku_light",
-        fontSize: wp("3.8%"),
+        fontSize: Platform.OS === "ios" ? wp("3.5%") : wp("3.8%"),
         position: "absolute",
-        zIndex: 5,
-        top: hp("96%"),
+        top: hp("89%"),
         lineHeight: hp("4%"),
         alignSelf: "center",
     },
@@ -59,7 +58,7 @@ const stylesLogin = StyleSheet.create({
     footerTextRinndp: {
         color: AppColors.white,
         fontFamily: "zen_kaku_regular",
-        fontSize: wp("4%"),
+        fontSize: Platform.OS === "ios" ? wp("3.7%") : wp("4%"),
     },
 
     registerTitle: {

@@ -30,6 +30,7 @@ import stylesDebtorCard from "./StylesDebtorCard";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
 import {stylesTabBarItems} from "../../navigation/UserNavigation";
 
+
 export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
 
     const {
@@ -126,10 +127,9 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
     ), [deleteDebtor])
 
     return (
-        <SafeAreaView>
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
-                style={{width:Dimensions.get("window").width, height:"106.7%"}}>
+                style={{width:Dimensions.get("window").width, height:"100%"}}>
                 <View style={stylesHome.loadingIconContainer}>
                     <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                 </View>
@@ -148,7 +148,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                         <Text style={stylesHome.textHome}>Wimm</Text>
                         <View style={stylesHome.textMoneyContainer}>
                             <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}€</Text>
-                            <Image style={{...stylesTabBarItems.item, marginTop: hp("1%")}}
+                            <Image style={stylesHome.textMoneyIcon}
                                    source={require("../../../../assets/arrow-up.png")}/>
                         </View>
                         <RoundedButton text={"Add debtor"} onPressFromInterface={() => setDebtorModalToggle(true)}/>
@@ -156,7 +156,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                             onBackdropPress={() => setDebtorModalToggle(false)}
                             animationIn={"fadeInUp"}
                             animationOut={"fadeOut"}
-                            style={{position: "absolute", marginTop: hp("34%")}}
+                            style={stylesHome.modalAddContainer}
                             backdropTransitionOutTiming={1}
                             animationOutTiming={1}
                             isVisible={debtorModalToggle}>
@@ -196,7 +196,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                         data={debtors}
                         removeClippedSubviews={true}
                         fadingEdgeLength={80}
-                        style={{marginTop: hp("1.4%")}}
+                        style={{marginTop: hp("1.4%"), marginBottom: hp("4%")}}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={debtorRenderItem}
                         ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>No more debtors</Text>}
@@ -204,7 +204,6 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                 </View>
                 <Toast/>
             </ImageBackground>
-        </SafeAreaView>
     )
 }
 

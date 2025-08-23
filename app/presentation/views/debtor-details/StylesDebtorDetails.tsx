@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet} from "react-native";
+import {Dimensions, Platform, StyleSheet} from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {AppColors} from "../../theme/AppTheme";
 import {white} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
@@ -49,7 +49,7 @@ const stylesDebtorDetails = StyleSheet.create({
 
     addDebtIcon: {
         width: wp("8%"),
-        marginTop: wp("1.2%"),
+        marginTop: Platform.OS === "ios" ? wp("1.2%") : wp("1%"),
         height: wp("8%"),
         tintColor: AppColors.white,
     },
@@ -57,7 +57,7 @@ const stylesDebtorDetails = StyleSheet.create({
     modalMoreInfoDate: {
         marginTop: wp("4%"),
         color: AppColors.white,
-        fontSize: wp("5%"),
+        fontSize: wp("3.9%"),
         fontFamily: "zen_kaku_medium",
     },
 
@@ -65,7 +65,7 @@ const stylesDebtorDetails = StyleSheet.create({
         color: AppColors.white,
         fontSize: wp("4.2%"),
         height: "auto",
-        lineHeight: 17,
+        lineHeight: hp("3%"),
         fontFamily: "zen_kaku_regular",
         textAlign: "justify",
         paddingHorizontal: wp("8%"),
@@ -77,6 +77,12 @@ const stylesDebtorDetails = StyleSheet.create({
         width: "100%",
         paddingHorizontal: wp("5%"),
         gap: 20,
+    },
+
+    modalAddContainer: {
+        alignItems:"center",
+        position:"absolute",
+        marginTop: Platform.OS === "ios" ? hp("30%") : hp("23%")
     }
 
 })

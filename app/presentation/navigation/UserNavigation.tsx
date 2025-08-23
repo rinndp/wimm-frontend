@@ -7,63 +7,78 @@ import {StyleSheet} from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {useTheme} from "react-native-paper";
 import {CreditorScreen} from "../views/creditors/CreditorScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 export const UserNavigation = () => {
-
-    const theme = useTheme();
-    theme.colors.secondaryContainer = "transperent"
-
     return (
         <Tab.Navigator
-            shifting={true}
-            activeColor="white"
-            barStyle={{
-                backgroundColor: AppColors.darkGreen,
-                height: wp("18%"),
-                borderColor: AppColors.green,
-                zIndex: 50,
-                borderRadius: wp("5%"),
-                margin:wp("3%"),
-                overflow: "hidden",
+            screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: true,
+                tabBarActiveTintColor: "white",
+                tabBarInactiveTintColor: "lightgray",
+                tabBarStyle: {
+                    backgroundColor: AppColors.darkGreen,
+                    height: wp("17%"),
+                    marginBottom: wp("11%"),
+                    borderColor: AppColors.green,
+                    borderTopColor: AppColors.green,
+                    position: "absolute",
+                    borderRadius: wp("5%"),
+                    marginHorizontal: wp("3%"),
+                    elevation: 5,  // sombra Android
+                },
             }}
-
         >
             <Tab.Screen
                 name="Debtors"
                 component={DebtorScreen}
                 options={{
-                    tabBarLabel: 'Debtors',
-                    tabBarColor: '#004d40', //
-                    tabBarIcon: ({ color }: any) => (
-                        <Image source={require('../../../assets/arrow-up.png')}
-                               style={stylesTabBarItems.item}/>
+                    tabBarLabel: "Debtors",
+                    tabBarLabelStyle: {...stylesTabBarItems.itemLabel},
+                    tabBarInactiveTintColor: AppColors.green,
+                    tabBarActiveTintColor: AppColors.white,
+                    tabBarIcon: ({ color }) => (
+                        <Image
+                            source={require("../../../assets/arrow-up.png")}
+                            style={stylesTabBarItems.item}
+                        />
                     ),
                 }}
             />
+
             <Tab.Screen
                 name="Creditors"
                 component={CreditorScreen}
                 options={{
-                    tabBarLabel: 'Creditors',
-                    tabBarColor: '#004d40',
-                    tabBarIcon: ({ color }: any) => (
-                        <Image source={require('../../../assets/arrow-down.png')}
-                               style={stylesTabBarItems.item}/>
+                    tabBarLabel: "Creditors",
+                    tabBarInactiveTintColor: AppColors.green,
+                    tabBarActiveTintColor: AppColors.white,
+                    tabBarLabelStyle: {...stylesTabBarItems.itemLabel},
+                    tabBarIcon: ({ color }) => (
+                        <Image
+                            source={require("../../../assets/arrow-down.png")}
+                            style={stylesTabBarItems.item}
+                        />
                     ),
                 }}
             />
         </Tab.Navigator>
-    )
-}
+    );
+};
 
 export const stylesTabBarItems = StyleSheet.create({
     item: {
+        position:"absolute",
+        top: hp("1.4%"),
         width: wp("7.3%"),
         height: wp("7.3%"),
         resizeMode: "contain",
-        paddingHorizontal: wp("5%"),
-
+    },
+    itemLabel: {
+        position:"absolute",
+        top:hp("5%"),
     }
-})
+});
