@@ -222,7 +222,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                         fadingEdgeLength={80}
                         style={{marginTop: hp("3%")}}
                         keyExtractor={(item, index) => index.toString()}
-                        ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("15%")}}>No more debts</Text>}
+                        ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("24%")}}>No more debts</Text>}
                         renderItem={debtRenderItem}
                     />
                 </View>

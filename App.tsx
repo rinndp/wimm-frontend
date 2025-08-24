@@ -1,21 +1,18 @@
-import {Login} from "./app/presentation/views/auth/Login";
 import {NavigationContainer} from "@react-navigation/native";
 import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
 import {useFonts} from "expo-font";
-import {DebtorScreen} from "./app/presentation/views/debtors/DebtorScreen";
-import {AuthProvider} from "./app/presentation/views/auth/AuthProvider";
 import {DebtorDetailsScreen} from "./app/presentation/views/debtor-details/DebtorDetails";
 import {Debtor} from "./app/domain/entities/Debtor";
-import {TabView} from "react-native-tab-view";
 import TabViewLoginRegister from "./app/presentation/views/auth/TabViewLoginRegister";
 import {UserNavigation} from "./app/presentation/navigation/UserNavigation";
-import {PaperProvider} from "react-native-paper";
-import {DefaultTheme} from "./app/presentation/theme/AppTheme";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import {Creditor} from "./app/domain/entities/Creditor";
 import {CreditorDetailsScreen} from "./app/presentation/views/creditors-details/CreditorDetails";
-
+import {UseUserLocalStorage} from "./app/presentation/hooks/UseUserLocalStorage";
+import {useEffect} from "react";
+import { Asset } from "expo-asset";
+import * as SplashScreen from "expo-splash-screen";
 
 
 export type RootStackParamsList = {
@@ -37,6 +34,19 @@ export default function App() {
         "zen_kaku_black": require("./assets/fonts/zen_kaku_gothic_antique_black.ttf"),
     });
 
+    const {
+        user
+    } = UseUserLocalStorage()
+
+    SplashScreen.preventAutoHideAsync();
+
+    useEffect(() => {
+        const prepare = async () => {
+            await Asset.fromModule(require("./assets/background.jpg")).downloadAsync();
+            await SplashScreen.hideAsync();
+        };
+        prepare();
+    }, []);
 
     // useEffect(() => {
     //     GoogleSignin.configure({
@@ -49,15 +59,12 @@ export default function App() {
     return (
         <SafeAreaProvider>
           <NavigationContainer>
-            <Stack.Navigator screenOptions={{
+            <Stack.Navigator
+                initialRouteName={user && user.slug ? "UserNavigation" : "TabViewLoginRegister"}
+                screenOptions={{
                 headerShown: false,
-                // Animaciones integradas disponibles:
-                // CardStyleInterpolators.forHorizontalIOS (slide iOS)
-                // CardStyleInterpolators.forVerticalIOS (modal iOS)
-                // CardStyleInterpolators.forFadeFromBottomAndroid
-                // CardStyleInterpolators.forScaleFromCenterAndroid
                 cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-                gestureEnabled: true, // permite swipe para volver en iOS
+                gestureEnabled: true,
             }}>
               <Stack.Screen name="TabViewLoginRegister" component={TabViewLoginRegister}/>
               <Stack.Screen name="UserNavigation" component={UserNavigation}/>

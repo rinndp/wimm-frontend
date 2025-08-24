@@ -56,7 +56,7 @@ const stylesHome = StyleSheet.create({
         height: "auto",
         alignSelf: "center",
         alignItems: "center",
-        gap: hp("5%"),
+        gap: hp("3%"),
     },
 
     modalTitle: {
@@ -146,9 +146,9 @@ const stylesHome = StyleSheet.create({
 
     helpText: {
         color: AppColors.white,
-        fontSize: wp("3.3%"),
+        fontSize: Platform.OS === "ios" ? wp("3%") : wp("3.3%"),
         fontFamily: "zen_kaku_medium",
-        top: Platform.OS === "ios" ? hp("9.7%") : hp("8.68%"),
+        top: Platform.OS === "ios" ? hp("7.9%") : hp("6.77%"),
         start: Platform.OS === "ios" ? wp("23%") : wp("18%"),
         position: "absolute",
     },

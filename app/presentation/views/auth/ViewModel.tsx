@@ -54,6 +54,7 @@ export const loginViewModel = () => {
             const response = await loginUseCase(loginValues as LoginUserInterface)
             await saveUserUserUseCase(response as LoggedUserInterface)
             await getUserSession()
+            return loginValues as LoginUserInterface
         }
     }
 

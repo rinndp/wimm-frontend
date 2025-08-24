@@ -44,11 +44,6 @@ export const creditorDetailsViewModel = () => {
             }
         })
         await loadCredits(creditor.id)
-        Toast.show({
-            "type": "success",
-            "text1": response.message,
-            "position": "bottom"
-        })
     }
 
     const loadTotalCredit =  () => {
@@ -63,11 +58,6 @@ export const creditorDetailsViewModel = () => {
         if (validateAddCreditForm()) {
             const response = await addCreditUseCase(credit)
             await loadCredits(creditor.id)
-            Toast.show({
-                "type": "success",
-                "text1": response.message,
-                "position": "bottom"
-            })
         }
     }
 

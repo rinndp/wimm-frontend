@@ -40,11 +40,6 @@ export const debtorDetailsViewModel = () => {
             }
         })
         await loadDebts(debtor.id)
-        Toast.show({
-            "type": "success",
-            "text1": response.message,
-            "position": "bottom"
-        })
     }
 
     const loadTotalDebt =  () => {
@@ -59,11 +54,6 @@ export const debtorDetailsViewModel = () => {
         if (validateAddDebtForm()) {
             const response = await addDebtUseCase(debt)
             await loadDebts(debtor.id)
-            Toast.show({
-                "type": "success",
-                "text1": response.message,
-                "position": "bottom"
-            })
         }
     }
 

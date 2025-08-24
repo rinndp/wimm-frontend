@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
     formInput: {
         width: wp("30%"),
-        height:hp("4%"),
+        height:hp("4.3%"),
         fontSize: wp("3.6%"),
         borderColor: AppColors.white,
         backgroundColor: 'white',

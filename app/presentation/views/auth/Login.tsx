@@ -35,12 +35,6 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
         }
     }, [errorMessage]);
 
-    useEffect(() => {
-        if (user && user?.slug) {
-            navigation.replace("UserNavigation")
-        }
-    })
-
     return (
         <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>
         <View style={stylesLogin.container}>
@@ -62,7 +56,11 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
 
                         <View style={stylesLogin.buttonContainer}>
                             <RoundedButton text={"Sign in"}
-                                           onPressFromInterface={() => login()}/>
+                                           onPressFromInterface={async () => {
+                                               const user = await login()
+                                               if (user)
+                                                navigation.replace("UserNavigation")
+                                           }}/>
                         </View>
                         {/*<View style={stylesLogin.buttonContainer}>*/}
                         {/*    <RoundedButton text={"Google"}*/}

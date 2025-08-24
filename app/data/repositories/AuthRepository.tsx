@@ -18,7 +18,6 @@ export class AuthRepository implements AuthRepositoryInterface {
                 Toast.show({
                     'type': 'error',
                     'text1': e.response.data.error,
-                    'position': 'bottom'
                 })
             } else {
                 console.log("Unknown error:", e);
@@ -37,7 +36,6 @@ export class AuthRepository implements AuthRepositoryInterface {
                 Toast.show({
                     'type': 'error',
                     'text1': e.response.data.error,
-                    'position': 'bottom'
                 })
             } else {
                 console.log("Unknown error:", e);

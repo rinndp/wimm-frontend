@@ -19,6 +19,9 @@ import {registerViewModel} from "./ViewModel";
 import stylesHome from "../debtors/StylesHome";
 import stylesLogin from "./StylesLogin";
 import {heightPercentageToDP as hp} from "react-native-responsive-screen";
+import {useNavigation} from "@react-navigation/native";
+import {PropsStackNavigation} from "../../interfaces/StackNav";
+import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
 
 const renderScene = SceneMap({
     login: Login,
@@ -37,7 +40,7 @@ const renderTabBar = (props: any) => (
     </SafeAreaView>
 );
 
-export default function TabViewLoginRegister({}) {
+export default function TabViewLoginRegister() {
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
