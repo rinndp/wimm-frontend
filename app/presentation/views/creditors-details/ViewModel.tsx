@@ -12,6 +12,7 @@ import {deleteCreditUseCase} from "../../../domain/use-cases/creditor-details/De
 import {AddCreditDTO, Credit} from "../../../domain/entities/Credit";
 import {loadCreditsUseCase} from "../../../domain/use-cases/creditor-details/LoadCredits";
 import {addCreditUseCase} from "../../../domain/use-cases/creditor-details/AddCredit";
+import {Asset} from "expo-asset";
 
 type CreditorDetailsRouteProp = RouteProp<RootStackParamsList, "CreditorDetails">;
 
@@ -33,6 +34,10 @@ export const creditorDetailsViewModel = () => {
         const response = await loadCreditsUseCase(creditorId)
         console.log(response);
         setCredits(response);
+        loadTotalCredit(response)
+        await Asset.fromModule(require("../../../../assets/details-icon.png")).downloadAsync();
+        await Asset.fromModule(require("../../../../assets/delete-debtor-icon.png")).downloadAsync();
+        await Asset.fromModule(require("../../../../assets/add-icon.png")).downloadAsync();
         setShowLoading(false);
     }
 
@@ -46,7 +51,7 @@ export const creditorDetailsViewModel = () => {
         await loadCredits(creditor.id)
     }
 
-    const loadTotalCredit =  () => {
+    const loadTotalCredit = (credits: Credit[]) => {
         let sumTotalCredit = 0
         credits.forEach(credit => {
             sumTotalCredit += credit.credit

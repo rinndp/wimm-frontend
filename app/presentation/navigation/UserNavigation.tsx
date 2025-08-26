@@ -8,10 +8,16 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 import {useTheme} from "react-native-paper";
 import {CreditorScreen} from "../views/creditors/CreditorScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {useEffect} from "react";
+import {Asset} from "expo-asset";
 
 const Tab = createBottomTabNavigator();
 
 export const UserNavigation = () => {
+
+    useEffect(() => {
+        Asset.fromModule(require("../../../assets/background.jpg")).downloadAsync();
+    }, []);
     return (
         <Tab.Navigator
             screenOptions={{

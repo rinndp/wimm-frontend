@@ -23,10 +23,11 @@ export const creditorScreenViewModel = () => {
     const loadCreditors = async (userSlug: string) => {
         const response = await loadCreditorsUseCase(userSlug)
         setCreditors(response)
+        loadTotalCredit(response)
         setShowLoading(false)
     }
 
-    const loadTotalCredit =  () => {
+    const loadTotalCredit =  (creditors: Creditor[]) => {
         let sumTotalCredit = 0
         creditors.forEach(creditor => {
             sumTotalCredit += creditor.credit
@@ -100,6 +101,7 @@ export const creditorScreenViewModel = () => {
         deleteCreditor,
         validateAddCreditorForm,
         resetForm,
-        showLoading
+        showLoading,
+        setShowLoading
     }
 }

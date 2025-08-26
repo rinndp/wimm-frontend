@@ -22,10 +22,11 @@ export const debtorScreenViewModel = () => {
     const loadDebtors = async (userSlug: string) => {
         const response = await loadDebtorsUseCase(userSlug)
         setDebtors(response)
+        loadTotalDebt(response)
         setShowLoading(false)
     }
 
-    const loadTotalDebt =  () => {
+    const loadTotalDebt =  (debtors: Debtor[]) => {
         let sumTotalDebt = 0
         debtors.forEach(debtor => {
             sumTotalDebt += debtor.debt

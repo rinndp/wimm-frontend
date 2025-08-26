@@ -41,6 +41,9 @@
     },
     "updates": {
       "url": "https://u.expo.dev/0bb11259-2f14-428c-8a66-c4af8e472b7f"
+    },
+    "experiments": {
+      "useNextStorageDirectory": false
     }
   }
 }

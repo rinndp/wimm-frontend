@@ -50,7 +50,8 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
         deleteCreditor,
         validateAddCreditorForm,
         resetForm,
-        showLoading
+        showLoading,
+        setShowLoading
     } = creditorScreenViewModel()
 
     const {
@@ -76,12 +77,6 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
         resetForm()
     }, [creditorModalToggle]);
 
-    useFocusEffect(
-        useCallback(() => {
-            loadTotalCredit()
-        }, [creditors])
-    );
-
     const creditorRenderItem = useCallback(({ item }: { item: Creditor }) => (
         <TouchableOpacity onPress={() => navigation.navigate("CreditorDetails", {creditor : item})}>
             <View style={stylesDebtorCard.card}>
@@ -99,33 +94,30 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                     </TouchableOpacity>
                 </View>
             </View>
-            {selectedCreditorId === item.id && (
-                <Modal
-                    onBackdropPress={() => setSelectedCreditorId(null)}
-                    animationIn={"fadeInUp"}
-                    animationOut={"fadeOut"}
-                    style={{position: "absolute", marginTop: hp("40%")}}
-                    backdropTransitionOutTiming={1}
-                    animationOutTiming={1}
-                    isVisible={true}>
-                    <View style={stylesHome.modalCard}>
-                        <Text style={stylesHome.deleteDebtorModalTitle}>Has {item.name} paid you?</Text>
-                        <View style={stylesHome.modalButtonsContainer}>
-                            <TouchableOpacity onPress={() => setSelectedCreditorId(null)} style={{flexGrow: 1}}>
-                                <Text style={stylesHome.modalButtonText}>No</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{flexGrow: 0}}
-                                onPress={() =>
-                                    deleteCreditor(item.id)
-                                        .then(r =>  setSelectedCreditorId(null))}
-                            >
-                                <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
-                            </TouchableOpacity>
-                        </View>
+            <Modal
+                onBackdropPress={() => setSelectedCreditorId(null)}
+                animationIn={"zoomIn"}
+                animationOut={"zoomOut"}
+                style={{position: "absolute", marginTop: hp("40%")}}
+                backdropTransitionOutTiming={1}
+                isVisible={selectedCreditorId === item.id}>
+                <View style={stylesHome.modalCard}>
+                    <Text style={stylesHome.deleteDebtorModalTitle}>Has {item.name} paid you?</Text>
+                    <View style={stylesHome.modalButtonsContainer}>
+                        <TouchableOpacity onPress={() => setSelectedCreditorId(null)} style={{flexGrow: 1}}>
+                            <Text style={stylesHome.modalButtonText}>No</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{flexGrow: 0}}
+                            onPress={() =>
+                                deleteCreditor(item.id)
+                                    .then(r =>  setSelectedCreditorId(null))}
+                        >
+                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
+                        </TouchableOpacity>
                     </View>
-                </Modal>
-            )}
+                </View>
+            </Modal>
         </TouchableOpacity>
     ), [deleteCreditor])
 
@@ -133,79 +125,85 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
                 style={{width:Dimensions.get("window").width, height:"100%"}}>
-                <View style={stylesHome.loadingIconContainer}>
-                    <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
-                </View>
-                <TouchableOpacity style={stylesHome.logOutContainer}
-                                  onPress={() => deleteUserSession()
-                                      .then(() => navigation.replace("TabViewLoginRegister"))}>
-                    <Text style ={stylesHome.logOutText}>Log out</Text>
-                    <Image source={require("../../../../assets/log-out-icon.png")}
-                           style={stylesHome.logOutIcon}/>
-                </TouchableOpacity>
-                <View style={stylesHome.container}>
-                    <View style={stylesHome.headerContainer}>
-                        <Image
-                            source={require("../../../../assets/wimm-icon.png")}
-                            style={stylesHome.logoHome}/>
-                        <Text style={stylesHome.textHome}>Wimm</Text>
-                        <View style={stylesHome.textMoneyContainer}>
-                            <Text style={{...stylesHome.textMoneyDebtors, color: AppColors.darkRed}}>{totalCredit.toFixed(2)}€</Text>
-                            <Image style={stylesHome.textMoneyIcon}
-                                source={require("../../../../assets/arrow-down.png")}/>
-                        </View>
-                        <RoundedButton text={"Add creditor"} onPressFromInterface={() => setCreditorModalToggle(true)}/>
-                        <Modal
-                            onBackdropPress={() => setCreditorModalToggle(false)}
-                            animationIn={"fadeInUp"}
-                            animationOut={"fadeOut"}
-                            style={stylesHome.modalAddContainer}
-                            backdropTransitionOutTiming={1}
-                            animationOutTiming={1}
-                            isVisible={creditorModalToggle}>
-                            <View style={stylesHome.modalCard}>
-                                <Text style={stylesHome.modalTitle}>Add creditor</Text>
-                                <CustomTextInput label={"Name"}
-                                                 keyboardType={"default"}
-                                                 secureTextEntry={false}
-                                                 maxLength={40}
-                                                 onChangeText={(text) => setAddCreditorName(text)}/>
-                                <Text style={stylesHome.helpText}>{addCreditorName.length}/40</Text>
-                                {errorMessage !== "" && (
-                                    <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
-                                )}
-                                <View style={stylesHome.modalButtonsContainer}>
-                                    <TouchableOpacity onPress={() => setCreditorModalToggle(false)} style={{flexGrow: 1}}>
-                                        <Text style={stylesHome.modalButtonText}>Cancel</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={{flexGrow: 0}}
-                                        onPress={() =>
-                                            addCreditor(
-                                                transformDataIntoAddCreditorDTO(
-                                                    capitalizeFirstLetter(addCreditorName), user?.slug ? user?.slug : ""))
-                                                .then(() => {
-                                                    if (validateAddCreditorForm()) {
-                                                        setCreditorModalToggle(false);
-                                                    }})}
-                                    >
-                                        <Text style={stylesHome.modalButtonText}>Accept</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </Modal>
+                {showLoading ? (
+                <>
+                    <View style={stylesHome.loadingIconContainer}>
+                        <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                     </View>
-                    <FlatList
-                        data={creditors}
-                        removeClippedSubviews={true}
-                        fadingEdgeLength={80}
-                        style={{marginTop: hp("1.4%")}}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={creditorRenderItem}
-                        ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>No more creditors</Text>}
-                        extraData={creditors}/>
-                </View>
-                <Toast/>
+                </>
+                ):(
+                <>
+                    <TouchableOpacity style={stylesHome.logOutContainer}
+                                      onPress={() => deleteUserSession()
+                                          .then(() => navigation.replace("TabViewLoginRegister"))}>
+                        <Text style ={stylesHome.logOutText}>Log out</Text>
+                        <Image source={require("../../../../assets/log-out-icon.png")}
+                               style={stylesHome.logOutIcon}/>
+                    </TouchableOpacity>
+                    <View style={stylesHome.container}>
+                        <View style={stylesHome.headerContainer}>
+                            <Image
+                                source={require("../../../../assets/wimm-icon.png")}
+                                style={stylesHome.logoHome}/>
+                            <Text style={stylesHome.textHome}>Wimm</Text>
+                            <View style={stylesHome.textMoneyContainer}>
+                                <Text style={{...stylesHome.textMoneyDebtors, color: AppColors.darkRed}}>{totalCredit.toFixed(2)}€</Text>
+                                <Image style={stylesHome.textMoneyIcon}
+                                       source={require("../../../../assets/arrow-down.png")}/>
+                            </View>
+                            <RoundedButton text={"Add creditor"} onPressFromInterface={() => setCreditorModalToggle(true)}/>
+                            <Modal
+                                onBackdropPress={() => setCreditorModalToggle(false)}
+                                animationIn={"zoomIn"}
+                                animationOut={"zoomOut"}
+                                style={stylesHome.modalAddContainer}
+                                backdropTransitionOutTiming={1}
+                                isVisible={creditorModalToggle}>
+                                <View style={stylesHome.modalCard}>
+                                    <Text style={stylesHome.modalTitle}>Add creditor</Text>
+                                    <CustomTextInput label={"Name"}
+                                                     keyboardType={"default"}
+                                                     secureTextEntry={false}
+                                                     maxLength={40}
+                                                     onChangeText={(text) => setAddCreditorName(text)}/>
+                                    <Text style={stylesHome.helpText}>{addCreditorName.length}/40</Text>
+                                    {errorMessage !== "" && (
+                                        <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
+                                    )}
+                                    <View style={stylesHome.modalButtonsContainer}>
+                                        <TouchableOpacity onPress={() => setCreditorModalToggle(false)} style={{flexGrow: 1}}>
+                                            <Text style={stylesHome.modalButtonText}>Cancel</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={{flexGrow: 0}}
+                                            onPress={() =>
+                                                addCreditor(
+                                                    transformDataIntoAddCreditorDTO(
+                                                        capitalizeFirstLetter(addCreditorName), user?.slug ? user?.slug : ""))
+                                                    .then(() => {
+                                                        if (validateAddCreditorForm()) {
+                                                            setCreditorModalToggle(false);
+                                                        }})}
+                                        >
+                                            <Text style={stylesHome.modalButtonText}>Accept</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </Modal>
+                        </View>
+                        <FlatList
+                            data={creditors}
+                            removeClippedSubviews={true}
+                            fadingEdgeLength={80}
+                            style={{marginTop: hp("1.4%"), marginBottom: hp("4%")}}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={creditorRenderItem}
+                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>No more creditors</Text>}
+                            extraData={creditors}/>
+                    </View>
+                    <Toast/>
+                </>
+                )}
             </ImageBackground>
     )
 }

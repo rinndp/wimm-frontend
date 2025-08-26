@@ -7,7 +7,7 @@ export const AppColors = {
     lightSoftGreen: "#e8f6e7",
     neonGreen: "#4ff50d",
     neonRed: "#f54646",
-    darkRed: "#8d0b0b",
+    darkRed: "#bd1313",
 }
 
 export const DefaultTheme = {

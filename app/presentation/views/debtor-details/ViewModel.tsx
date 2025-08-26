@@ -8,6 +8,7 @@ import {RootStackParamsList} from "../../../../App";
 import {debtorScreenViewModel} from "../debtors/ViewModel";
 import {AuthContext} from "../auth/AuthProvider";
 import {addDebtUseCase} from "../../../domain/use-cases/debtor-details/AddDebt";
+import {Asset} from "expo-asset";
 
 type DebtorDetailsRouteProp = RouteProp<RootStackParamsList, "DebtorDetails">;
 
@@ -29,6 +30,10 @@ export const debtorDetailsViewModel = () => {
         const response = await loadDebtsUseCase(debtorId);
         console.log(response);
         setDebts(response);
+        loadTotalDebt(response)
+        await Asset.fromModule(require("../../../../assets/details-icon.png")).downloadAsync();
+        await Asset.fromModule(require("../../../../assets/delete-debtor-icon.png")).downloadAsync();
+        await Asset.fromModule(require("../../../../assets/add-icon.png")).downloadAsync();
         setShowLoading(false);
     }
 
@@ -42,7 +47,7 @@ export const debtorDetailsViewModel = () => {
         await loadDebts(debtor.id)
     }
 
-    const loadTotalDebt =  () => {
+    const loadTotalDebt =  (debts: Debt[]) => {
         let sumTotalDebt = 0
         debts.forEach(debt => {
             sumTotalDebt += debt.debt

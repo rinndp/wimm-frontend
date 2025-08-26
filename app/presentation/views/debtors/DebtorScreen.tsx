@@ -73,12 +73,6 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
         resetForm()
     }, [debtorModalToggle]);
 
-    useFocusEffect(
-        useCallback(() => {
-            loadTotalDebt()
-        }, [debtors])
-    );
-
     const debtorRenderItem = useCallback(({ item }: { item: Debtor }) => (
         <TouchableOpacity onPress={() => navigation.navigate("DebtorDetails", {debtor : item})}>
             <View style={stylesDebtorCard.card}>
@@ -96,15 +90,13 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                         </TouchableOpacity>
                     </View>
             </View>
-            {selectedDebtorId === item.id && (
             <Modal
                 onBackdropPress={() => setSelectedDebtorId(null)}
-                animationIn={"fadeInUp"}
-                animationOut={"fadeOut"}
+                animationIn={"zoomIn"}
+                animationOut={"zoomOut"}
                 style={{position: "absolute", marginTop: hp("40%")}}
                 backdropTransitionOutTiming={1}
-                animationOutTiming={1}
-                isVisible={true}>
+                isVisible={selectedDebtorId === item.id}>
                 <View style={stylesHome.modalCard}>
                     <Text style={stylesHome.deleteDebtorModalTitle}>Has {item.name} paid you?</Text>
                     <View style={stylesHome.modalButtonsContainer}>
@@ -122,7 +114,6 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                     </View>
                 </View>
             </Modal>
-        )}
         </TouchableOpacity>
     ), [deleteDebtor])
 
@@ -154,11 +145,10 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                         <RoundedButton text={"Add debtor"} onPressFromInterface={() => setDebtorModalToggle(true)}/>
                         <Modal
                             onBackdropPress={() => setDebtorModalToggle(false)}
-                            animationIn={"fadeInUp"}
-                            animationOut={"fadeOut"}
+                            animationIn={"zoomIn"}
+                            animationOut={"zoomOut"}
                             style={stylesHome.modalAddContainer}
                             backdropTransitionOutTiming={1}
-                            animationOutTiming={1}
                             isVisible={debtorModalToggle}>
                             <View style={stylesHome.modalCard}>
                                 <Text style={stylesHome.modalTitle}>Add debtor</Text>

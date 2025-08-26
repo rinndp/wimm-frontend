@@ -8,6 +8,7 @@ import {useNavigation} from "@react-navigation/native";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {registerUseCase} from "../../../domain/use-cases/auth/RegisterUseCase";
 import Toast from "react-native-toast-message";
+import {Asset} from "expo-asset";
 
 export const loginViewModel = () => {
     const [loginValues, setLoginValues] = useState({

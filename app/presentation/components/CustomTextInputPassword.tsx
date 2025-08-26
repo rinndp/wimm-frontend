@@ -7,8 +7,9 @@ interface Props {
     label: string,
     keyboardType:KeyboardType;
     onChangeText:(text:string)=>void;
+    value?:string
 }
-export const CustomTextInputPassword = ({label, keyboardType,onChangeText}:Props) => {
+export const CustomTextInputPassword = ({label, value, keyboardType,onChangeText}:Props) => {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [iconPassword, setIconPassword] = useState("closed-eye");
 
@@ -30,6 +31,7 @@ export const CustomTextInputPassword = ({label, keyboardType,onChangeText}:Props
                            keyboardType={keyboardType}
                            secureTextEntry={secureTextEntry}
                            onChangeText={(text) => onChangeText(text)}
+                           value={value}
                 ></TextInput>
                 <TouchableOpacity onPress={togglePassword} style={styles.iconPasswordToggle}>
                     <Image source={iconPassword === "closed-eye"

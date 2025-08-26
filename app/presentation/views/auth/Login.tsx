@@ -46,13 +46,14 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
                     </View>
                     <View style={stylesLogin.formContainer}>
                         <CustomTextInput label={"Email"}
-                                         keyboardType={"default"}
+                                         keyboardType={"email-address"}
                                          secureTextEntry={false}
                                          onChangeText={(text) => onChangeLogin("email", text)}/>
 
                         <CustomTextInputPassword label={"Password"}
                                                  keyboardType={"default"}
-                                                 onChangeText={(text) => onChangeLogin("password", text)}/>
+                                                 onChangeText={(text) => onChangeLogin("password", text)}
+                                                 value={loginValues.password}/>
 
                         <View style={stylesLogin.buttonContainer}>
                             <RoundedButton text={"Sign in"}

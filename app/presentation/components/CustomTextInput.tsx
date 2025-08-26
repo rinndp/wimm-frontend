@@ -1,5 +1,14 @@
 import React from "react";
-import {Image, KeyboardType, StyleSheet, Text, TextInput, View} from "react-native";
+import {
+    Image,
+    KeyboardType,
+    NativeSyntheticEvent,
+    StyleSheet,
+    Text,
+    TextInput,
+    TextInputEndEditingEventData, TextInputProps,
+    View
+} from "react-native";
 import {AppColors} from "../theme/AppTheme";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
@@ -11,12 +20,15 @@ interface Props {
     maxLength?:number;
 }
 export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeText, maxLength}:Props) => {
+
     return (
         <View>
             <Text style={styles.formInputLabel}>{label}</Text>
             <TextInput style={{...styles.formInput, width: keyboardType === "number-pad" ? 100 : 300 }}
                        keyboardType={keyboardType}
                        secureTextEntry={secureTextEntry}
+                       textContentType={"username"}
+                       onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
                        onChangeText={(text) => onChangeText(text)}
                        maxLength={maxLength}
             ></TextInput>
