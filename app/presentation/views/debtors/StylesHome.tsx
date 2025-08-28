@@ -149,7 +149,7 @@ const stylesHome = StyleSheet.create({
         fontSize: Platform.OS === "ios" ? wp("3%") : wp("3.3%"),
         fontFamily: "zen_kaku_medium",
         top: Platform.OS === "ios" ? hp("7.9%") : hp("6.77%"),
-        start: Platform.OS === "ios" ? wp("23%") : wp("18%"),
+        start: Platform.OS === "ios" ? wp("27%") : wp("22%"),
         position: "absolute",
     },
 

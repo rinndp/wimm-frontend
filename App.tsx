@@ -13,6 +13,7 @@ import {UseUserLocalStorage} from "./app/presentation/hooks/UseUserLocalStorage"
 import {useEffect} from "react";
 import { Asset } from "expo-asset";
 import * as SplashScreen from "expo-splash-screen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export type RootStackParamsList = {
@@ -35,17 +36,19 @@ export default function App() {
     });
 
     const {
-        user
+        user,
+        setLanguageApp,
     } = UseUserLocalStorage()
 
     SplashScreen.preventAutoHideAsync();
 
     useEffect(() => {
-        const prepare = async () => {
-            await Asset.fromModule(require("./assets/background.jpg")).downloadAsync();
-            await SplashScreen.hideAsync();
-        };
-        prepare();
+        setLanguageApp()
+        Asset.fromModule(require("./assets/background.jpg")).downloadAsync();
+        Asset.fromModule(require("./assets/suo-flag.png")).downloadAsync();
+        Asset.fromModule(require("./assets/es-flag.png")).downloadAsync();
+        Asset.fromModule(require("./assets/en-flag.png")).downloadAsync();
+        SplashScreen.hideAsync();
     }, []);
 
     // useEffect(() => {

@@ -9,9 +9,12 @@ import {useEffect} from "react";
 import Toast from "react-native-toast-message";
 import {registerViewModel} from "./ViewModel";
 import {LoginUserInterface} from "../../../domain/entities/User";
+import {useTranslation} from "react-i18next";
 
 
 export function Register () {
+
+    const {t} = useTranslation();
     const {
         errorMessage,
         setErrorMessage,
@@ -33,24 +36,24 @@ export function Register () {
     return (
         <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>
                 <View style={{...stylesLogin.container}}>
-                    <Text style={stylesLogin.registerTitle}>Create your account</Text>
+                    <Text style={stylesLogin.registerTitle}>{t("create your account")}</Text>
                     <View style={{...stylesLogin.formContainer, marginTop: hp("5%"),}}>
-                        <CustomTextInput label={"Email"}
+                        <CustomTextInput label={t("email")}
                                          keyboardType={"default"}
                                          secureTextEntry={false}
                                          onChangeText={(text) => onChangeRegister("email", text)}/>
 
-                        <CustomTextInputPassword label={"Password"}
+                        <CustomTextInputPassword label={t("password")}
                                                  keyboardType={"default"}
                                                  onChangeText={(text) => onChangeRegister("password", text)}/>
-                        <Text style={stylesLogin.helpText}>Password must have at least 8 characters long</Text>
+                        <Text style={stylesLogin.helpText}>{t("password must have at least 8 characters long")}</Text>
 
-                        <CustomTextInputPassword label={"Confirm password"}
+                        <CustomTextInputPassword label={t("confirm password")}
                                                  keyboardType={"default"}
                                                  onChangeText={(text) => onChangeRegister("password2", text)}/>
 
                         <View style={stylesLogin.buttonContainer}>
-                            <RoundedButton text={"Sign up"}
+                            <RoundedButton text={t("sign up")}
                                            onPressFromInterface={() =>
                                                register(
                                                    transformValuesIntoUserDTO(

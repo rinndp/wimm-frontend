@@ -10,10 +10,13 @@ import {CreditorScreen} from "../views/creditors/CreditorScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {useEffect} from "react";
 import {Asset} from "expo-asset";
+import {useTranslation} from "react-i18next";
 
 const Tab = createBottomTabNavigator();
 
 export const UserNavigation = () => {
+
+    const {t} = useTranslation();
 
     useEffect(() => {
         Asset.fromModule(require("../../../assets/background.jpg")).downloadAsync();
@@ -42,7 +45,7 @@ export const UserNavigation = () => {
                 name="Debtors"
                 component={DebtorScreen}
                 options={{
-                    tabBarLabel: "Debtors",
+                    tabBarLabel: t("debtors"),
                     tabBarLabelStyle: {...stylesTabBarItems.itemLabel},
                     tabBarInactiveTintColor: AppColors.green,
                     tabBarActiveTintColor: AppColors.white,
@@ -59,7 +62,7 @@ export const UserNavigation = () => {
                 name="Creditors"
                 component={CreditorScreen}
                 options={{
-                    tabBarLabel: "Creditors",
+                    tabBarLabel: t("creditors"),
                     tabBarInactiveTintColor: AppColors.green,
                     tabBarActiveTintColor: AppColors.white,
                     tabBarLabelStyle: {...stylesTabBarItems.itemLabel},

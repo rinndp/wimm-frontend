@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import stylesHome from "./StylesHome";
 import {RoundedButton} from "../../components/RoundedButton";
-import {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {debtorScreenViewModel} from "./ViewModel";
 import {Debtor} from "../../../domain/entities/Debtor";
@@ -29,10 +29,14 @@ import {PropsStackNavigation} from "../../interfaces/StackNav";
 import stylesDebtorCard from "./StylesDebtorCard";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
 import {stylesTabBarItems} from "../../navigation/UserNavigation";
+import {useTranslation} from "react-i18next";
+import stylesTabBar from "../auth/StylesTabBar";
+import {LanguageSelect} from "../../components/LanguageSelect";
 
 
 export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
 
+    const {t} = useTranslation()
     const {
         loadDebtors,
         debtors,
@@ -98,10 +102,10 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                 backdropTransitionOutTiming={1}
                 isVisible={selectedDebtorId === item.id}>
                 <View style={stylesHome.modalCard}>
-                    <Text style={stylesHome.deleteDebtorModalTitle}>Has {item.name} paid you?</Text>
+                    <Text style={stylesHome.deleteDebtorModalTitle}>{t("has")}{item.name} {t("paid you")}?</Text>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedDebtorId(null)} style={{flexGrow: 1}}>
-                            <Text style={stylesHome.modalButtonText}>No</Text>
+                            <Text style={stylesHome.modalButtonText}>{t("no")}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{flexGrow: 0}}
@@ -109,7 +113,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                                 deleteDebtor(item.id)
                                     .then(r =>  setSelectedDebtorId(null))}
                         >
-                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
+                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>{t("yes")} 💸</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -121,78 +125,88 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
             <ImageBackground
                 source={require("../../../../assets/background.jpg")}
                 style={{width:Dimensions.get("window").width, height:"100%"}}>
-                <View style={stylesHome.loadingIconContainer}>
-                    <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
-                </View>
-                <TouchableOpacity style={stylesHome.logOutContainer}
-                        onPress={() => deleteUserSession()
-                        .then(() => navigation.replace("TabViewLoginRegister"))}>
-                    <Text style ={stylesHome.logOutText}>Log out</Text>
-                    <Image source={require("../../../../assets/log-out-icon.png")}
-                            style={stylesHome.logOutIcon}/>
-                </TouchableOpacity>
-                <View style={stylesHome.container}>
-                    <View style={stylesHome.headerContainer}>
-                        <Image
-                            source={require("../../../../assets/wimm-icon.png")}
-                            style={stylesHome.logoHome}/>
-                        <Text style={stylesHome.textHome}>Wimm</Text>
-                        <View style={stylesHome.textMoneyContainer}>
-                            <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}€</Text>
-                            <Image style={stylesHome.textMoneyIcon}
-                                   source={require("../../../../assets/arrow-up.png")}/>
-                        </View>
-                        <RoundedButton text={"Add debtor"} onPressFromInterface={() => setDebtorModalToggle(true)}/>
-                        <Modal
-                            onBackdropPress={() => setDebtorModalToggle(false)}
-                            animationIn={"zoomIn"}
-                            animationOut={"zoomOut"}
-                            style={stylesHome.modalAddContainer}
-                            backdropTransitionOutTiming={1}
-                            isVisible={debtorModalToggle}>
-                            <View style={stylesHome.modalCard}>
-                                <Text style={stylesHome.modalTitle}>Add debtor</Text>
-                                <CustomTextInput label={"Name"}
-                                                 keyboardType={"default"}
-                                                 secureTextEntry={false}
-                                                 maxLength={40}
-                                                 onChangeText={(text) => setAddDebtorName(text)}/>
-                                <Text style={stylesHome.helpText}>{addDebtorName.length}/40</Text>
-                                {errorMessage !== "" && (
-                                    <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
-                                )}
-                                <View style={stylesHome.modalButtonsContainer}>
-                                    <TouchableOpacity onPress={() => setDebtorModalToggle(false)} style={{flexGrow: 1}}>
-                                        <Text style={stylesHome.modalButtonText}>Cancel</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={{flexGrow: 0}}
-                                        onPress={() =>
-                                            addDebtor(
-                                                transformDataIntoAddDebtorDTO(
-                                                    capitalizeFirstLetter(addDebtorName), user?.slug ? user?.slug : ""))
-                                                .then(() => {
-                                                    if (validateAddDebtorForm()) {
-                                                        setDebtorModalToggle(false);
-                                        }})}
-                                    >
-                                        <Text style={stylesHome.modalButtonText}>Accept</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </Modal>
+                {showLoading ? (
+                <>
+                    <View style={stylesHome.loadingIconContainer}>
+                        <ActivityIndicator style={stylesHome.loading} size="large" color="#ffffff" animating={showLoading}/>
                     </View>
-                    <FlatList
-                        data={debtors}
-                        removeClippedSubviews={true}
-                        fadingEdgeLength={80}
-                        style={{marginTop: hp("1.4%"), marginBottom: hp("4%")}}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={debtorRenderItem}
-                        ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>No more debtors</Text>}
-                        extraData={debtors}/>
-                </View>
-                <Toast/>
+                </>
+                ):(
+                <>
+                    <TouchableOpacity style={stylesHome.logOutContainer}
+                            onPress={() => deleteUserSession()
+                            .then(() => navigation.replace("TabViewLoginRegister"))}>
+                        <Text style ={stylesHome.logOutText}>{t("log out")}</Text>
+                        <Image source={require("../../../../assets/log-out-icon.png")}
+                                style={stylesHome.logOutIcon}/>
+                    </TouchableOpacity>
+                    <View style={stylesTabBar.languageSelectContainer}>
+                        <LanguageSelect/>
+                    </View>
+                    <View style={stylesHome.container}>
+                        <View style={stylesHome.headerContainer}>
+                            <Image
+                                source={require("../../../../assets/wimm-icon.png")}
+                                style={stylesHome.logoHome}/>
+                            <Text style={stylesHome.textHome}>Wimm</Text>
+                            <View style={stylesHome.textMoneyContainer}>
+                                <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}€</Text>
+                                <Image style={stylesHome.textMoneyIcon}
+                                       source={require("../../../../assets/arrow-up.png")}/>
+                            </View>
+                            <RoundedButton text={t("add debtor")} onPressFromInterface={() => setDebtorModalToggle(true)}/>
+                            <Modal
+                                onBackdropPress={() => setDebtorModalToggle(false)}
+                                animationIn={"zoomIn"}
+                                animationOut={"zoomOut"}
+                                style={stylesHome.modalAddContainer}
+                                backdropTransitionOutTiming={1}
+                                isVisible={debtorModalToggle}>
+                                <View style={stylesHome.modalCard}>
+                                    <Text style={stylesHome.modalTitle}>{t("add debtor")}</Text>
+                                    <CustomTextInput label={t("name")}
+                                                     keyboardType={"default"}
+                                                     secureTextEntry={false}
+                                                     maxLength={40}
+                                                     onChangeText={(text) => setAddDebtorName(text)}/>
+                                    <Text style={stylesHome.helpText}>{addDebtorName.length}/40</Text>
+                                    {errorMessage !== "" && (
+                                        <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
+                                    )}
+                                    <View style={stylesHome.modalButtonsContainer}>
+                                        <TouchableOpacity onPress={() => setDebtorModalToggle(false)} style={{flexGrow: 1}}>
+                                            <Text style={stylesHome.modalButtonText}>{t("cancel")}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={{flexGrow: 0}}
+                                            onPress={() =>
+                                                addDebtor(
+                                                    transformDataIntoAddDebtorDTO(
+                                                        capitalizeFirstLetter(addDebtorName), user?.slug ? user?.slug : ""))
+                                                    .then(() => {
+                                                        if (validateAddDebtorForm()) {
+                                                            setDebtorModalToggle(false);
+                                            }})}
+                                        >
+                                            <Text style={stylesHome.modalButtonText}>{t("accept")}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </Modal>
+                        </View>
+                        <FlatList
+                            data={debtors}
+                            removeClippedSubviews={true}
+                            fadingEdgeLength={80}
+                            style={{marginTop: hp("1.4%"), marginBottom: hp("4%")}}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={debtorRenderItem}
+                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>{t("no more debtors")}</Text>}
+                            extraData={debtors}/>
+                    </View>
+                    <Toast/>
+                </>
+                )}
             </ImageBackground>
     )
 }

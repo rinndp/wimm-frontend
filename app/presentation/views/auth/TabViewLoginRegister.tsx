@@ -13,15 +13,17 @@ import {
 } from "react-native";
 import stylesTabBar from "./StylesTabBar";
 import {AppColors} from "../../theme/AppTheme";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Register} from "./Register";
 import {registerViewModel} from "./ViewModel";
 import stylesHome from "../debtors/StylesHome";
 import stylesLogin from "./StylesLogin";
 import {heightPercentageToDP as hp} from "react-native-responsive-screen";
-import {useNavigation} from "@react-navigation/native";
-import {PropsStackNavigation} from "../../interfaces/StackNav";
-import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
+import DropDownPicker from "react-native-dropdown-picker";
+import {LanguageSelect} from "../../components/LanguageSelect";
+import {useTranslation} from "react-i18next";
+import {styles} from "react-native-toast-message/lib/src/components/BaseToast.styles";
+
 
 const renderScene = SceneMap({
     login: Login,
@@ -30,11 +32,14 @@ const renderScene = SceneMap({
 
 const renderTabBar = (props: any) => (
     <SafeAreaView style={{backgroundColor: AppColors.darkGreen, zIndex: 1}}>
-            <TabBar
-                {...props}
-                indicatorStyle={{ backgroundColor: AppColors.white }}
-                style={stylesTabBar.tabLabels}
-            />
+        <TabBar
+            {...props}
+            indicatorStyle={{ backgroundColor: AppColors.white }}
+            style={stylesTabBar.tabLabels}
+        />
+        <View style={stylesTabBar.languageSelectContainer}>
+            <LanguageSelect/>
+        </View>
         <Text style={{...stylesLogin.footerText, top: hp("86.5%"),}}>Developed by <Text style={stylesLogin.footerTextRinndp}>rinndp</Text></Text>
         <Text style={stylesLogin.footerText}>Copyright © 2025 All rights reserved</Text>
     </SafeAreaView>
@@ -42,11 +47,21 @@ const renderTabBar = (props: any) => (
 
 export default function TabViewLoginRegister() {
     const layout = useWindowDimensions();
+    const [open, setOpen] = useState(false);
+    const {t} = useTranslation()
+
     const [index, setIndex] = React.useState(0);
-    const [routes] = React.useState([
-        { key: 'login', title: 'Sign in' },
-        { key: 'register', title: 'Sign up' },
+    let [routes, setRoutes] = React.useState([
+        { key: 'login', title: t("sign in")},
+        { key: 'register', title: t("sign up")},
     ]);
+
+    useEffect(() => {
+        setRoutes([
+            { key: 'login', title: t("sign in")},
+            { key: 'register', title: t("sign up")},
+        ]);
+    }, [t]);
 
     const {userCreated} = registerViewModel()
 

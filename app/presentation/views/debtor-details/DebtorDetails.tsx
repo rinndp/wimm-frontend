@@ -25,12 +25,15 @@ import {CustomTextInput} from "../../components/CustomTextInput";
 import stylesDebtCard from "./StylesDebtCard";
 import {creditorDetailsViewModel} from "../creditors-details/ViewModel";
 import {formatDate} from "../../utils/format-date";
+import {useTranslation} from "react-i18next";
 
 type DebtorDetailsRouteProp = RouteProp<RootStackParamsList, "DebtorDetails">;
 
 export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNavigation) {
     const route = useRoute<DebtorDetailsRouteProp>()
     const {debtor} = route.params
+
+    const {t} = useTranslation()
 
     const [selectedRemoveDebtId, setSelectedRemoveDebtId] = useState<number | null>(null);
     const [selectedMoreInfoDebtId, setSelectedMoreInfoDebtId] = useState<number | null>(null);
@@ -83,11 +86,11 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                 backdropTransitionOutTiming={1}
                 isVisible={selectedRemoveDebtId === item.id}>
                 <View style={stylesHome.modalCard}>
-                    <Text style={stylesHome.deleteDebtorModalTitle}>Has {debtor.name} paid you?</Text>
+                    <Text style={stylesHome.deleteDebtorModalTitle}>{t("has")}{debtor.name} {t("paid you")}?</Text>
                     <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.debt.toFixed(2)}€</Text>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedRemoveDebtId(null)} style={{flexGrow: 1}}>
-                            <Text style={stylesHome.modalButtonText}>No</Text>
+                            <Text style={stylesHome.modalButtonText}>{t("no")}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{flexGrow: 0}}
@@ -95,7 +98,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                 deleteDebt(item.id)
                                     .then(r => setSelectedRemoveDebtId(null))}
                         >
-                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
+                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>{t("yes")} 💸</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -115,7 +118,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                     </View>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedMoreInfoDebtId(null)} style={{flexGrow: 1}}>
-                            <Text style={stylesHome.modalButtonText}>Go back</Text>
+                            <Text style={stylesHome.modalButtonText}>{t("go back")}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{flexGrow: 0}}
@@ -123,7 +126,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                 deleteDebt(item.id)
                                     .then(r => setSelectedMoreInfoDebtId(null))}
                         >
-                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Paid 💸</Text>
+                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>{t("paid")} 💸</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -150,7 +153,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                     <View style={stylesDebtorDetails.container}>
                         <View style={stylesDebtorDetails.header}>
                             <Text style={stylesDebtorDetails.detailsDebtorName}>{debtor.name} 👋</Text>
-                            <Text style={stylesHome.textHome}>Where is my money?</Text>
+                            <Text style={stylesHome.textHome}>{t("where is my money")}?</Text>
                             <View style={stylesDebtorDetails.debtContainer}>
                                 <Text style={stylesDebtorDetails.detailsDebtorDebt}>{totalDebt.toFixed(2)}€</Text>
                                 <TouchableOpacity
@@ -169,8 +172,8 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                 isVisible={addDebtModalToggle}>
                                 <View style={stylesHome.modalCard}>
                                     <View style={{alignItems: "flex-start", gap: 20,}}>
-                                        <Text style={stylesHome.modalTitle}>Add debt</Text>
-                                        <CustomTextInput label={"Description"}
+                                        <Text style={stylesHome.modalTitle}>{t("add debt")}</Text>
+                                        <CustomTextInput label={t("Description")}
                                                          keyboardType={"default"}
                                                          secureTextEntry={false}
                                                          onChangeText={(text) => onChangeAddDebtForm("description", text)}/>
@@ -178,7 +181,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                             <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDesc}</Text>
                                         )}
                                         <View style={{flexDirection: "row", alignItems:"center"}}>
-                                            <CustomTextInput label={"Debt"}
+                                            <CustomTextInput label={t("debt")}
                                                              keyboardType={"number-pad"}
                                                              secureTextEntry={false}
                                                              onChangeText={(text) => onChangeAddDebtForm("debt", text)}/>
@@ -190,7 +193,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                     </View>
                                     <View style={stylesHome.modalButtonsContainer}>
                                         <TouchableOpacity onPress={() => setAddDebtModalToggle(false)} style={{flexGrow: 1}}>
-                                            <Text style={stylesHome.modalButtonText}>Cancel</Text>
+                                            <Text style={stylesHome.modalButtonText}>{t("cancel")}</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                             style={{flexGrow: 0}}
@@ -201,7 +204,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                                             setAddDebtModalToggle(false)
                                                         }})}
                                         >
-                                            <Text style={stylesHome.modalButtonText}>Accept</Text>
+                                            <Text style={stylesHome.modalButtonText}>{t("accept")}</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -214,7 +217,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                             fadingEdgeLength={80}
                             style={{marginTop: hp("3%")}}
                             keyExtractor={(item, index) => index.toString()}
-                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("24%")}}>No more debts</Text>}
+                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("24%")}}>{t("no more debts")}</Text>}
                             renderItem={debtRenderItem}
                         />
                     </View>

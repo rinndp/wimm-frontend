@@ -19,4 +19,15 @@ export class UserLocalRepository implements UserLocalRepositoryInterface {
         await save("wimm_user", JSON.stringify(user))
     }
 
+    async saveLanguage(lang: string): Promise<void> {
+        const {save} = LocalStorage();
+        await save("wimm_language", JSON.stringify(lang))
+    }
+
+    async getLanguage(): Promise<string> {
+        const {getItem} = LocalStorage();
+        const data = await getItem("wimm_language")
+        return JSON.parse(data as any) as string;
+    }
+
 }

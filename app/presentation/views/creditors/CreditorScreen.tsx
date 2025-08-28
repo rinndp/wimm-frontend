@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import stylesHome from "../debtors/StylesHome";
 import {RoundedButton} from "../../components/RoundedButton";
-import {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {debtorScreenViewModel} from "../debtors/ViewModel";
 import {Debtor} from "../../../domain/entities/Debtor";
@@ -32,8 +32,13 @@ import {creditorScreenViewModel} from "./ViewModel";
 import {Creditor} from "../../../domain/entities/Creditor";
 import {IconButton} from "react-native-paper";
 import {stylesTabBarItems} from "../../navigation/UserNavigation";
+import {useTranslation} from "react-i18next";
+import stylesTabBar from "../auth/StylesTabBar";
+import {LanguageSelect} from "../../components/LanguageSelect";
 
 export function CreditorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
+
+    const {t} = useTranslation();
 
     const {
         creditors,
@@ -102,10 +107,10 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                 backdropTransitionOutTiming={1}
                 isVisible={selectedCreditorId === item.id}>
                 <View style={stylesHome.modalCard}>
-                    <Text style={stylesHome.deleteDebtorModalTitle}>Has {item.name} paid you?</Text>
+                    <Text style={stylesHome.deleteDebtorModalTitle}>{t("has")}{item.name} {t("paid you")}?</Text>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedCreditorId(null)} style={{flexGrow: 1}}>
-                            <Text style={stylesHome.modalButtonText}>No</Text>
+                            <Text style={stylesHome.modalButtonText}>{t("no")}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{flexGrow: 0}}
@@ -113,7 +118,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                                 deleteCreditor(item.id)
                                     .then(r =>  setSelectedCreditorId(null))}
                         >
-                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>Yes 💸</Text>
+                            <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>{t("yes")} 💸</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -136,10 +141,13 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                     <TouchableOpacity style={stylesHome.logOutContainer}
                                       onPress={() => deleteUserSession()
                                           .then(() => navigation.replace("TabViewLoginRegister"))}>
-                        <Text style ={stylesHome.logOutText}>Log out</Text>
+                        <Text style ={stylesHome.logOutText}>{t("log out")}</Text>
                         <Image source={require("../../../../assets/log-out-icon.png")}
                                style={stylesHome.logOutIcon}/>
                     </TouchableOpacity>
+                    <View style={stylesTabBar.languageSelectContainer}>
+                        <LanguageSelect/>
+                    </View>
                     <View style={stylesHome.container}>
                         <View style={stylesHome.headerContainer}>
                             <Image
@@ -151,7 +159,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                                 <Image style={stylesHome.textMoneyIcon}
                                        source={require("../../../../assets/arrow-down.png")}/>
                             </View>
-                            <RoundedButton text={"Add creditor"} onPressFromInterface={() => setCreditorModalToggle(true)}/>
+                            <RoundedButton text={t("add creditor")} onPressFromInterface={() => setCreditorModalToggle(true)}/>
                             <Modal
                                 onBackdropPress={() => setCreditorModalToggle(false)}
                                 animationIn={"zoomIn"}
@@ -160,8 +168,8 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                                 backdropTransitionOutTiming={1}
                                 isVisible={creditorModalToggle}>
                                 <View style={stylesHome.modalCard}>
-                                    <Text style={stylesHome.modalTitle}>Add creditor</Text>
-                                    <CustomTextInput label={"Name"}
+                                    <Text style={stylesHome.modalTitle}>{t("add creditor")}</Text>
+                                    <CustomTextInput label={t("name")}
                                                      keyboardType={"default"}
                                                      secureTextEntry={false}
                                                      maxLength={40}
@@ -172,7 +180,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                                     )}
                                     <View style={stylesHome.modalButtonsContainer}>
                                         <TouchableOpacity onPress={() => setCreditorModalToggle(false)} style={{flexGrow: 1}}>
-                                            <Text style={stylesHome.modalButtonText}>Cancel</Text>
+                                            <Text style={stylesHome.modalButtonText}>{t("cancel")}</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                             style={{flexGrow: 0}}
@@ -185,7 +193,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                                                             setCreditorModalToggle(false);
                                                         }})}
                                         >
-                                            <Text style={stylesHome.modalButtonText}>Accept</Text>
+                                            <Text style={stylesHome.modalButtonText}>{t("accept")}</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -198,7 +206,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                             style={{marginTop: hp("1.4%"), marginBottom: hp("4%")}}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={creditorRenderItem}
-                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>No more creditors</Text>}
+                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>{t("no more creditors")}</Text>}
                             extraData={creditors}/>
                     </View>
                     <Toast/>
