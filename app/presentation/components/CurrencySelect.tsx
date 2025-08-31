@@ -9,18 +9,30 @@ import {saveLanguageUseCase} from "../../domain/use-cases/local-user/SaveLanguag
 import {getLanguageUseCase} from "../../domain/use-cases/local-user/GetLanguageUseCase";
 import {UseUserLocalStorage} from "../hooks/UseUserLocalStorage";
 import {LocalStorage} from "../../data/source/local/LocalStorage";
+import {saveCurrencyUseCase} from "../../domain/use-cases/local-user/SaveCurrency";
+import {stylesLanguageSelect} from "./LanguageSelect";
 
 
-export const LanguageSelect = () => {
+export const CurrencySelect = () => {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState<string | null>("ola");
     const {
-        getLanguageApp,
-        language} = UseUserLocalStorage()
+        getCurrencyApp,
+        currency} = UseUserLocalStorage()
     const [items, setItems] = useState([
         {
-            label: "EN",
-            value: "en",
+            label: "€",
+            value: "€",
+            icon: () => (
+                <Image
+                    source={require("../../../assets/eu-flag.png")}
+                    style={stylesLanguageSelect.icon}
+                />
+            ),
+        },
+        {
+            label: "$",
+            value: "$",
             icon: () => (
                 <Image
                     source={require("../../../assets/en-flag.png")}
@@ -29,21 +41,21 @@ export const LanguageSelect = () => {
             ),
         },
         {
-            label: "ES",
-            value: "es",
+            label: "£",
+            value: "£",
             icon: () => (
                 <Image
-                    source={require("../../../assets/es-flag.png")}
+                    source={require("../../../assets/uk-flag.png")}
                     style={stylesLanguageSelect.icon}
                 />
             ),
         },
         {
-            label: "SUO",
-            value: "suo",
+            label: "¥",
+            value: "¥",
             icon: () => (
                 <Image
-                    source={require("../../../assets/suo-flag.png")}
+                    source={require("../../../assets/japan-flag.png")}
                     style={stylesLanguageSelect.icon}
                 />
             ),
@@ -54,14 +66,11 @@ export const LanguageSelect = () => {
         <DropDownPicker
             setValue={(callback) => {
                 const newValue = typeof callback === "function" ? callback(value) : callback;
-                saveLanguageUseCase(newValue);
-                getLanguageApp();
-                console.log("newValue:", newValue);
-                if (newValue) {
-                    i18n.changeLanguage(newValue);
-                }
+                saveCurrencyUseCase(newValue);
+                getCurrencyApp();
+                console.log("newCurrency:", newValue);
             }}
-            value={language}
+            value={currency}
             items={items}
             setItems={setItems}
             open={open}
@@ -75,35 +84,3 @@ export const LanguageSelect = () => {
             setOpen={setOpen}/>
     )
 }
-
-export const stylesLanguageSelect = StyleSheet.create({
-    icon: {
-        width: wp("5%"),
-        height: wp("5%"),
-        resizeMode: "contain",
-    },
-
-    dropDownPicker: {
-        backgroundColor: AppColors.darkGreen,
-        color: AppColors.white,
-        borderColor: AppColors.gray,
-        width: wp("26%"),
-        height: wp("3%"),
-    },
-
-    searchContainerStyle: {
-        height: hp("13.5%"),
-        backgroundColor: AppColors.darkGreen,
-        borderColor: AppColors.gray,
-        zIndex: 999,
-    },
-
-    labelStyle: {
-        color: AppColors.white,
-        fontSize: wp("3%"),
-    },
-
-    arrowStyle: {
-        tintColor: AppColors.white,
-    } as ImageStyle,
-})

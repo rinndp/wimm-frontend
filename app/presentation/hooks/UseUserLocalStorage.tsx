@@ -5,15 +5,18 @@ import {getUserUseCase} from "../../domain/use-cases/local-user/GetUserUseCase";
 import {removeUserUseCase} from "../../domain/use-cases/local-user/RemoveUserUseCase";
 import {getLanguageUseCase} from "../../domain/use-cases/local-user/GetLanguageUseCase";
 import {saveLanguageUseCase} from "../../domain/use-cases/local-user/SaveLanguageUseCase";
+import {getCurrencyUseCase} from "../../domain/use-cases/local-user/GetCurrency";
 
 
 export const UseUserLocalStorage = () => {
     const [user, setUser] = useState<LoggedUserInterface>();
     const [language, setLanguage] = useState<string>("en")
+    const [currency, setCurrency] = useState<string>("€")
 
     useEffect(() => {
         getUserSession();
-        setLanguageApp()
+        getLanguageApp()
+        getCurrencyApp()
     }, [])
 
     const getUserSession = async () => {
@@ -21,9 +24,14 @@ export const UseUserLocalStorage = () => {
         setUser(user)
     }
 
-    const setLanguageApp = async () => {
+    const getLanguageApp = async () => {
         const lan = await getLanguageUseCase()
         setLanguage(lan)
+    }
+
+    const getCurrencyApp = async () => {
+        const currency = await getCurrencyUseCase()
+        setCurrency(currency)
     }
 
     const deleteUserSession = async () => {
@@ -34,8 +42,10 @@ export const UseUserLocalStorage = () => {
         user,
         getUserSession,
         deleteUserSession,
-        setLanguageApp,
+        getLanguageApp,
         language,
+        getCurrencyApp,
+        currency
     }
 
 }

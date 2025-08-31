@@ -105,30 +105,6 @@ const stylesHome = StyleSheet.create({
         paddingBottom: hp("1.5%"),
     },
 
-    logOutContainer: {
-        position: "absolute",
-        top: 0,
-        marginHorizontal: wp("5%"),
-        marginTop: wp("13%"),
-        start: 0,
-        alignItems: "center",
-        gap: 10,
-    },
-
-    logOutText: {
-        fontFamily: "zen_kaku_bold",
-        fontSize: hp("1.5%"),
-        color: AppColors.neonRed,
-        height: 20,
-
-    },
-
-    logOutIcon: {
-        width: wp("4%"),
-        height: wp("4%"),
-        tintColor: AppColors.neonRed,
-    },
-
     loadingIconContainer: {
         position: "absolute",
         left: 0,
@@ -156,6 +132,12 @@ const stylesHome = StyleSheet.create({
     modalAddContainer: {
         position: "absolute",
         marginTop: Platform.OS === "ios" ? hp("34%") : hp("28%"),
+    },
+
+    settingsIconContainer: {
+        position: "absolute",
+        top: hp("5%"),
+        start: hp("40%")
     }
 })
 

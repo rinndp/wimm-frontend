@@ -1,4 +1,6 @@
 {
+  "currency": "Moneda",
+  "language": "Idioma",
   "where is my money": "¿Dónde está mi dinero",
   "here is your money": "Aquí está tu dinero",
   "log out": "Cerrar sesión",

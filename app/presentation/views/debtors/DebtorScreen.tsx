@@ -56,7 +56,9 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
 
     const {
         user,
-        deleteUserSession
+        deleteUserSession,
+        currency,
+        getCurrencyApp
     } = UseUserLocalStorage();
 
     const [debtorModalToggle, setDebtorModalToggle] = useState(false);
@@ -69,6 +71,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
             if (user?.slug !== undefined) {
                 console.log(user?.slug)
                 loadDebtors(user?.slug);
+                getCurrencyApp()
             }
         }, [user?.slug])
     );
@@ -82,7 +85,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
             <View style={stylesDebtorCard.card}>
                     <View>
                         <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
-                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt ? item.debt.toFixed(2) : 0.00.toFixed(2)}€</Text>
+                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt ? item.debt.toFixed(2) : 0.00.toFixed(2)}{currency}</Text>
                     </View>
                     <View style={{flexGrow: 1}}>
                         <TouchableOpacity
@@ -133,16 +136,12 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                 </>
                 ):(
                 <>
-                    <TouchableOpacity style={stylesHome.logOutContainer}
-                            onPress={() => deleteUserSession()
-                            .then(() => navigation.replace("TabViewLoginRegister"))}>
-                        <Text style ={stylesHome.logOutText}>{t("log out")}</Text>
-                        <Image source={require("../../../../assets/log-out-icon.png")}
-                                style={stylesHome.logOutIcon}/>
+                    <TouchableOpacity style={stylesHome.settingsIconContainer} onPress={() => navigation.navigate("SettingScreen")}>
+                        <Image
+                            style={{...stylesTabBarItems.item, tintColor: AppColors.white,}}
+                            source={require("../../../../assets/settings-icon.png")}
+                        />
                     </TouchableOpacity>
-                    <View style={stylesTabBar.languageSelectContainer}>
-                        <LanguageSelect/>
-                    </View>
                     <View style={stylesHome.container}>
                         <View style={stylesHome.headerContainer}>
                             <Image
@@ -150,7 +149,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                                 style={stylesHome.logoHome}/>
                             <Text style={stylesHome.textHome}>Wimm</Text>
                             <View style={stylesHome.textMoneyContainer}>
-                                <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}€</Text>
+                                <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}{currency}</Text>
                                 <Image style={stylesHome.textMoneyIcon}
                                        source={require("../../../../assets/arrow-up.png")}/>
                             </View>

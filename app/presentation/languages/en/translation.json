@@ -1,4 +1,6 @@
 {
+  "currency": "Currency",
+  "language": "Language",
   "where is my money": "Where is my money",
   "here is your money": "Here is your money",
   "log out": "Log out",

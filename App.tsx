@@ -14,6 +14,7 @@ import {useEffect} from "react";
 import { Asset } from "expo-asset";
 import * as SplashScreen from "expo-splash-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {SettingScreen} from "./app/presentation/views/settings/SettingScreen";
 
 
 export type RootStackParamsList = {
@@ -21,6 +22,7 @@ export type RootStackParamsList = {
     UserNavigation: undefined
     DebtorDetails: {debtor: Debtor}
     CreditorDetails: {creditor: Creditor}
+    SettingScreen: undefined
 }
 
 
@@ -37,18 +39,17 @@ export default function App() {
 
     const {
         user,
-        setLanguageApp,
+        getLanguageApp,
+        getCurrencyApp
     } = UseUserLocalStorage()
 
-    SplashScreen.preventAutoHideAsync();
-
     useEffect(() => {
-        setLanguageApp()
+        getLanguageApp()
+        getCurrencyApp()
         Asset.fromModule(require("./assets/background.jpg")).downloadAsync();
         Asset.fromModule(require("./assets/suo-flag.png")).downloadAsync();
         Asset.fromModule(require("./assets/es-flag.png")).downloadAsync();
         Asset.fromModule(require("./assets/en-flag.png")).downloadAsync();
-        SplashScreen.hideAsync();
     }, []);
 
     // useEffect(() => {
@@ -73,6 +74,7 @@ export default function App() {
               <Stack.Screen name="UserNavigation" component={UserNavigation}/>
               <Stack.Screen name="DebtorDetails" component={DebtorDetailsScreen}/>
               <Stack.Screen name="CreditorDetails" component={CreditorDetailsScreen}/>
+              <Stack.Screen name="SettingScreen" component={SettingScreen}/>
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>

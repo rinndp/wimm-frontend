@@ -24,9 +24,20 @@ export class UserLocalRepository implements UserLocalRepositoryInterface {
         await save("wimm_language", JSON.stringify(lang))
     }
 
+    async saveCurrency(lang: string): Promise<void> {
+        const {save} = LocalStorage();
+        await save("wimm_currency", JSON.stringify(lang))
+    }
+
     async getLanguage(): Promise<string> {
         const {getItem} = LocalStorage();
         const data = await getItem("wimm_language")
+        return JSON.parse(data as any) as string;
+    }
+
+    async getCurrency(): Promise<string> {
+        const {getItem} = LocalStorage();
+        const data = await getItem("wimm_currency")
         return JSON.parse(data as any) as string;
     }
 

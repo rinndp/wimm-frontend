@@ -4,7 +4,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-nativ
 const stylesTabBar = StyleSheet.create({
     tabLabels: {
         backgroundColor: "rgba(215, 20, 20, 0)",
-        width: wp("54%"),
+        width: wp("60%"),
         alignSelf: "center",
         marginEnd: wp("30%"),
         paddingTop: Platform.OS === "ios" ? hp("1%") : hp("3%"),

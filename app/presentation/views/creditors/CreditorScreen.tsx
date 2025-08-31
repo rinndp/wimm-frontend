@@ -61,7 +61,9 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
 
     const {
         user,
-        deleteUserSession
+        deleteUserSession,
+        currency,
+        getCurrencyApp
     } = UseUserLocalStorage();
 
     const [creditorModalToggle, setCreditorModalToggle] = useState(false);
@@ -74,6 +76,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
             if (user?.slug !== undefined) {
                 console.log(user?.slug)
                 loadCreditors(user?.slug);
+                getCurrencyApp()
             }
         }, [user?.slug])
     );
@@ -87,7 +90,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
             <View style={stylesDebtorCard.card}>
                 <View>
                     <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
-                    <Text style={stylesDebtorCard.debtorDebt}>{item.credit ? item.credit.toFixed(2) : 0.00.toFixed(2)}€</Text>
+                    <Text style={stylesDebtorCard.debtorDebt}>{item.credit ? item.credit.toFixed(2) : 0.00.toFixed(2)}{currency}</Text>
                 </View>
                 <View style={{flexGrow: 1}}>
                     <TouchableOpacity
@@ -138,16 +141,12 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                 </>
                 ):(
                 <>
-                    <TouchableOpacity style={stylesHome.logOutContainer}
-                                      onPress={() => deleteUserSession()
-                                          .then(() => navigation.replace("TabViewLoginRegister"))}>
-                        <Text style ={stylesHome.logOutText}>{t("log out")}</Text>
-                        <Image source={require("../../../../assets/log-out-icon.png")}
-                               style={stylesHome.logOutIcon}/>
+                    <TouchableOpacity style={stylesHome.settingsIconContainer} onPress={() => navigation.navigate("SettingScreen")}>
+                        <Image
+                            style={{...stylesTabBarItems.item, tintColor: AppColors.white,}}
+                            source={require("../../../../assets/settings-icon.png")}
+                        />
                     </TouchableOpacity>
-                    <View style={stylesTabBar.languageSelectContainer}>
-                        <LanguageSelect/>
-                    </View>
                     <View style={stylesHome.container}>
                         <View style={stylesHome.headerContainer}>
                             <Image
@@ -155,7 +154,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                                 style={stylesHome.logoHome}/>
                             <Text style={stylesHome.textHome}>Wimm</Text>
                             <View style={stylesHome.textMoneyContainer}>
-                                <Text style={{...stylesHome.textMoneyDebtors, color: AppColors.darkRed}}>{totalCredit.toFixed(2)}€</Text>
+                                <Text style={{...stylesHome.textMoneyDebtors, color: AppColors.darkRed}}>{totalCredit.toFixed(2)}{currency}</Text>
                                 <Image style={stylesHome.textMoneyIcon}
                                        source={require("../../../../assets/arrow-down.png")}/>
                             </View>
