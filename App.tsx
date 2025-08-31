@@ -43,9 +43,12 @@ export default function App() {
         getCurrencyApp
     } = UseUserLocalStorage()
 
+    SplashScreen.preventAutoHideAsync();
+
     useEffect(() => {
         getLanguageApp()
         getCurrencyApp()
+        SplashScreen.hideAsync();
         Asset.fromModule(require("./assets/background.jpg")).downloadAsync();
         Asset.fromModule(require("./assets/suo-flag.png")).downloadAsync();
         Asset.fromModule(require("./assets/es-flag.png")).downloadAsync();
