@@ -88,9 +88,6 @@ export const creditorDetailsViewModel = () => {
         } if (addCreditValues.credit < 0) {
             setErrorMessageCredit("Invalid field. It must be greater than 0")
             return false;
-        } if (isNaN(addCreditValues.credit)) {
-            setErrorMessageCredit("Invalid format. Should be like -> 12.34")
-            return false
         }
         return true;
     }

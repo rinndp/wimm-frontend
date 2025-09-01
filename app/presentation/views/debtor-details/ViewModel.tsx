@@ -84,9 +84,6 @@ export const debtorDetailsViewModel = () => {
         } if (addDebtValues.debt < 0) {
             setErrorMessageDebt("Invalid field. It must be greater than 0")
             return false;
-        } if (isNaN(addDebtValues.debt)) {
-            setErrorMessageDebt("Invalid format. Should be like -> 12.34")
-            return false
         }
         return true;
     }

@@ -189,9 +189,9 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                         )}
                                         <View style={{flexDirection: "row", alignItems:"center"}}>
                                             <CustomTextInput label={t("debt")}
-                                                             keyboardType={"number-pad"}
+                                                             keyboardType={"numeric"}
                                                              secureTextEntry={false}
-                                                             onChangeText={(text) => onChangeAddDebtForm("debt", text)}/>
+                                                             onChangeText={(text) => onChangeAddDebtForm("debt", text.replace(",", "."))}/>
                                             <Text style={{...stylesDebtCard.debt, marginTop:hp("3%"), marginStart:wp("2%")}}>{currency}</Text>
                                         </View>
                                         {errorMessageDebt !== "" && (

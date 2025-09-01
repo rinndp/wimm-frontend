@@ -26,6 +26,7 @@
       }
     },
     "android": {
+      "debuggable": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/wimm-icon.png",
         "backgroundColor": "#0f340f"

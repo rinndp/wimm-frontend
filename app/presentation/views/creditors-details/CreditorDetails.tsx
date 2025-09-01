@@ -188,9 +188,9 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                                         )}
                                         <View style={{flexDirection: "row", gap: 10}}>
                                             <CustomTextInput label={t("credit")}
-                                                             keyboardType={"number-pad"}
+                                                             keyboardType={"numeric"}
                                                              secureTextEntry={false}
-                                                             onChangeText={(text) => onChangeAddCreditForm("credit", text)}/>
+                                                             onChangeText={(text) => onChangeAddCreditForm("credit", text.replace(",", "."))}/>
                                             <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), marginStart: 0}}>{currency}</Text>
                                         </View>
                                         {errorMessageCredit !== "" && (

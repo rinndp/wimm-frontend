@@ -27,10 +27,10 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
         //signInWithGoogle
     } = loginViewModel()
 
-    const {language, setLanguageApp} = UseUserLocalStorage()
+    const {language, getLanguageApp} = UseUserLocalStorage()
 
     useEffect(() => {
-        setLanguageApp()
+        getLanguageApp()
     }, [language]);
 
     const insets = useSafeAreaInsets();

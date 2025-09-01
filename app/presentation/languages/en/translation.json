@@ -1,4 +1,13 @@
 {
+  "Email already registered": "Email already registered",
+  "User created successfully": "User created successfully",
+  "Invalid password": "Invalid password",
+  "Email not found": "Email not found",
+  "password must be at least 8 characters long": "Password must be at least 8 characters long",
+  "email is not valid": "Email is not valid",
+  "passwords do not match": "Passwords do not match",
+  "email is required": "Email is required",
+  "password is required": "Password is required",
   "currency": "Currency",
   "language": "Language",
   "where is my money": "Where is my money",

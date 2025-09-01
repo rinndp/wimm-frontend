@@ -4,11 +4,12 @@ import {ApiDelivery} from "../source/remote/api/ApiDevlivery";
 import {AxiosError} from "axios";
 import Toast from "react-native-toast-message";
 import {ApiResponse} from "../source/remote/models/ApiResponse";
-
+import {useTranslation} from "react-i18next";
 
 
 export class AuthRepository implements AuthRepositoryInterface {
-    async login(user: LoginUserInterface): Promise<LoggedUserInterface> {
+
+    async login(user: LoginUserInterface, t: (key: string) => string): Promise<LoggedUserInterface> {
         try {
             const response = await ApiDelivery.post("/users/login", user);
             return Promise.resolve(response.data);
@@ -17,7 +18,7 @@ export class AuthRepository implements AuthRepositoryInterface {
             if (e.response?.data) {
                 Toast.show({
                     'type': 'error',
-                    'text1': e.response.data.error,
+                    'text1': t(e.response.data.error),
                 })
             } else {
                 console.log("Unknown error:", e);
@@ -26,7 +27,7 @@ export class AuthRepository implements AuthRepositoryInterface {
         }
     }
 
-    async register(user: LoginUserInterface): Promise<ApiResponse> {
+    async register(user: LoginUserInterface, t: (key: string) => string): Promise<ApiResponse> {
         try {
             const response = await ApiDelivery.post("/users/register", user);
             return Promise.resolve(response.data);
@@ -35,7 +36,7 @@ export class AuthRepository implements AuthRepositoryInterface {
             if (e.response?.data) {
                 Toast.show({
                     'type': 'error',
-                    'text1': e.response.data.error,
+                    'text1': t(e.response.data.error),
                 })
             } else {
                 console.log("Unknown error:", e);

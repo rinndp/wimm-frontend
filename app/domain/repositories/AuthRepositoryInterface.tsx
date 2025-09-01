@@ -3,6 +3,6 @@ import {ApiResponse} from "../../data/source/remote/models/ApiResponse";
 
 
 export interface AuthRepositoryInterface {
-    login: (user: LoginUserInterface) => Promise<LoggedUserInterface>
-    register: (user: LoginUserInterface) => Promise<ApiResponse>
+    login: (user: LoginUserInterface, t: (key: string) => string) => Promise<LoggedUserInterface>
+    register: (user: LoginUserInterface, t: (key: string) => string) => Promise<ApiResponse>
 }

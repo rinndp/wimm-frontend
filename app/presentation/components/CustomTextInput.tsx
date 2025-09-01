@@ -24,7 +24,7 @@ export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeTex
     return (
         <View>
             <Text style={styles.formInputLabel}>{label}</Text>
-            <TextInput style={{...styles.formInput, width: keyboardType === "number-pad" ? 100 : 300 }}
+            <TextInput style={{...styles.formInput, width: keyboardType === "numeric" ? 100 : 300 }}
                        keyboardType={keyboardType}
                        secureTextEntry={secureTextEntry}
                        textContentType={"username"}

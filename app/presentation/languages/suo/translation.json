@@ -1,4 +1,13 @@
 {
+  "Email already registered": "Sähköposti on jo rekisteröity",
+  "User created successfully": "Usuario creado con éxito",
+  "Invalid password": "Virheellinen salasana",
+  "Email not found": "Sähköpostia ei löytynyt",
+  "password must be at least 8 characters long": "Salasanan on oltava vähintään 8 merkkiä pitkä",
+  "email is not valid": "Sähköposti ei ole kelvollinen",
+  "passwords do not match": "Salasanat eivät täsmää",
+  "email is required": "Sähköposti vaaditaan",
+  "password is required": "Salasana vaaditaan",
   "currency": "Valuutta",
   "language": "Kieli",
   "where is my money": "Missä rahani ovat",

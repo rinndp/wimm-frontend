@@ -9,8 +9,13 @@ import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {registerUseCase} from "../../../domain/use-cases/auth/RegisterUseCase";
 import Toast from "react-native-toast-message";
 import {Asset} from "expo-asset";
+import {useTranslation} from "react-i18next";
+
+
 
 export const loginViewModel = () => {
+    const {t} = useTranslation();
+
     const [loginValues, setLoginValues] = useState({
         email: '',
         password: ''
@@ -41,10 +46,10 @@ export const loginViewModel = () => {
 
     const validateForm = () => {
         if (loginValues.email == "") {
-            setErrorMessage("Email is required")
+            setErrorMessage(t("email is required"))
             return false
         } if (loginValues.password == "") {
-            setErrorMessage("Password is required")
+            setErrorMessage(t("password is required"))
             return false
         }
         return true
@@ -52,7 +57,7 @@ export const loginViewModel = () => {
 
     const login = async () => {
         if (validateForm()) {
-            const response = await loginUseCase(loginValues as LoginUserInterface)
+            const response = await loginUseCase(loginValues as LoginUserInterface, t)
             await saveUserUserUseCase(response as LoggedUserInterface)
             await getUserSession()
             return loginValues as LoginUserInterface
@@ -71,6 +76,8 @@ export const loginViewModel = () => {
 }
 
 export const registerViewModel = () => {
+    const {t} = useTranslation();
+
     const [errorMessage, setErrorMessage] = useState<string>("")
     const [registerValues, setRegisterValues] = useState({
         email: "",
@@ -88,30 +95,30 @@ export const registerViewModel = () => {
 
     const register = async (user: LoginUserInterface) => {
         if (validateForm()) {
-            const response = await registerUseCase(user)
+            const response = await registerUseCase(user, t)
             setUserCreated(true)
             Toast.show({
                 "type": "success",
-                "text1": response.message,
+                "text1": t(response.message),
             })
         }
     }
 
     const validateForm = () => {
         if (registerValues.email == "") {
-            setErrorMessage("Email is required")
+            setErrorMessage(t("email is required"))
             return false
         } if (!validateEmail(registerValues.email)) {
-            setErrorMessage("Email is not valid")
+            setErrorMessage(t("email is not valid"))
             return false
         } if (registerValues.password == "") {
-            setErrorMessage("Password is required")
+            setErrorMessage(t("password is required"))
             return false
         } if (registerValues.password !== registerValues.password2) {
-            setErrorMessage("Passwords do not match")
+            setErrorMessage(t("passwords do not match"))
             return false
         } if (registerValues.password.length < 8) {
-            setErrorMessage("Password must be at least 8 characters long")
+            setErrorMessage(t("password must be at least 8 characters long"))
             return false
         }
 

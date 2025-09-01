@@ -1,4 +1,13 @@
 {
+  "Email already registered": "Correo electrónico ya registrado",
+  "User created successfully": "Usuario creado con éxito",
+  "Invalid password": "Contraseña incorrecta",
+  "Email not found": "Correo electrónico no encontrado",
+  "password must be at least 8 characters long": "La contraseña debe tener al menos 8 caracteres",
+  "email is not valid": "El correo electrónico no es válido",
+  "passwords do not match": "Las contraseñas no coinciden",
+  "email is required": "El correo electrónico es obligatorio",
+  "password is required": "La contraseña es obligatoria",
   "currency": "Moneda",
   "language": "Idioma",
   "where is my money": "¿Dónde está mi dinero",
