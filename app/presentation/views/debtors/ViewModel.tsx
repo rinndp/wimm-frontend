@@ -6,9 +6,11 @@ import {ApiDelivery} from "../../../data/source/remote/api/ApiDevlivery";
 import {addDebtorUseCase} from "../../../domain/use-cases/debtor-screen/AddDebtor";
 import Toast from "react-native-toast-message";
 import {deleteDebtorUseCase} from "../../../domain/use-cases/debtor-screen/DeleteDebtor";
+import {useTranslation} from "react-i18next";
 
 
 export const debtorScreenViewModel = () => {
+    const {t} = useTranslation();
     const [debtors, setDebtors] = useState<Debtor[]>([]);
     const [totalDebt, setTotalDebt] = useState<number>(0);
     const [addDebtorName, setAddDebtorName] = useState("");
@@ -64,13 +66,13 @@ export const debtorScreenViewModel = () => {
 
     const validateAddDebtorForm = () => {
         if (addDebtorName == "") {
-            setErrorMessage("Name is required");
+            setErrorMessage(t("Name is required"));
             return false;
         } if (addDebtorName.length == 1) {
-            setErrorMessage("Name must be longer than 1 character")
+            setErrorMessage(t("Name must be longer than 1 character"))
             return false;
-        } if (debtors.some(debtor => debtor.name === addDebtorName)) {
-            setErrorMessage("Name is already on the list");
+        } if (debtors.some(debtor => debtor.name.toLowerCase() === addDebtorName.toLowerCase())) {
+            setErrorMessage(t("Name is already on the list"));
             return false;
         }
         return true

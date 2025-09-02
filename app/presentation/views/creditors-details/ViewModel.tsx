@@ -13,10 +13,12 @@ import {AddCreditDTO, Credit} from "../../../domain/entities/Credit";
 import {loadCreditsUseCase} from "../../../domain/use-cases/creditor-details/LoadCredits";
 import {addCreditUseCase} from "../../../domain/use-cases/creditor-details/AddCredit";
 import {Asset} from "expo-asset";
+import {useTranslation} from "react-i18next";
 
 type CreditorDetailsRouteProp = RouteProp<RootStackParamsList, "CreditorDetails">;
 
 export const creditorDetailsViewModel = () => {
+    const {t} = useTranslation();
     const [credits, setCredits] = useState<Credit[]>([]);
     const route = useRoute<CreditorDetailsRouteProp>()
     const {creditor} = route.params
@@ -81,9 +83,9 @@ export const creditorDetailsViewModel = () => {
     const validateAddCreditForm = () => {
         console.log(addCreditValues.credit)
         if (addCreditValues.description == "") {
-            setErrorMessageDesc("Empty fields are not allowed")
+            setErrorMessageDesc(t("Empty fields are not allowed"))
         } if (addCreditValues.credit == 0) {
-            setErrorMessageCredit("Empty fields are not allowed")
+            setErrorMessageCredit(t("Empty fields are not allowed"))
             return false;
         } if (addCreditValues.credit < 0) {
             setErrorMessageCredit("Invalid field. It must be greater than 0")

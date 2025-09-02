@@ -7,9 +7,11 @@ import {loadCreditorsUseCase} from "../../../domain/use-cases/creditor-screen/Lo
 import {deleteCreditorUseCase} from "../../../domain/use-cases/creditor-screen/DeleteCreditor";
 import {addCreditorUseCase} from "../../../domain/use-cases/creditor-screen/AddCreditor";
 import {AddDebtorDTO} from "../../../domain/entities/Debtor";
+import {useTranslation} from "react-i18next";
 
 
 export const creditorScreenViewModel = () => {
+    const {t} = useTranslation();
     const [creditors, setCreditors] = useState<Creditor[]>([]);
     const [totalCredit, setTotalCredit] = useState<number>(0);
     const [addCreditorName, setAddCreditorName] = useState("");
@@ -65,13 +67,13 @@ export const creditorScreenViewModel = () => {
 
     const validateAddCreditorForm = () => {
         if (addCreditorName == "") {
-            setErrorMessage("Name is required");
+            setErrorMessage(t("Name is required"));
             return false;
         } if (addCreditorName.length == 1) {
-            setErrorMessage("Name must be longer than 1 character")
+            setErrorMessage(t("Name must be longer than 1 character"))
             return false;
-        } if (creditors.some(creditor => creditor.name === addCreditorName)) {
-            setErrorMessage("Name is already on the list");
+        } if (creditors.some(creditor => creditor.name.toLowerCase() === addCreditorName.toLowerCase())) {
+            setErrorMessage(t("Name is already on the list"));
             return false;
         }
         return true

@@ -9,10 +9,12 @@ import {debtorScreenViewModel} from "../debtors/ViewModel";
 import {AuthContext} from "../auth/AuthProvider";
 import {addDebtUseCase} from "../../../domain/use-cases/debtor-details/AddDebt";
 import {Asset} from "expo-asset";
+import {useTranslation} from "react-i18next";
 
 type DebtorDetailsRouteProp = RouteProp<RootStackParamsList, "DebtorDetails">;
 
 export const debtorDetailsViewModel = () => {
+    const {t} = useTranslation()
     const [debts, setDebts] = useState<Debt[]>([]);
     const route = useRoute<DebtorDetailsRouteProp>()
     const {debtor} = route.params
@@ -77,12 +79,12 @@ export const debtorDetailsViewModel = () => {
     const validateAddDebtForm = () => {
         console.log(addDebtValues.debt)
         if (addDebtValues.description == "") {
-            setErrorMessageDesc("Empty fields are not allowed")
+            setErrorMessageDesc(t("Empty fields are not allowed"))
         } if (addDebtValues.debt == 0) {
-            setErrorMessageDebt("Empty fields are not allowed")
+            setErrorMessageDebt(t("Empty fields are not allowed"))
             return false;
         } if (addDebtValues.debt < 0) {
-            setErrorMessageDebt("Invalid field. It must be greater than 0")
+            setErrorMessageDebt(t("Invalid field. It must be greater than 0"))
             return false;
         }
         return true;

@@ -18,7 +18,7 @@ import {Register} from "./Register";
 import {registerViewModel} from "./ViewModel";
 import stylesHome from "../debtors/StylesHome";
 import stylesLogin from "./StylesLogin";
-import {heightPercentageToDP as hp} from "react-native-responsive-screen";
+import {heightPercentageToDP as hp, widthPercentageToDP} from "react-native-responsive-screen";
 import DropDownPicker from "react-native-dropdown-picker";
 import {LanguageSelect} from "../../components/LanguageSelect";
 import {useTranslation} from "react-i18next";

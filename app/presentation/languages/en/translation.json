@@ -1,4 +1,9 @@
 {
+  "Name is already on the list": "Name is already on the list",
+  "Name must be longer than 1 character": "Name must be longer than 1 character",
+  "Name is required": "Name is required",
+  "Invalid field. It must be greater than 0": "Invalid field. It must be greater than 0",
+  "Empty fields are not allowed": "Empty fields are not allowed",
   "Email already registered": "Email already registered",
   "User created successfully": "User created successfully",
   "Invalid password": "Invalid password",

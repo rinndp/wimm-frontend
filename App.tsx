@@ -15,6 +15,7 @@ import { Asset } from "expo-asset";
 import * as SplashScreen from "expo-splash-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {SettingScreen} from "./app/presentation/views/settings/SettingScreen";
+import {AuthProvider} from "./app/presentation/views/auth/AuthProvider";
 
 
 export type RootStackParamsList = {
@@ -43,16 +44,42 @@ export default function App() {
         getCurrencyApp
     } = UseUserLocalStorage()
 
-    SplashScreen.preventAutoHideAsync();
+    SplashScreen.preventAutoHideAsync()
 
     useEffect(() => {
-        getLanguageApp()
-        getCurrencyApp()
-        Asset.fromModule(require("./assets/background.jpg")).downloadAsync();
-        Asset.fromModule(require("./assets/suo-flag.png")).downloadAsync();
-        Asset.fromModule(require("./assets/es-flag.png")).downloadAsync();
-        Asset.fromModule(require("./assets/en-flag.png")).downloadAsync();
-        SplashScreen.hideAsync();
+        const loadAssets = async () => {
+            try {
+                await getLanguageApp();
+                await getCurrencyApp();
+                const assets = [
+                    require("./assets/background.jpg"),
+                    require("./assets/suo-flag.png"),
+                    require("./assets/es-flag.png"),
+                    require("./assets/en-flag.png"),
+                    require("./assets/uk-flag.png"),
+                    require("./assets/eu-flag.png"),
+                    require("./assets/japan-flag.png"),
+                    require("./assets/delete-debtor-icon.png"),
+                    require("./assets/log-out-icon.png"),
+                    require("./assets/wimm-icon.png"),
+                    require("./assets/settings-icon.png"),
+                    require("./assets/arrow-up.png"),
+                    require("./assets/arrow-down.png"),
+                    require("./assets/add-icon.png"),
+                    require("./assets/fonts/zen_kaku_gothic_antique_light.ttf"),
+                    require("./assets/fonts/zen_kaku_gothic_antique_medium.ttf"),
+                    require("./assets/fonts/zen_kaku_gothic_antique_regular.ttf"),
+                    require("./assets/fonts/zen_kaku_gothic_antique_bold.ttf"),
+                    require("./assets/fonts/zen_kaku_gothic_antique_black.ttf"),
+                ];
+                await Promise.all(assets.map(asset => Asset.fromModule(asset).downloadAsync()));
+                await SplashScreen.hideAsync();
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        loadAssets();
+
     }, []);
 
     // useEffect(() => {
@@ -65,6 +92,7 @@ export default function App() {
 
     return (
         <SafeAreaProvider>
+        <AuthProvider>
           <NavigationContainer>
             <Stack.Navigator
                 initialRouteName={user && user.slug ? "UserNavigation" : "TabViewLoginRegister"}
@@ -80,6 +108,7 @@ export default function App() {
               <Stack.Screen name="SettingScreen" component={SettingScreen}/>
             </Stack.Navigator>
           </NavigationContainer>
+        </AuthProvider>
         </SafeAreaProvider>
   );
 }

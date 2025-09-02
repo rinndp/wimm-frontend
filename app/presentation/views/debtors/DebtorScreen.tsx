@@ -28,10 +28,8 @@ import {AuthContext} from "../auth/AuthProvider";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import stylesDebtorCard from "./StylesDebtorCard";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
-import {stylesTabBarItems} from "../../navigation/UserNavigation";
+import {stylesBottomTabBarItems} from "../../navigation/StylesBottomTabBarItems";
 import {useTranslation} from "react-i18next";
-import stylesTabBar from "../auth/StylesTabBar";
-import {LanguageSelect} from "../../components/LanguageSelect";
 
 
 export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
@@ -85,7 +83,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
             <View style={stylesDebtorCard.card}>
                     <View>
                         <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
-                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt ? item.debt.toFixed(2) : 0.00.toFixed(2)}{currency}</Text>
+                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt ? item.debt.toFixed(2) : 0.00.toFixed(2)}{currency ? currency : "€"}</Text>
                     </View>
                     <View style={{flexGrow: 1}}>
                         <TouchableOpacity
@@ -138,7 +136,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                 <>
                     <TouchableOpacity style={stylesHome.settingsIconContainer} onPress={() => navigation.navigate("SettingScreen")}>
                         <Image
-                            style={{...stylesTabBarItems.item, tintColor: AppColors.white,}}
+                            style={stylesHome.settingsIcon}
                             source={require("../../../../assets/settings-icon.png")}
                         />
                     </TouchableOpacity>
@@ -149,7 +147,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                                 style={stylesHome.logoHome}/>
                             <Text style={stylesHome.textHome}>Wimm</Text>
                             <View style={stylesHome.textMoneyContainer}>
-                                <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}{currency}</Text>
+                                <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}{currency ? currency : "€"}</Text>
                                 <Image style={stylesHome.textMoneyIcon}
                                        source={require("../../../../assets/arrow-up.png")}/>
                             </View>

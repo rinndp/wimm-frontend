@@ -31,7 +31,7 @@ import stylesDebtCard from "../debtor-details/StylesDebtCard";
 import {creditorScreenViewModel} from "./ViewModel";
 import {Creditor} from "../../../domain/entities/Creditor";
 import {IconButton} from "react-native-paper";
-import {stylesTabBarItems} from "../../navigation/UserNavigation";
+import {stylesBottomTabBarItems} from "../../navigation/StylesBottomTabBarItems";
 import {useTranslation} from "react-i18next";
 import stylesTabBar from "../auth/StylesTabBar";
 import {LanguageSelect} from "../../components/LanguageSelect";
@@ -90,7 +90,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
             <View style={stylesDebtorCard.card}>
                 <View>
                     <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
-                    <Text style={stylesDebtorCard.debtorDebt}>{item.credit ? item.credit.toFixed(2) : 0.00.toFixed(2)}{currency}</Text>
+                    <Text style={stylesDebtorCard.debtorDebt}>{item.credit ? item.credit.toFixed(2) : 0.00.toFixed(2)}{currency ? currency : "€"}</Text>
                 </View>
                 <View style={{flexGrow: 1}}>
                     <TouchableOpacity
@@ -143,7 +143,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                 <>
                     <TouchableOpacity style={stylesHome.settingsIconContainer} onPress={() => navigation.navigate("SettingScreen")}>
                         <Image
-                            style={{...stylesTabBarItems.item, tintColor: AppColors.white,}}
+                            style={stylesHome.settingsIcon}
                             source={require("../../../../assets/settings-icon.png")}
                         />
                     </TouchableOpacity>
@@ -154,7 +154,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                                 style={stylesHome.logoHome}/>
                             <Text style={stylesHome.textHome}>Wimm</Text>
                             <View style={stylesHome.textMoneyContainer}>
-                                <Text style={{...stylesHome.textMoneyDebtors, color: AppColors.darkRed}}>{totalCredit.toFixed(2)}{currency}</Text>
+                                <Text style={{...stylesHome.textMoneyDebtors, color: AppColors.darkRed}}>{totalCredit.toFixed(2)}{currency ? currency : "€"}</Text>
                                 <Image style={stylesHome.textMoneyIcon}
                                        source={require("../../../../assets/arrow-down.png")}/>
                             </View>

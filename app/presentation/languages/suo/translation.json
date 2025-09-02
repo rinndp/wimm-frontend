@@ -1,4 +1,9 @@
 {
+  "Name is already on the list": "Nimi on jo listalla",
+  "Name must be longer than 1 character": "Nimen on oltava pidempi kuin 1 merkki",
+  "Name is required": "Nimi on pakollinen",
+  "Invalid field. It must be greater than 0": "Virheellinen kenttä. Sen on oltava suurempi kuin 0",
+  "Empty fields are not allowed": "Tyhjät kentät eivät ole sallittuja",
   "Email already registered": "Sähköposti on jo rekisteröity",
   "User created successfully": "Usuario creado con éxito",
   "Invalid password": "Virheellinen salasana",

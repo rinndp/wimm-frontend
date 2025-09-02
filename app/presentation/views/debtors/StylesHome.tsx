@@ -39,6 +39,7 @@ const stylesHome = StyleSheet.create({
     textMoneyDebtors: {
         fontSize: Platform.OS === "ios" ? wp("8%") : wp("9%"),
         fontFamily: "zen_kaku_bold",
+        lineHeight: hp("4.5%"),
         color: AppColors.lightGreen,
     },
 
@@ -46,7 +47,7 @@ const stylesHome = StyleSheet.create({
         width: wp("7.3%"),
         height: wp("7.3%"),
         resizeMode: "contain",
-        marginTop: Platform.OS === "ios" ? hp("0.6%") : hp("1.3%"),
+        marginTop: Platform.OS === "ios" ? hp("0%") : hp("0.4%"),
     },
 
     modalCard: {
@@ -136,8 +137,16 @@ const stylesHome = StyleSheet.create({
 
     settingsIconContainer: {
         position: "absolute",
-        top: hp("5%"),
-        start: hp("40%")
+        top: hp("6%"),
+        start: hp("40%"),
+        zIndex: 999,
+    },
+
+    settingsIcon: {
+        tintColor: AppColors.white,
+        width: wp("7.3%"),
+        height: wp("7.3%"),
+        resizeMode: "contain",
     }
 })
 

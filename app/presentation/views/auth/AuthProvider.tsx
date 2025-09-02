@@ -15,13 +15,13 @@ export const AuthProvider = ({ children }: Props) => {
     const [userSlug, setUserSlug] = useState("");
 
     const {
-        user
+        user,
+        getUserSession
     } = UseUserLocalStorage()
 
     useEffect(() => {
-        if (user?.slug) {
-            setUserSlug(user.slug);
-        }
+        if (user !== undefined)
+           setUserSlug(user.slug);
     }, [user]);
 
     return (

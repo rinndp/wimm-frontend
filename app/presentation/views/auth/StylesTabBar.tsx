@@ -7,7 +7,7 @@ const stylesTabBar = StyleSheet.create({
         width: wp("60%"),
         alignSelf: "center",
         marginEnd: wp("30%"),
-        paddingTop: Platform.OS === "ios" ? hp("1%") : hp("3%"),
+        paddingTop: Platform.OS === "ios" ? hp("1%") : hp("7.4%"),
         elevation: 0,
     },
 

@@ -76,7 +76,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
     const creditRenderItem = useCallback(({item} :{item:Credit}) => (
         <View style={stylesDebtCard.card}>
             <Text style={stylesDebtCard.debtDescription}>{item.description}</Text>
-            <Text style={stylesDebtCard.debt}>{item.credit.toFixed(2)}{currency}</Text>
+            <Text style={stylesDebtCard.debt}>{item.credit.toFixed(2)}{currency ? currency : "€"}</Text>
             <TouchableOpacity style={stylesDebtCard.deleteIcon}onPress={() => setSelectedRemoveCreditId(item.id)}>
                 <Image source={require("../../../../assets/delete-debtor-icon.png")}
                        style={stylesDebtCard.deleteIcon}/>
@@ -94,7 +94,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                 isVisible={selectedRemoveCreditId === item.id}>
                 <View style={stylesHome.modalCard}>
                     <Text style={stylesHome.deleteDebtorModalTitle}>{t("has")}{creditor.name} {t("paid you")}?</Text>
-                    <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.credit.toFixed(2)}{currency}</Text>
+                    <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.credit.toFixed(2)}{currency ? currency : "€"}</Text>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedRemoveCreditId(null)} style={{flexGrow: 1}}>
                             <Text style={stylesHome.modalButtonText}>{t("no")}</Text>
@@ -120,7 +120,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                     <View style={stylesDebtorDetails.modalInfoContainer}>
                         <Text style={stylesDebtorDetails.modalMoreInfoDate}>{formatDate(item.updated_at)}</Text>
                         <Text style={stylesDebtorDetails.modalMoreInfoText}>{item.description}</Text>
-                        <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.credit.toFixed(2)}{currency}</Text>
+                        <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.credit.toFixed(2)}{currency ? currency : "€"}</Text>
                     </View>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedMoreInfoCreditId(null)} style={{flexGrow: 1}}>
@@ -161,7 +161,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                             <Text style={stylesDebtorDetails.detailsDebtorName}>{creditor.name} 👋</Text>
                             <Text style={stylesHome.textHome}>{t("here is your money")}</Text>
                             <View style={stylesDebtorDetails.debtContainer}>
-                                <Text style={stylesDebtorDetails.detailsDebtorDebt}>{totalCredit.toFixed(2)}{currency}</Text>
+                                <Text style={stylesDebtorDetails.detailsDebtorDebt}>{totalCredit.toFixed(2)}{currency ? currency : "€"}</Text>
                                 <TouchableOpacity
                                     onPress={() => setAddCreditModalToggle(true)}
                                     style={stylesDebtorDetails.addDebtIcon}>
@@ -191,7 +191,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                                                              keyboardType={"numeric"}
                                                              secureTextEntry={false}
                                                              onChangeText={(text) => onChangeAddCreditForm("credit", text.replace(",", "."))}/>
-                                            <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), marginStart: 0}}>{currency}</Text>
+                                            <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), marginStart: 0}}>{currency ? currency : "€"}</Text>
                                         </View>
                                         {errorMessageCredit !== "" && (
                                             <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageCredit}</Text>

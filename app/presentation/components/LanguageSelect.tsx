@@ -1,14 +1,11 @@
 import DropDownPicker from "react-native-dropdown-picker";
-import {use, useEffect, useState} from "react";
-import {Image, ImageStyle, StyleSheet, TouchableOpacity, View} from "react-native";
+import {useState} from "react";
+import {Image, ImageStyle, Platform, StyleSheet} from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import {styles} from "react-native-toast-message/lib/src/components/BaseToast.styles";
 import {AppColors} from "../theme/AppTheme";
 import i18n from "../utils/i18n";
 import {saveLanguageUseCase} from "../../domain/use-cases/local-user/SaveLanguageUseCase";
-import {getLanguageUseCase} from "../../domain/use-cases/local-user/GetLanguageUseCase";
 import {UseUserLocalStorage} from "../hooks/UseUserLocalStorage";
-import {LocalStorage} from "../../data/source/local/LocalStorage";
 
 
 export const LanguageSelect = () => {
@@ -52,16 +49,16 @@ export const LanguageSelect = () => {
 
     return (
         <DropDownPicker
-            setValue={(callback) => {
+            setValue={async (callback) => {
                 const newValue = typeof callback === "function" ? callback(value) : callback;
-                saveLanguageUseCase(newValue);
-                getLanguageApp();
+                await saveLanguageUseCase(newValue);
+                await getLanguageApp();
                 console.log("newValue:", newValue);
                 if (newValue) {
-                    i18n.changeLanguage(newValue);
+                    await i18n.changeLanguage(newValue);
                 }
             }}
-            value={language}
+            value={language || "en"}
             items={items}
             setItems={setItems}
             open={open}
@@ -87,12 +84,12 @@ export const stylesLanguageSelect = StyleSheet.create({
         backgroundColor: AppColors.darkGreen,
         color: AppColors.white,
         borderColor: AppColors.gray,
-        width: wp("26%"),
+        width: wp("27%"),
         height: wp("3%"),
     },
 
     searchContainerStyle: {
-        height: hp("13.5%"),
+        height: Platform.OS === "ios" ? hp("13.5%") : hp("14.5%"),
         backgroundColor: AppColors.darkGreen,
         borderColor: AppColors.gray,
         zIndex: 999,

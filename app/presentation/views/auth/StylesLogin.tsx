@@ -11,7 +11,7 @@ const stylesLogin = StyleSheet.create({
     },
 
     logoContainer: {
-        marginTop: hp("10%"),
+        marginTop: hp("5%"),
         alignItems: "center",
     },
 

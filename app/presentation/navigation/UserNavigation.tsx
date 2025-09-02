@@ -11,6 +11,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {useEffect} from "react";
 import {Asset} from "expo-asset";
 import {useTranslation} from "react-i18next";
+import {stylesBottomTabBarItems} from "./StylesBottomTabBarItems";
 
 const Tab = createBottomTabNavigator();
 
@@ -46,13 +47,13 @@ export const UserNavigation = () => {
                 component={DebtorScreen}
                 options={{
                     tabBarLabel: t("debtors"),
-                    tabBarLabelStyle: {...stylesTabBarItems.itemLabel},
+                    tabBarLabelStyle: {...stylesBottomTabBarItems.itemLabel},
                     tabBarInactiveTintColor: AppColors.green,
                     tabBarActiveTintColor: AppColors.white,
                     tabBarIcon: ({ color }) => (
                         <Image
                             source={require("../../../assets/arrow-up.png")}
-                            style={stylesTabBarItems.item}
+                            style={stylesBottomTabBarItems.item}
                         />
                     ),
                 }}
@@ -65,11 +66,11 @@ export const UserNavigation = () => {
                     tabBarLabel: t("creditors"),
                     tabBarInactiveTintColor: AppColors.green,
                     tabBarActiveTintColor: AppColors.white,
-                    tabBarLabelStyle: {...stylesTabBarItems.itemLabel},
+                    tabBarLabelStyle: {...stylesBottomTabBarItems.itemLabel},
                     tabBarIcon: ({ color }) => (
                         <Image
                             source={require("../../../assets/arrow-down.png")}
-                            style={stylesTabBarItems.item}
+                            style={stylesBottomTabBarItems.item}
                         />
                     ),
                 }}
@@ -77,17 +78,3 @@ export const UserNavigation = () => {
         </Tab.Navigator>
     );
 };
-
-export const stylesTabBarItems = StyleSheet.create({
-    item: {
-        position:"absolute",
-        top: hp("1.4%"),
-        width: wp("7.3%"),
-        height: wp("7.3%"),
-        resizeMode: "contain",
-    },
-    itemLabel: {
-        position:"absolute",
-        top:hp("5%"),
-    }
-});

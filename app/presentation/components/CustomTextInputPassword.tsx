@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import {Image, KeyboardType, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Image, KeyboardType, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {AppColors} from "../theme/AppTheme";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 
 interface Props {
     label: string,
@@ -32,11 +33,11 @@ export const CustomTextInputPassword = ({label, value, keyboardType,onChangeText
                            onChangeText={(text) => onChangeText(text)}
                            value={value}
                 ></TextInput>
-                <TouchableOpacity onPress={togglePassword} style={styles.iconPasswordToggle}>
+                <TouchableOpacity onPress={togglePassword} style={styles.iconPasswordToggleContainer}>
                     <Image source={iconPassword === "closed-eye"
                         ? require("../../../assets/closed-eye.png")
                         : require("../../../assets/eye.png")
-                    } style={styles.iconPasswordToggle}/>
+                    } style={{...styles.iconPasswordToggle}}/>
                 </TouchableOpacity>
             </View>
         </View>
@@ -45,7 +46,7 @@ export const CustomTextInputPassword = ({label, value, keyboardType,onChangeText
 }
 const styles = StyleSheet.create({
     formInputLabel: {
-        fontSize:15,
+        fontSize: wp("3.5%"),
         color:'white',
         marginStart: 5,
         alignSelf:"flex-start",
@@ -55,35 +56,44 @@ const styles = StyleSheet.create({
     },
 
     iconPasswordToggle: {
-        width:30,
-        height:30,
-        alignSelf: "flex-end",
-        resizeMode:'stretch',
-        marginStart:240,
+        width:wp("7.5%"),
+        height:wp("7.5%"),
+        resizeMode:'contain',
         tintColor: "#414141",
-
     },
 
+    iconPasswordToggleContainer: {
+        position: "relative",
+        backgroundColor: AppColors.white,
+        width:wp("7.5%"),
+        height:wp("7.5%"),
+        alignSelf: "flex-end",
+        marginEnd: wp("1%"),
+        marginBottom: hp("0.5%"),
+        resizeMode:'contain',
+        tintColor: "#414141",
+    },
+
+
     formInput: {
-        width:"100%",
-        position:"absolute",
+        width:wp("65%"),
+        height:hp("4.3%"),
+        fontSize: wp("3.6%"),
+        borderColor: AppColors.white,
+        backgroundColor: 'white',
+        paddingVertical: hp("1%"),
+        paddingHorizontal: wp("2%"),
+        borderRadius:10,
         fontFamily: "zen_kaku_regular"
     },
 
     formInputContainerPassword: {
-        width:300,
-        height:40,
-        fontSize: 15,
-        borderColor: 'black',
+        borderColor: AppColors.white,
         backgroundColor: 'white',
-        borderWidth: 1,
-        flexDirection:'row',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
         borderRadius:10,
-        alignItems:'center',
-        justifyContent:'center',
-        fontFamily: "zen_kaku_regular"
+        flexDirection:"row",
+        width:wp("75%"),
+        height:hp("4.3%"),
 
     }
 })

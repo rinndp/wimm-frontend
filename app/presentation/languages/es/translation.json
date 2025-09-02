@@ -1,4 +1,9 @@
 {
+  "Name is already on the list": "El nombre ya está en la lista",
+  "Name must be longer than 1 character": "El nombre debe tener más de 1 carácter",
+  "Name is required": "El nombre es obligatorio",
+  "Invalid field. It must be greater than 0": "Campo inválido. Debe ser mayor que 0",
+  "Empty fields are not allowed": "No se permiten campos vacíos",
   "Email already registered": "Correo electrónico ya registrado",
   "User created successfully": "Usuario creado con éxito",
   "Invalid password": "Contraseña incorrecta",

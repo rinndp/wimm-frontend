@@ -24,7 +24,7 @@ export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeTex
     return (
         <View>
             <Text style={styles.formInputLabel}>{label}</Text>
-            <TextInput style={{...styles.formInput, width: keyboardType === "numeric" ? 100 : 300 }}
+            <TextInput style={{...styles.formInput, width: keyboardType === "numeric" ? wp("20%") : wp("75%") }}
                        keyboardType={keyboardType}
                        secureTextEntry={secureTextEntry}
                        textContentType={"username"}
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     },
 
     formInput: {
-        width: wp("30%"),
         height:hp("4.3%"),
         fontSize: wp("3.6%"),
         borderColor: AppColors.white,
