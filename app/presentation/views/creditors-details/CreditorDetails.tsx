@@ -24,9 +24,11 @@ import {CustomTextInput} from "../../components/CustomTextInput";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
 import {AddCreditDTO, Credit} from "../../../domain/entities/Credit";
 import {debtorDetailsViewModel} from "../debtor-details/ViewModel";
-import {formatDate} from "../../utils/format-date";
+import {formatDate} from "../../utils/FormatDate";
 import {useTranslation} from "react-i18next";
 import UseUserLocalStorage from "../../hooks/UseUserLocalStorage";
+import {FadedText} from "../../components/FadedText";
+import {formatNumber} from "../../utils/FormatNumber";
 
 type CreditorDetailsRouteProp = RouteProp<RootStackParamsList, "CreditorDetails">;
 
@@ -75,8 +77,8 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
 
     const creditRenderItem = useCallback(({item} :{item:Credit}) => (
         <View style={stylesDebtCard.card}>
-            <Text style={stylesDebtCard.debtDescription}>{item.description}</Text>
-            <Text style={stylesDebtCard.debt}>{item.credit.toFixed(2)}{currency ? currency : "€"}</Text>
+            <FadedText width={wp("30%")} text={item.description} styleText={stylesDebtCard.debtDescription}/>
+            <FadedText width={wp("32%")} text={formatNumber(item.credit) + currency || "€"} styleText={stylesDebtCard.debt}/>
             <TouchableOpacity style={stylesDebtCard.deleteIcon}onPress={() => setSelectedRemoveCreditId(item.id)}>
                 <Image source={require("../../../../assets/delete-debtor-icon.png")}
                        style={stylesDebtCard.deleteIcon}/>
@@ -94,7 +96,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                 isVisible={selectedRemoveCreditId === item.id}>
                 <View style={stylesHome.modalCard}>
                     <Text style={stylesHome.deleteDebtorModalTitle}>{t("has")}{creditor.name} {t("paid you")}?</Text>
-                    <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.credit.toFixed(2)}{currency ? currency : "€"}</Text>
+                    <Text style={stylesDebtorDetails.detailsDebtorDebt}>{formatNumber(item.credit)}{currency || "€"}</Text>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedRemoveCreditId(null)} style={{flexGrow: 1}}>
                             <Text style={stylesHome.modalButtonText}>{t("no")}</Text>
@@ -120,7 +122,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                     <View style={stylesDebtorDetails.modalInfoContainer}>
                         <Text style={stylesDebtorDetails.modalMoreInfoDate}>{formatDate(item.updated_at)}</Text>
                         <Text style={stylesDebtorDetails.modalMoreInfoText}>{item.description}</Text>
-                        <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.credit.toFixed(2)}{currency ? currency : "€"}</Text>
+                        <Text style={stylesDebtorDetails.detailsDebtorDebt}>{formatNumber(item.credit)}{currency || "€"}</Text>
                     </View>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedMoreInfoCreditId(null)} style={{flexGrow: 1}}>
@@ -161,7 +163,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                             <Text style={stylesDebtorDetails.detailsDebtorName}>{creditor.name} 👋</Text>
                             <Text style={stylesHome.textHome}>{t("here is your money")}</Text>
                             <View style={stylesDebtorDetails.debtContainer}>
-                                <Text style={stylesDebtorDetails.detailsDebtorDebt}>{totalCredit.toFixed(2)}{currency ? currency : "€"}</Text>
+                                <Text style={stylesDebtorDetails.detailsDebtorDebt}>{formatNumber(totalCredit)}{currency || "€"}</Text>
                                 <TouchableOpacity
                                     onPress={() => setAddCreditModalToggle(true)}
                                     style={stylesDebtorDetails.addDebtIcon}>
@@ -191,7 +193,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                                                              keyboardType={"numeric"}
                                                              secureTextEntry={false}
                                                              onChangeText={(text) => onChangeAddCreditForm("credit", text.replace(",", "."))}/>
-                                            <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), marginStart: 0}}>{currency ? currency : "€"}</Text>
+                                            <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), marginStart: wp("-20%")}}>{currency || "€"}</Text>
                                         </View>
                                         {errorMessageCredit !== "" && (
                                             <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageCredit}</Text>
@@ -220,6 +222,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                             data={credits}
                             extraData={credits}
                             removeClippedSubviews={true}
+                            showsVerticalScrollIndicator={false}
                             fadingEdgeLength={80}
                             style={{marginTop: hp("3%")}}
                             keyExtractor={(item, index) => index.toString()}

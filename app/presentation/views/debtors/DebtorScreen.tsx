@@ -30,6 +30,9 @@ import stylesDebtorCard from "./StylesDebtorCard";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
 import {stylesBottomTabBarItems} from "../../navigation/StylesBottomTabBarItems";
 import {useTranslation} from "react-i18next";
+import {formatNumber} from "../../utils/FormatNumber";
+import {FadedText} from "../../components/FadedText";
+import {LinearGradient} from "expo-linear-gradient";
 
 
 export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
@@ -82,8 +85,8 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
         <TouchableOpacity onPress={() => navigation.navigate("DebtorDetails", {debtor : item})}>
             <View style={stylesDebtorCard.card}>
                     <View>
-                        <Text style={stylesDebtorCard.debtorName}>{item.name}</Text>
-                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt ? item.debt.toFixed(2) : 0.00.toFixed(2)}{currency ? currency : "€"}</Text>
+                        <FadedText width={wp("70%")} text={item.name} styleText={stylesDebtorCard.debtorName} endGradient={0.92}/>
+                        <Text style={stylesDebtorCard.debtorDebt}>{item.debt ? formatNumber(item.debt) : 0.00.toFixed(2)}{currency || "€"}</Text>
                     </View>
                     <View style={{flexGrow: 1}}>
                         <TouchableOpacity
@@ -147,7 +150,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                                 style={stylesHome.logoHome}/>
                             <Text style={stylesHome.textHome}>Wimm</Text>
                             <View style={stylesHome.textMoneyContainer}>
-                                <Text style={stylesHome.textMoneyDebtors}>{totalDebt.toFixed(2)}{currency ? currency : "€"}</Text>
+                                <Text style={stylesHome.textMoneyDebtors}>{formatNumber(totalDebt)}{currency || "€"}</Text>
                                 <Image style={stylesHome.textMoneyIcon}
                                        source={require("../../../../assets/arrow-up.png")}/>
                             </View>
@@ -191,15 +194,45 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                                 </View>
                             </Modal>
                         </View>
+                        <LinearGradient
+                            colors={["transparent", AppColors.darkGreen]}
+                            locations={[0, 1]}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 0, y: 0 }}
+                            style={{
+                                position: "absolute",
+                                bottom: hp("65.5%"),
+                                left: 0,
+                                zIndex: 999,
+                                right: 0,
+                                height: hp("2%"),
+                            }}
+                            pointerEvents="none"
+                        />
                         <FlatList
                             data={debtors}
                             removeClippedSubviews={true}
                             fadingEdgeLength={80}
-                            style={{marginTop: hp("1.4%"), marginBottom: hp("4%")}}
+                            style={{marginTop: hp("1.4%"), marginBottom: hp("4%"), paddingTop: hp("1%")}}
+                            showsVerticalScrollIndicator={false}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={debtorRenderItem}
                             ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex"}}>{t("no more debtors")}</Text>}
                             extraData={debtors}/>
+                        <LinearGradient
+                            colors={["transparent", "black"]}
+                            locations={[0, 1]}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 0, y: 1 }}
+                            style={{
+                                position: "absolute",
+                                bottom: hp("2%"),
+                                left: 0,
+                                right: 0,
+                                height: hp("9%"),
+                            }}
+                            pointerEvents="none"
+                        />
                     </View>
                     <Toast/>
                 </>

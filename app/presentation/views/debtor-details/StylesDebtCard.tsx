@@ -13,7 +13,7 @@ const stylesDebtCard = StyleSheet.create({
         color: AppColors.white,
         fontFamily: "zen_kaku_regular",
         fontSize: hp("2.0%"),
-        width: 28,
+        width: wp("40%"),
         height: 27,
         marginTop: wp("0.5%"),
         flexGrow: 2,
@@ -22,9 +22,11 @@ const stylesDebtCard = StyleSheet.create({
     debt: {
         color: AppColors.white,
         fontFamily: "zen_kaku_medium",
-        fontSize: hp("2.3%"),
+        height: hp("3.5%"),
+        fontSize: hp("2.1%"),
+        textAlign: "center",
         lineHeight: 30,
-        marginStart: wp("8%"),
+        marginStart: wp("1%"),
         flexGrow: 0.5,
 
     },

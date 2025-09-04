@@ -24,9 +24,11 @@ import Modal from "react-native-modal";
 import {CustomTextInput} from "../../components/CustomTextInput";
 import stylesDebtCard from "./StylesDebtCard";
 import {creditorDetailsViewModel} from "../creditors-details/ViewModel";
-import {formatDate} from "../../utils/format-date";
+import {formatDate} from "../../utils/FormatDate";
 import {useTranslation} from "react-i18next";
 import UseUserLocalStorage from "../../hooks/UseUserLocalStorage";
+import {FadedText} from "../../components/FadedText";
+import {formatNumber} from "../../utils/FormatNumber";
 
 type DebtorDetailsRouteProp = RouteProp<RootStackParamsList, "DebtorDetails">;
 
@@ -75,8 +77,8 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
 
     const debtRenderItem = useCallback(({item} :{item:Debt}) => (
         <View style={stylesDebtCard.card}>
-            <Text style={stylesDebtCard.debtDescription}>{item.description}</Text>
-            <Text style={stylesDebtCard.debt}>{item.debt.toFixed(2)}{currency ? currency : "€"}</Text>
+            <FadedText width={wp("30%")} text={item.description} styleText={stylesDebtCard.debtDescription}/>
+            <FadedText width={wp("32%")} text={formatNumber(item.debt) + currency || "€"} styleText={stylesDebtCard.debt}/>
             <TouchableOpacity style={stylesDebtCard.deleteIcon}onPress={() => setSelectedRemoveDebtId(item.id)}>
                 <Image source={require("../../../../assets/delete-debtor-icon.png")}
                        style={stylesDebtCard.deleteIcon}/>
@@ -94,7 +96,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                 isVisible={selectedRemoveDebtId === item.id}>
                 <View style={stylesHome.modalCard}>
                     <Text style={stylesHome.deleteDebtorModalTitle}>{t("has")}{debtor.name} {t("paid you")}?</Text>
-                    <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.debt.toFixed(2)}{currency ? currency : "€"}</Text>
+                    <Text style={stylesDebtorDetails.detailsDebtorDebt}>{formatNumber(item.debt)}{currency || "€"}</Text>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedRemoveDebtId(null)} style={{flexGrow: 1}}>
                             <Text style={stylesHome.modalButtonText}>{t("no")}</Text>
@@ -121,7 +123,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                     <View style={stylesDebtorDetails.modalInfoContainer}>
                         <Text style={stylesDebtorDetails.modalMoreInfoDate}>{formatDate(item.updated_at)}</Text>
                         <Text style={stylesDebtorDetails.modalMoreInfoText}>{item.description}</Text>
-                        <Text style={stylesDebtorDetails.detailsDebtorDebt}>{item.debt.toFixed(2)}{currency ? currency : "€"}</Text>
+                        <Text style={stylesDebtorDetails.detailsDebtorDebt}>{formatNumber(item.debt)}{currency || "€"}</Text>
                     </View>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedMoreInfoDebtId(null)} style={{flexGrow: 1}}>
@@ -162,7 +164,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                             <Text style={stylesDebtorDetails.detailsDebtorName}>{debtor.name} 👋</Text>
                             <Text style={stylesHome.textHome}>{t("where is my money")}?</Text>
                             <View style={stylesDebtorDetails.debtContainer}>
-                                <Text style={stylesDebtorDetails.detailsDebtorDebt}>{totalDebt.toFixed(2)}{currency ? currency : "€"}</Text>
+                                <Text style={stylesDebtorDetails.detailsDebtorDebt}>{formatNumber(totalDebt)}{currency || "€"}</Text>
                                 <TouchableOpacity
                                     onPress={() => setAddDebtModalToggle(true)}
                                     style={stylesDebtorDetails.addDebtIcon}>
@@ -192,7 +194,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                                              keyboardType={"numeric"}
                                                              secureTextEntry={false}
                                                              onChangeText={(text) => onChangeAddDebtForm("debt", text.replace(",", "."))}/>
-                                            <Text style={{...stylesDebtCard.debt, marginTop:hp("3%"), marginStart:wp("2%")}}>{currency ? currency : "€"}</Text>
+                                            <Text style={{...stylesDebtCard.debt, marginTop:hp("3%"), marginStart:wp("-18%")}}>{currency || "€"}</Text>
                                         </View>
                                         {errorMessageDebt !== "" && (
                                             <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDebt}</Text>
@@ -220,6 +222,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                         <FlatList
                             data={debts}
                             extraData={debts}
+                            showsVerticalScrollIndicator={false}
                             removeClippedSubviews={true}
                             fadingEdgeLength={80}
                             style={{marginTop: hp("3%")}}
