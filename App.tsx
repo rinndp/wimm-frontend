@@ -1,4 +1,4 @@
-import {NavigationContainer} from "@react-navigation/native";
+import {DarkTheme, NavigationContainer} from "@react-navigation/native";
 import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
 import {useFonts} from "expo-font";
 import {DebtorDetailsScreen} from "./app/presentation/views/debtor-details/DebtorDetails";
@@ -93,7 +93,7 @@ export default function App() {
     return (
         <SafeAreaProvider>
         <AuthProvider>
-          <NavigationContainer>
+          <NavigationContainer theme={DarkTheme}>
             <Stack.Navigator
                 initialRouteName={user && user.slug ? "UserNavigation" : "TabViewLoginRegister"}
                 screenOptions={{

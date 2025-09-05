@@ -86,7 +86,7 @@ const stylesHome = StyleSheet.create({
         fontSize: hp("1.5%"),
         color: AppColors.neonRed,
         height: 20,
-        marginStart: wp("10%"),
+        marginStart: wp("9%"),
         marginTop: hp("-1.5%"),
         alignSelf: "flex-start",
     },

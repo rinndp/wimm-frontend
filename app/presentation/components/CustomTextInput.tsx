@@ -18,8 +18,10 @@ interface Props {
     secureTextEntry:boolean;
     onChangeText:(text:string)=>void;
     maxLength?:number;
+    autoComplete?:TextInputProps["autoComplete"];
+    textContentType?:TextInputProps["textContentType"];
 }
-export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeText, maxLength}:Props) => {
+export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeText, maxLength, autoComplete, textContentType}:Props) => {
 
     return (
         <View>
@@ -27,10 +29,11 @@ export const CustomTextInput = ({label, keyboardType,secureTextEntry,onChangeTex
             <TextInput style={{...styles.formInput, width: keyboardType === "numeric" ? wp("20%") : wp("75%") }}
                        keyboardType={keyboardType}
                        secureTextEntry={secureTextEntry}
-                       textContentType={"username"}
                        onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
                        onChangeText={(text) => onChangeText(text)}
                        maxLength={maxLength}
+                       autoComplete={autoComplete}
+                       textContentType={textContentType}
             ></TextInput>
         </View>
     )

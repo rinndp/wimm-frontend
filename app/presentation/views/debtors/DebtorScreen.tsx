@@ -169,7 +169,7 @@ export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNa
                                                      secureTextEntry={false}
                                                      maxLength={40}
                                                      onChangeText={(text) => setAddDebtorName(text)}/>
-                                    <Text style={stylesHome.helpText}>{addDebtorName.length}/40</Text>
+                                    {/*<Text style={stylesHome.helpText}>{addDebtorName.length}/40</Text>*/}
                                     {errorMessage !== "" && (
                                         <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
                                     )}

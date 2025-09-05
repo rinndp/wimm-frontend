@@ -58,6 +58,8 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
                         <CustomTextInput label={t("email")}
                                          keyboardType={"email-address"}
                                          secureTextEntry={false}
+                                         textContentType={"emailAddress"}
+                                         autoComplete={"email"}
                                          onChangeText={(text) => onChangeLogin("email", text)}/>
 
                         <CustomTextInputPassword label={t("password")}

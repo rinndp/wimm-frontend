@@ -189,12 +189,12 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                                         {errorMessageDesc !== "" && (
                                             <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDesc}</Text>
                                         )}
-                                        <View style={{flexDirection: "row", alignItems:"center"}}>
+                                        <View style={{flexDirection: "row", gap:wp("2%")}}>
                                             <CustomTextInput label={t("debt")}
                                                              keyboardType={"numeric"}
                                                              secureTextEntry={false}
                                                              onChangeText={(text) => onChangeAddDebtForm("debt", text.replace(",", "."))}/>
-                                            <Text style={{...stylesDebtCard.debt, marginTop:hp("3%"), marginStart:wp("-18%")}}>{currency || "€"}</Text>
+                                            <Text style={{...stylesDebtCard.debt, marginTop:hp("3.6%"), textAlign:"left"}}>{currency || "€"}</Text>
                                         </View>
                                         {errorMessageDebt !== "" && (
                                             <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDebt}</Text>
@@ -227,7 +227,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
                             fadingEdgeLength={80}
                             style={{marginTop: hp("3%")}}
                             keyExtractor={(item, index) => index.toString()}
-                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("24%")}}>{t("no more debts")}</Text>}
+                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("13%")}}>{t("no more debts")}</Text>}
                             renderItem={debtRenderItem}
                         />
                     </View>

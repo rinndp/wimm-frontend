@@ -176,7 +176,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                                                      secureTextEntry={false}
                                                      maxLength={40}
                                                      onChangeText={(text) => setAddCreditorName(text)}/>
-                                    <Text style={stylesHome.helpText}>{addCreditorName.length}/40</Text>
+                                    {/*<Text style={stylesHome.helpText}>{addCreditorName.length}/40</Text>*/}
                                     {errorMessage !== "" && (
                                         <Text style={stylesHome.modalErrorText}>{errorMessage}</Text>
                                     )}

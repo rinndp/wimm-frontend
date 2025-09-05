@@ -23,6 +23,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import {LanguageSelect} from "../../components/LanguageSelect";
 import {useTranslation} from "react-i18next";
 import {styles} from "react-native-toast-message/lib/src/components/BaseToast.styles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const renderScene = SceneMap({

@@ -188,12 +188,12 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                                         {errorMessageDesc !== "" && (
                                             <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageDesc}</Text>
                                         )}
-                                        <View style={{flexDirection: "row", gap: 10}}>
+                                        <View style={{flexDirection: "row", gap: wp("2%")}}>
                                             <CustomTextInput label={t("credit")}
                                                              keyboardType={"numeric"}
                                                              secureTextEntry={false}
                                                              onChangeText={(text) => onChangeAddCreditForm("credit", text.replace(",", "."))}/>
-                                            <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), marginStart: wp("-20%")}}>{currency || "€"}</Text>
+                                            <Text style={{...stylesDebtCard.debt, marginTop: wp("7.7%"), textAlign: "left"}}>{currency || "€"}</Text>
                                         </View>
                                         {errorMessageCredit !== "" && (
                                             <Text style={{...stylesHome.modalErrorText,  marginStart: wp("1%")}}>{errorMessageCredit}</Text>
@@ -226,7 +226,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                             fadingEdgeLength={80}
                             style={{marginTop: hp("3%")}}
                             keyExtractor={(item, index) => index.toString()}
-                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("15%")}}>{t("no more debts")}</Text>}
+                            ListFooterComponent={<Text style={{...stylesDebtCard.footerText, display: showLoading ? "none":"flex", marginBottom: hp("13%")}}>{t("no more debts")}</Text>}
                             renderItem={creditRenderItem}
                         />
                     </View>

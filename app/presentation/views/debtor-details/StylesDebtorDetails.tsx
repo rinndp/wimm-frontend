@@ -27,6 +27,7 @@ const stylesDebtorDetails = StyleSheet.create({
     detailsDebtorName: {
         fontSize: wp("6.4%"),
         width: wp("90%"),
+        paddingEnd: wp("5%"),
         fontFamily: "zen_kaku_regular",
         color: AppColors.white,
         height: "auto",
