@@ -32,6 +32,7 @@ export class AuthRepository implements AuthRepositoryInterface {
             const response = await ApiDelivery.post("/users/register", user);
             return Promise.resolve(response.data);
         } catch (error) {
+
             let e = (error as AxiosError<{error:string}>)
             if (e.response?.data) {
                 Toast.show({

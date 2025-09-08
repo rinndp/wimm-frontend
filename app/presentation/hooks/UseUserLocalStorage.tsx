@@ -6,6 +6,7 @@ import {removeUserUseCase} from "../../domain/use-cases/local-user/RemoveUserUse
 import {getLanguageUseCase} from "../../domain/use-cases/local-user/GetLanguageUseCase";
 import {saveLanguageUseCase} from "../../domain/use-cases/local-user/SaveLanguageUseCase";
 import {getCurrencyUseCase} from "../../domain/use-cases/local-user/GetCurrency";
+import {clearTokens} from "../../data/source/local/secure/TokenStorage";
 
 
 export const UseUserLocalStorage = () => {
@@ -36,6 +37,7 @@ export const UseUserLocalStorage = () => {
 
     const deleteUserSession = async () => {
         await removeUserUseCase()
+        await clearTokens()
     }
 
     return {

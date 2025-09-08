@@ -21,6 +21,7 @@ export const SettingScreen = ({navigation = useNavigation()}: PropsStackNavigati
         deleteUserSession,
         user,
     } = UseUserLocalStorage()
+
     const {t} = useTranslation()
 
     return (

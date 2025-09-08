@@ -10,6 +10,7 @@ import {registerUseCase} from "../../../domain/use-cases/auth/RegisterUseCase";
 import Toast from "react-native-toast-message";
 import {Asset} from "expo-asset";
 import {useTranslation} from "react-i18next";
+import {saveTokens} from "../../../data/source/local/secure/TokenStorage";
 
 
 
@@ -58,7 +59,8 @@ export const loginViewModel = () => {
     const login = async () => {
         if (validateForm()) {
             const response = await loginUseCase(loginValues as LoginUserInterface, t)
-            await saveUserUserUseCase(response as LoggedUserInterface)
+            await saveUserUserUseCase({slug: response.slug})
+            await saveTokens(response.access_token, response.refresh_token, response.email)
             await getUserSession()
             return loginValues as LoginUserInterface
         }

@@ -48,6 +48,9 @@
     },
     "experiments": {
       "useNextStorageDirectory": false
-    }
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }

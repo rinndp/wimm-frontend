@@ -33,6 +33,7 @@ import {useTranslation} from "react-i18next";
 import {formatNumber} from "../../utils/FormatNumber";
 import {FadedText} from "../../components/FadedText";
 import {LinearGradient} from "expo-linear-gradient";
+import {loadTokens} from "../../../data/source/local/secure/TokenStorage";
 
 
 export function DebtorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {

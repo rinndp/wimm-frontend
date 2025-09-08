@@ -78,7 +78,7 @@ export function DebtorDetailsScreen({navigation = useNavigation()}: PropsStackNa
     const debtRenderItem = useCallback(({item} :{item:Debt}) => (
         <View style={stylesDebtCard.card}>
             <FadedText width={wp("30%")} text={item.description} styleText={stylesDebtCard.debtDescription}/>
-            <FadedText width={wp("32%")} text={formatNumber(item.debt) + currency || "€"} styleText={stylesDebtCard.debt}/>
+            <FadedText width={wp("32%")} text={formatNumber(item.debt)+(currency || "€")} styleText={stylesDebtCard.debt}/>
             <TouchableOpacity style={stylesDebtCard.deleteIcon}onPress={() => setSelectedRemoveDebtId(item.id)}>
                 <Image source={require("../../../../assets/delete-debtor-icon.png")}
                        style={stylesDebtCard.deleteIcon}/>

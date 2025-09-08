@@ -72,7 +72,7 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
                                            onPressFromInterface={async () => {
                                                const user = await login()
                                                if (user)
-                                                navigation.replace("UserNavigation")
+                                                   navigation.replace("UserNavigation")
                                            }}/>
                         </View>
                         {/*<View style={stylesLogin.buttonContainer}>*/}

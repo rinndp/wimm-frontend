@@ -1,4 +1,4 @@
-import {DarkTheme, NavigationContainer} from "@react-navigation/native";
+import {DarkTheme, NavigationContainer, useNavigation} from "@react-navigation/native";
 import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
 import {useFonts} from "expo-font";
 import {DebtorDetailsScreen} from "./app/presentation/views/debtor-details/DebtorDetails";
@@ -16,6 +16,9 @@ import * as SplashScreen from "expo-splash-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {SettingScreen} from "./app/presentation/views/settings/SettingScreen";
 import {AuthProvider} from "./app/presentation/views/auth/AuthProvider";
+import {PropsStackNavigation} from "./app/presentation/interfaces/StackNav";
+import {navigationRef} from "./app/presentation/navigation/RootNavigation";
+import {clearTokens} from "./app/data/source/local/secure/TokenStorage";
 
 
 export type RootStackParamsList = {
@@ -30,6 +33,8 @@ export type RootStackParamsList = {
 const Stack = createStackNavigator<RootStackParamsList>();
 
 export default function App() {
+    AsyncStorage.clear()
+    clearTokens()
     const [fontsLoaded] = useFonts({
         "zen_kaku_light": require("./assets/fonts/zen_kaku_gothic_antique_light.ttf"),
         "zen_kaku_medium": require("./assets/fonts/zen_kaku_gothic_antique_medium.ttf"),
