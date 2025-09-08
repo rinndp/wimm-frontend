@@ -16,8 +16,6 @@ import * as SplashScreen from "expo-splash-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {SettingScreen} from "./app/presentation/views/settings/SettingScreen";
 import {AuthProvider} from "./app/presentation/views/auth/AuthProvider";
-import {PropsStackNavigation} from "./app/presentation/interfaces/StackNav";
-import {navigationRef} from "./app/presentation/navigation/RootNavigation";
 import {clearTokens} from "./app/data/source/local/secure/TokenStorage";
 
 

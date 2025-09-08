@@ -2,8 +2,8 @@ import axios from "axios";
 import {clearTokens, loadTokens, saveTokens} from "../../local/secure/TokenStorage";
 import {removeUserUseCase} from "../../../../domain/use-cases/local-user/RemoveUserUseCase";
 const ApiDelivery = axios.create({
-    baseURL: "http://192.168.1.91:8000/api",
-    // baseURL: "https://wimm-backend.onrender.com/api/",
+    // baseURL: "http://192.168.1.91:8000/api",
+    baseURL: "https://wimm-backend.onrender.com/api/",
     headers: {
         "Content-Type": "application/json"
     }
