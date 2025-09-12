@@ -10,8 +10,4 @@ config.resolver.extraNodeModules = {
     './src/stores/FileStore': require.resolve('metro-cache/src/stores/FileStore')
 };
 
-// Also add resolver for TerminalReporter if needed
-config.resolver.extraNodeModules['./src/lib/TerminalReporter'] =
-    require.resolve('metro/src/lib/TerminalReporter');
-
 module.exports = config;

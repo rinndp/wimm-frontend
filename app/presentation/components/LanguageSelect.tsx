@@ -1,5 +1,5 @@
 import DropDownPicker from "react-native-dropdown-picker";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Image, ImageStyle, Platform, StyleSheet} from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {AppColors} from "../theme/AppTheme";
@@ -58,7 +58,7 @@ export const LanguageSelect = () => {
                     await i18n.changeLanguage(newValue);
                 }
             }}
-            value={language || "en"}
+            value={i18n.language ? i18n.language : "en"}
             items={items}
             setItems={setItems}
             open={open}
