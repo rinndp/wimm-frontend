@@ -15,7 +15,7 @@ import {RootStackParamsList} from "../../../../App";
 import stylesDebtorDetails from "../debtor-details/StylesDebtorDetails";
 import stylesHome from "../debtors/StylesHome";
 import {creditorDetailsViewModel} from "./ViewModel";
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {AppColors} from "../../theme/AppTheme";
 import Toast from "react-native-toast-message";
@@ -29,6 +29,8 @@ import {useTranslation} from "react-i18next";
 import UseUserLocalStorage from "../../hooks/UseUserLocalStorage";
 import {FadedText} from "../../components/FadedText";
 import {formatNumber} from "../../utils/FormatNumber";
+import i18n from "../../utils/i18n";
+import {checkIfLastCharIsVowel} from "../../utils/CheckIfLastCharIsVowel";
 
 type CreditorDetailsRouteProp = RouteProp<RootStackParamsList, "CreditorDetails">;
 
@@ -95,7 +97,7 @@ export function CreditorDetailsScreen({navigation = useNavigation()}: PropsStack
                 backdropTransitionOutTiming={1}
                 isVisible={selectedRemoveCreditId === item.id}>
                 <View style={stylesHome.modalCard}>
-                    <Text style={stylesHome.deleteDebtorModalTitle}>{t("has")}{creditor.name} {t("paid you")}?</Text>
+                    <Text style={stylesHome.deleteDebtorModalTitle}>{t("have you paid")} {creditor.name}{i18n.language === "suo" ? checkIfLastCharIsVowel(creditor.name) ? "lle":"ille":""}?</Text>
                     <Text style={stylesDebtorDetails.detailsDebtorDebt}>{formatNumber(item.credit)}{currency || "€"}</Text>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedRemoveCreditId(null)} style={{flexGrow: 1}}>

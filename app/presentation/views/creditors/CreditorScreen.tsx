@@ -38,6 +38,8 @@ import {LanguageSelect} from "../../components/LanguageSelect";
 import {formatNumber} from "../../utils/FormatNumber";
 import {FadedText} from "../../components/FadedText";
 import {LinearGradient} from "expo-linear-gradient";
+import i18n from "../../utils/i18n";
+import {checkIfLastCharIsVowel} from "../../utils/CheckIfLastCharIsVowel";
 
 export function CreditorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
 
@@ -113,7 +115,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                 backdropTransitionOutTiming={1}
                 isVisible={selectedCreditorId === item.id}>
                 <View style={stylesHome.modalCard}>
-                    <Text style={stylesHome.deleteDebtorModalTitle}>{t("has")}{item.name} {t("paid you")}?</Text>
+                    <Text style={stylesHome.deleteDebtorModalTitle}>{t("have you paid")} {item.name}{i18n.language === "suo" ? checkIfLastCharIsVowel(item.name) ? "lle":"ille":""}?</Text>
                     <View style={stylesHome.modalButtonsContainer}>
                         <TouchableOpacity onPress={() => setSelectedCreditorId(null)} style={{flexGrow: 1}}>
                             <Text style={stylesHome.modalButtonText}>{t("no")}</Text>
