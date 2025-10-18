@@ -31,6 +31,7 @@ export type RootStackParamsList = {
 const Stack = createStackNavigator<RootStackParamsList>();
 
 export default function App() {
+
     const [fontsLoaded] = useFonts({
         "zen_kaku_light": require("./assets/fonts/zen_kaku_gothic_antique_light.ttf"),
         "zen_kaku_medium": require("./assets/fonts/zen_kaku_gothic_antique_medium.ttf"),

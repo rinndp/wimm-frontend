@@ -2,8 +2,8 @@ import axios from "axios";
 import {clearTokens, loadTokens, saveTokens} from "../../local/secure/TokenStorage";
 import {removeUserUseCase} from "../../../../domain/use-cases/local-user/RemoveUserUseCase";
 const ApiDelivery = axios.create({
-    // baseURL: "http://192.168.1.91:8000/api",
-    baseURL: "https://wimm-backend.onrender.com/api/",
+    baseURL: "http://192.168.2.16:8000/api",
+    // baseURL: "https://wimm-backend.onrender.com/api/",
     headers: {
         "Content-Type": "application/json"
     }
@@ -26,7 +26,7 @@ ApiDelivery.interceptors.response.use(
         if (errorResponse.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
-            const tokens = await loadTokens();
+                const tokens = await loadTokens();
             if (!tokens) return Promise.reject(errorResponse);
 
             try {

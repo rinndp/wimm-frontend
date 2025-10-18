@@ -46,7 +46,7 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
     }, [errorMessage]);
 
     return (
-        <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>
+        <SafeAreaView style={{backgroundColor: AppColors.ultraDarkGreen}}>
         <View style={stylesLogin.container}>
                     <View style={stylesLogin.logoContainer}>
                         <Image

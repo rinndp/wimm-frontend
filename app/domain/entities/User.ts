@@ -10,3 +10,10 @@ export interface LoginUserInterface {
     password: string;
 }
 
+export interface UserStatisticsInterface {
+    number_of_debtors: number;
+    total_debt: number;
+    number_of_creditors: number;
+    total_credit: number;
+}
+

@@ -34,7 +34,7 @@ export function Register () {
         }
     }, [errorMessage]);
     return (
-        <SafeAreaView style={{backgroundColor: AppColors.darkGreen}}>
+        <SafeAreaView style={{backgroundColor: AppColors.ultraDarkGreen}}>
                 <View style={{...stylesLogin.container}}>
                     <Text style={stylesLogin.registerTitle}>{t("create your account")}</Text>
                     <View style={{...stylesLogin.formContainer, marginTop: hp("5%"),}}>

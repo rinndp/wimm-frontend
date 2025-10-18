@@ -6,7 +6,7 @@ import {AppColors} from "../../theme/AppTheme";
 export const stylesSettings = StyleSheet.create({
     logOutContainer: {
         marginHorizontal: wp("5%"),
-        marginTop: hp("20%"),
+        marginTop: hp("30%"),
         alignItems: "center",
         gap: hp("2%"),
         height: wp("6%"),
@@ -14,7 +14,7 @@ export const stylesSettings = StyleSheet.create({
     },
 
     container: {
-        padding: wp("5%"),
+        paddingTop: hp("7%"),
     },
 
     logOutText: {
@@ -34,11 +34,28 @@ export const stylesSettings = StyleSheet.create({
     label: {
         fontSize: wp("3.5%"),
         marginBottom: hp("1%"),
+        fontFamily: "zen_kaku_light",
         color: AppColors.white,
     },
 
     languageSelectContainer: {
         alignItems: "center",
     },
+
+    userInfoContainer: {
+        alignItems: "center",
+        alignSelf: "center",
+    },
+
+    statisticContainer: {
+        gap: 10,
+    },
+
+    statisticText: {
+        fontSize: wp("4%"),
+        fontFamily: "zen_kaku_light",
+        color: AppColors.white,
+        width: wp("35%")
+    }
 
 })

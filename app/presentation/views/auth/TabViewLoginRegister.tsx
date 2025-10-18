@@ -32,7 +32,7 @@ const renderScene = SceneMap({
 });
 
 const renderTabBar = (props: any) => (
-    <SafeAreaView style={{backgroundColor: AppColors.darkGreen, zIndex: 1}}>
+    <SafeAreaView style={{backgroundColor: AppColors.ultraDarkGreen, zIndex: 1}}>
         <TabBar
             {...props}
             indicatorStyle={{ backgroundColor: AppColors.white }}

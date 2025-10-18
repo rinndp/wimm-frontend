@@ -10,7 +10,7 @@ import {UseUserLocalStorage} from "../hooks/UseUserLocalStorage";
 
 export const LanguageSelect = () => {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState<string | null>("ola");
+    const [value, setValue] = useState<string | null>("");
     const {
         getLanguageApp,
         language} = UseUserLocalStorage()
@@ -69,6 +69,7 @@ export const LanguageSelect = () => {
             style={stylesLanguageSelect.dropDownPicker}
             arrowIconStyle={stylesLanguageSelect.arrowStyle}
             tickIconStyle={stylesLanguageSelect.arrowStyle}
+            placeholder={""}
             setOpen={setOpen}/>
     )
 }
@@ -97,6 +98,7 @@ export const stylesLanguageSelect = StyleSheet.create({
 
     labelStyle: {
         color: AppColors.white,
+        fontFamily: "zen_kaku_regular",
         fontSize: wp("3%"),
     },
 

@@ -1,59 +1,46 @@
 import {
     ActivityIndicator,
-    ActivityIndicatorComponent,
     Dimensions,
     FlatList,
     Image,
     ImageBackground,
-    SafeAreaView,
     Text,
-    TextInput,
     TouchableOpacity,
     View
 } from "react-native";
 import stylesHome from "../debtors/StylesHome";
 import {RoundedButton} from "../../components/RoundedButton";
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import {debtorScreenViewModel} from "../debtors/ViewModel";
-import {Debtor} from "../../../domain/entities/Debtor";
-import {StyleSheet} from "react-native";
 import {UseUserLocalStorage} from "../../hooks/UseUserLocalStorage";
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import Modal from 'react-native-modal';
 import {AppColors} from "../../theme/AppTheme";
 import {CustomTextInput} from "../../components/CustomTextInput";
 import Toast from "react-native-toast-message";
-import {AuthContext} from "../auth/AuthProvider";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import stylesDebtorCard from "../debtors/StylesDebtorCard";
 import stylesDebtCard from "../debtor-details/StylesDebtCard";
 import {creditorScreenViewModel} from "./ViewModel";
 import {Creditor} from "../../../domain/entities/Creditor";
-import {IconButton} from "react-native-paper";
-import {stylesBottomTabBarItems} from "../../navigation/StylesBottomTabBarItems";
 import {useTranslation} from "react-i18next";
-import stylesTabBar from "../auth/StylesTabBar";
-import {LanguageSelect} from "../../components/LanguageSelect";
 import {formatNumber} from "../../utils/FormatNumber";
 import {FadedText} from "../../components/FadedText";
 import {LinearGradient} from "expo-linear-gradient";
 import i18n from "../../utils/i18n";
 import {checkIfLastCharIsVowel} from "../../utils/CheckIfLastCharIsVowel";
 
-export function CreditorScreen({navigation = useNavigation(), route}: PropsStackNavigation) {
+export function CreditorScreen({navigation = useNavigation()}: PropsStackNavigation) {
 
     const {t} = useTranslation();
 
     const {
         creditors,
         loadCreditors,
-        loadTotalCredit,
         totalCredit,
         addCreditor,
         transformDataIntoAddCreditorDTO,
         errorMessage,
-        setErrorMessage,
         addCreditorName,
         setAddCreditorName,
         capitalizeFirstLetter,
@@ -61,20 +48,16 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
         validateAddCreditorForm,
         resetForm,
         showLoading,
-        setShowLoading
     } = creditorScreenViewModel()
 
     const {
         user,
-        deleteUserSession,
         currency,
         getCurrencyApp
     } = UseUserLocalStorage();
 
     const [creditorModalToggle, setCreditorModalToggle] = useState(false);
     const [selectedCreditorId, setSelectedCreditorId] = useState<number | null>(null);
-    const auth = useContext(AuthContext);
-
 
     useFocusEffect(
         useCallback(() => {
@@ -124,7 +107,7 @@ export function CreditorScreen({navigation = useNavigation(), route}: PropsStack
                             style={{flexGrow: 0}}
                             onPress={() =>
                                 deleteCreditor(item.id)
-                                    .then(r =>  setSelectedCreditorId(null))}
+                                    .then(() =>  setSelectedCreditorId(null))}
                         >
                             <Text style={{...stylesHome.modalButtonText, color: AppColors.neonGreen}}>{t("yes")} 💸</Text>
                         </TouchableOpacity>

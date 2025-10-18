@@ -75,6 +75,7 @@ export const CurrencySelect = () => {
             arrowIconStyle={stylesLanguageSelect.arrowStyle}
             tickIconStyle={stylesLanguageSelect.arrowStyle}
             badgeTextStyle={{color: AppColors.green}}
+            placeholder={""}
             setOpen={setOpen}/>
     )
 }
