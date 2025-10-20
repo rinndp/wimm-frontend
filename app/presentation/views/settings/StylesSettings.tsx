@@ -6,7 +6,7 @@ import {AppColors} from "../../theme/AppTheme";
 export const stylesSettings = StyleSheet.create({
     logOutContainer: {
         marginHorizontal: wp("5%"),
-        marginTop: hp("30%"),
+        marginTop: hp("20%"),
         alignItems: "center",
         gap: hp("2%"),
         height: wp("6%"),
@@ -56,6 +56,14 @@ export const stylesSettings = StyleSheet.create({
         fontFamily: "zen_kaku_light",
         color: AppColors.white,
         width: wp("35%")
+    },
+
+    statisticValue: {
+        fontSize: wp("4%"),
+        fontFamily: "zen_kaku_medium",
+        width: wp("35%"),
+        color: AppColors.neonGreen,
+        textAlign: "center"
     }
 
 })

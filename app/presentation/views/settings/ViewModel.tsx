@@ -4,7 +4,7 @@ import {getUserStatisticsUseCase} from "../../../domain/use-cases/user/GetUserSt
 import {UserStatisticsInterface} from "../../../domain/entities/User";
 
 export const settingsViewModel = () => {
-
+    const [showLoading, setShowLoading] = useState(true);
     const [userEmail, setUserEmail] = useState<string>("");
     const [userStatistics, setUserStatistics] = useState<UserStatisticsInterface>();
 
@@ -21,6 +21,7 @@ export const settingsViewModel = () => {
         console.log(response);
         if (response !== undefined) {
             setUserStatistics(response);
+            setShowLoading(false);
         }
     }
 
@@ -29,5 +30,6 @@ export const settingsViewModel = () => {
         getUserInfo,
         getUserStatistics,
         userStatistics,
+        showLoading,
     }
 }

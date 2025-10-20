@@ -12,8 +12,9 @@ export interface LoginUserInterface {
 
 export interface UserStatisticsInterface {
     number_of_debtors: number;
-    total_debt: number;
+    total_debts: number;
     number_of_creditors: number;
-    total_credit: number;
+    total_credits: number;
+    balance: number;
 }
 

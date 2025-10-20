@@ -46,8 +46,9 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
     }, [errorMessage]);
 
     return (
-        <SafeAreaView style={{backgroundColor: AppColors.ultraDarkGreen}}>
-        <View style={stylesLogin.container}>
+        <ImageBackground
+            style={{backgroundColor: AppColors.ultraDarkGreen, width:Dimensions.get("window").width, height:"100%"}}>
+            <View style={stylesLogin.container}>
                     <View style={stylesLogin.logoContainer}>
                         <Image
                             source={require("../../../../assets/wimm-icon.png")}
@@ -82,6 +83,6 @@ export function Login ({navigation = useNavigation(), route}: PropsStackNavigati
                     </View>
                 </View>
                 <Toast/>
-        </SafeAreaView>
+        </ImageBackground>
     )
 }

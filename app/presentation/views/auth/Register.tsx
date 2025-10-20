@@ -34,7 +34,8 @@ export function Register () {
         }
     }, [errorMessage]);
     return (
-        <SafeAreaView style={{backgroundColor: AppColors.ultraDarkGreen}}>
+        <ImageBackground
+            style={{backgroundColor: AppColors.ultraDarkGreen, width:Dimensions.get("window").width, height:"100%"}}>
                 <View style={{...stylesLogin.container}}>
                     <Text style={stylesLogin.registerTitle}>{t("create your account")}</Text>
                     <View style={{...stylesLogin.formContainer, marginTop: hp("5%"),}}>
@@ -62,6 +63,6 @@ export function Register () {
                     </View>
                 </View>
             <Toast/>
-        </SafeAreaView>
+        </ImageBackground>
     )
 }
